@@ -1,2 +1,0 @@
-# Timbre: Sampling
-
