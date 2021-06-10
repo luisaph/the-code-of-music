@@ -18,19 +18,19 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@example.com
+title: The Code of Music
+email: info@luisapereira.net
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Website for online interactive book The Code of Music.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
-
+assetsURL: "../../assets" # Replace with S3 bucket (or whatever other storage)
+sketchesURL: "../../sketches" # Replace with S3 bucket (or whatever other storage)
+twitter_username: luisa_ph
+github_username:  luisaph
+# theme: minima
 # Build settings
-theme: minima
+
 plugins:
   - jekyll-feed
 

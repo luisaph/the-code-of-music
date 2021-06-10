@@ -1,0 +1,38 @@
+.navbar {
+	z-index: 100;
+}
+
+.navbar-toggler {
+	display: block;
+}
+
+.content {
+	margin: 4em;
+	max-width: 900px;
+}
+
+.page {
+	margin-top: 3.5em;
+}
+
+h1 {
+	margin-bottom: 1em;
+	
+}
+
+p {
+	
+}
+
+.list-group h1{
+	color:red;
+	padding-left: 10px;
+    padding-top: 10px;
+
+}
+
+// workaround for two columns 
+.highlight {
+	width: 350px;
+	display: inline-block;
+}
