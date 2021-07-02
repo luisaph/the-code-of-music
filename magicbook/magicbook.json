@@ -1,0 +1,37 @@
+{
+  "title" : "Code of Music",
+  "permalink": ":parts/:title/index.html",
+  "addPlugins": ["magicbook-codesplit","magicbook-webpack","./plugins/p5"],
+  "files" : [
+    "content/toc.html",
+    {
+      "label":"Elements",
+      "files":[
+        "content/elements/rhythm.html",
+        "content/elements/melody.html",
+        "content/elements/timbre.html"
+      ]
+    }, {
+      "images":{
+        "files":"assets/**/*.png"
+      }
+    }
+
+  ],
+  "stylesheets": {
+    "bundle": true,
+    "compress": true,
+    "digest": true,
+    "files": ["stylesheets/html.scss"]
+  },
+  "webpack": "webpack.config.js",
+  "builds": [
+    {
+      "format": "html"
+    }
+  ],
+  "codesplit": {
+    "includes": "examples"
+  },
+  "layout": "layouts/default.html"
+}

@@ -1,70 +1,4 @@
-<!doctype html>
-<html lang="en">
-	<head>    
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Melody</title>
-    <meta name="description" content="Website for online interactive book The Code of Music.">
-    <link rel="canonical" href="/elements/melody/">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/css/simple-sidebar.css">
-    <link rel="stylesheet" href="/css/syntax_highlighter.css">
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-
-  	<body>
-  		
-<nav class="navbar navbar-expand-lg navbar-light bg-faded static-top z-depth-1 border-bottom">
-    <button class="navbar-toggler" id="menu-toggle"><span class="navbar-toggler-icon"></span></button>
-	<a class="navbar-brand abs" href="/index.html">The Code of Music</a>
-
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">by Luisa Pereira</a>
-            </li>
-        </ul>
-        <!-- About -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="" data-target="#myModal" data-toggle="modal"></a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-
-
-	
-  		<div class="d-flex" id="wrapper">
-			<div class="border-right" id="sidebar-wrapper">
-      <div class="list-group list-group-flush"><a class="list-group-item list-group-item-action bg-faded" href="/introduction/">
-              Introduction
-            </a><h5 class="list-group-item list-group-item-action bg-faded">Elements</h5><a class="list-group-item list-group-item-action bg-faded" href="/elements/rhythm/">
-              Rhythm
-            </a><a class="list-group-item list-group-item-action bg-faded" href="/elements/melody/">
-              Melody
-            </a><a class="list-group-item list-group-item-action bg-faded" href="/elements/timbre/">
-              Timbre
-            </a><a class="list-group-item list-group-item-action bg-faded" href="/elements/harmony/">
-              Harmony
-            </a><h5 class="list-group-item list-group-item-action bg-faded">Algorithms</h5><a class="list-group-item list-group-item-action bg-faded" href="/algorithms/markov-chains/">
-              Markov Chains
-            </a><a class="list-group-item list-group-item-action bg-faded" href="/algorithms/l-systems/">
-              L-Systems
-            </a><a class="list-group-item list-group-item-action bg-faded" href="/algorithms/neural-networks/">
-              Neural Networks
-            </a></div>
-</div>  
-
-			<div class="container-fluid">
-	        	<article>
-	<div class="content">
-		<div class="page">
-			<h1 id="melody">Melody</h1>
+<h1 id="melody">Melody</h1>
 
 <p>If rhythm is the element of music that makes us tap your foot and want to dance, melody is the element that we hum along to, or whistle for days on end. Here is one example of a melody:</p>
 <iframe style="border-width:0px" width="100%" height="80" src="../../sketches/melody/2_melody_4/index.html"></iframe>
@@ -72,8 +6,8 @@
 <p>A melody is a sequence of tones of that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is how high or low each tone is. This quality of a tone is called pitch.</p>
 <iframe style="border-width:0px" width="100%" height="290" src="../../sketches/melody/2_melody_5/index.html"></iframe>
 
-<p>We also perceive the duration of tones: some are shorter, some are longer. Let’s draw the tones in our melody as they occur over time:<br />
-<img src="../../assets/drafts/pitches_durations.png" width="400" /></p>
+<p>We also perceive the duration of tones: some are shorter, some are longer. Let’s draw the tones in our melody as they occur over time:</p>
+<iframe style="border-width:0px" width="100%" height="290" src="../../sketches/melody/2_melody_7/index.html"></iframe>
 
 <p>The drawing suggests that tones are placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so:</p>
 
@@ -123,28 +57,3 @@
 <iframe style="border-width:0px" width="100%" height="450" src="../../sketches/melody/2_melody_glide_up_mouseIsPressed/index.html"></iframe>
 
 <p>Now that we have our possible pitches and a way to represent them, let’s create a melody by picking random pitches.</p>
-
-		</div>
-	</div>
-</article>
-
-	    	</div>
-		</div>
-        <!-- Bootstrap requirements -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-<!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-  
-
-    </body>
-</html>
-
-
