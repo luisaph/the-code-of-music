@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "magicbook build --watch --config=magicbook-dev.json",
     "serve": "live-server build/build-dev/web --port=5000",
-    "build": "NODE_ENV=production magicbook build"
+    "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json"
   },
   "author": "",
   "license": "ISC",
