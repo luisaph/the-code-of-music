@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "magicbook build --watch --config=magicbook-dev.json",
-    "serve": "live-server build/build-dev --port=5000",
+    "serve": "live-server build/build-dev/web --port=5000",
     "build": "NODE_ENV=production magicbook build"
   },
   "author": "",
