@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "magicbook build --watch",
-    "serve": "http-server build/build1 -p 5000",
+    "dev": "magicbook build --watch --config=magicbook-dev.json",
+    "serve": "live-server build/build-dev/web --port=5000",
     "build": "NODE_ENV=production magicbook build"
   },
   "author": "",
@@ -27,5 +27,8 @@
     "tinyliquid": "^0.2.34",
     "tone": "^14.7.77",
     "webpack": "^4.42.1"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1"
   }
 }

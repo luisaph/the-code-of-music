@@ -28,11 +28,11 @@
   "builds": [
     {
       "format": "html",
-      "destination": "build/build-prod/web"
+      "destination": "build/build-dev/web"
     },
     {
       "format": "pdf",
-      "destination": "build/build-prod/pdf"
+      "destination": "build/build-dev/pdf"
     }
   ],
   "codesplit": {
