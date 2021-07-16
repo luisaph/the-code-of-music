@@ -3,6 +3,7 @@
   "permalink": ":parts/:title/index.html",
   "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "./plugins/p5"],
   "files": [
+    "content/index.html",
     "content/toc.html",
     {
       "label": "Elements",
