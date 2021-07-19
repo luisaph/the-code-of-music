@@ -1,5 +1,7 @@
 # The Code of Music (magicbook)
 
+https://luisaph.github.io/the-code-of-music/
+
 ### Setup
 
 0. Install [nvm](https://github.com/nvm-sh/nvm) and [Yarn](https://yarnpkg.com/)
@@ -14,3 +16,5 @@
 3. Open http://localhost:5000/
 
 ### Deploy
+
+The [deploy-to-github-pages action](https://github.com/luisaph/the-code-of-music/blob/master/.github/workflows/deploy-to-gh-pages.yml) builds and deploys the site to the `gh-pages` branch, which is served by github at https://luisaph.github.io/the-code-of-music/. During the build step the PDF version is copied into the web directory so that it can be accessed at https://luisaph.github.io/the-code-of-music/the-code-of-music.pdf.
