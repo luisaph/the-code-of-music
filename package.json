@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "magicbook build --watch --config=magicbook-dev.json",
     "serve": "live-server build/build-dev/web --port=5000",
-    "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json"
+    "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json && yarn cppdf",
+    "cppdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf"
   },
   "author": "",
   "license": "ISC",

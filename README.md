@@ -1,8 +1,4 @@
-# the-code-of-music
-
-## Jekyll
-
-## Magicbook (`magicbook` branch)
+# The Code of Music (magicbook)
 
 ### Setup
 
@@ -17,8 +13,4 @@
 2. In a new tab run `yarn serve` -- this will start a `live-server` at localhost:5000 and auto refresh when the magic build finishes
 3. Open http://localhost:5000/
 
-### To Build
-
-<pre>
-magicbook build
-</pre>
+### Deploy
