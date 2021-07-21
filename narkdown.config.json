@@ -4,7 +4,7 @@
       "createPageDirectory": true,
       "addMetadata": true,
       "appendCreatedTime": false,
-      "generateSlug": true
+      "generateSlug": false
     },
     "databaseConfig": {
       "categoryColumnName": "",
