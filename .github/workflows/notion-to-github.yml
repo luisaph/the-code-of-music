@@ -16,10 +16,19 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
 
-      - name: Format documents
-        uses: creyD/prettier_action@v3.1
+      - name: Update npm packages
+        uses: technote-space/create-pr-action@v2
         with:
-          prettier_options: --write ./docs/**/*.md
-          commit_message: 'notion: Update docs (auto)'
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+         COMMIT_MESSAGE: 'notion: Update docs (auto)'
+         COMMIT_NAME: 'GitHub Actions'
+         COMMIT_EMAIL: 'example@example.com'
+         PR_BRANCH_NAME: 'notion-docs-update-${PR_ID}'
+         PR_TITLE: 'Notion: update docs'
+
+#       - name: Format documents
+#         uses: creyD/prettier_action@v3.1
+#         with:
+#           prettier_options: --write ./docs/**/*.md
+#           commit_message: 'notion: Update docs (auto)'
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
