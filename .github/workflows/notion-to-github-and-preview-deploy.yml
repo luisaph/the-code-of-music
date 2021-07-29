@@ -1,4 +1,4 @@
-name: Notion2Github
+name: Notion2Github and Preview Deploy
 on:
   workflow_dispatch:
 jobs:
