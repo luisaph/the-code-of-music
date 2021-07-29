@@ -8,7 +8,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-     - name: Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: '14.7.0'
@@ -36,13 +36,13 @@ jobs:
           title: '[Notion] Update docs'
 
       - name: Install and Build 🔧
-          run: |
+        run: |
             yarn install
             yarn build:prod
 
-        - name: Deploy 🚀
-          uses: FirebaseExtended/action-hosting-deploy@v0
-          with:
-            repoToken: '${{ secrets.GITHUB_TOKEN }}'
-            firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODEOFMUSIC_16A81 }}'
-            projectId: codeofmusic-16a81
+      - name: Deploy 🚀
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODEOFMUSIC_16A81 }}'
+          projectId: codeofmusic-16a81
