@@ -1,0 +1,48 @@
+name: Notion2Github
+on:
+  workflow_dispatch:
+jobs:
+  auto-sync-from-notion-to-github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+     - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.7.0'
+          cache: 'yarn'
+
+      - name: Notion2Github
+        uses: younho9/notion2github@v1.1.1
+        with:
+          database-url: 'https://www.notion.so/4081964150024719ac433b4dd0b770fa'
+          docs-directory: docs
+        env:
+          NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Notion - Update docs
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: notion-update-docs
+          delete-branch: true
+          title: '[Notion] Update docs'
+
+      - name: Install and Build 🔧
+          run: |
+            yarn install
+            yarn build:prod
+
+        - name: Deploy 🚀
+          uses: FirebaseExtended/action-hosting-deploy@v0
+          with:
+            repoToken: '${{ secrets.GITHUB_TOKEN }}'
+            firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODEOFMUSIC_16A81 }}'
+            projectId: codeofmusic-16a81
