@@ -7,11 +7,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Reset
-        run: |
-          git fetch origin master:master
-          git reset --hard master
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Notion2Github
         uses: younho9/notion2github@v1.1.1
