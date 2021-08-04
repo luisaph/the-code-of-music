@@ -8,7 +8,7 @@
     "serve": "live-server build/build-dev/web --port=5000",
     "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json && yarn cppdf",
     "cppdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf",
-    "reduce-md-headers": "find ./notion-docs -iname '*.md' -type f -exec sed -i '' 's/##/#/g' {} \\;"
+    "reduce-md-headers": "find ./notion-docs -iname '*.md' -type f -exec sed -i 's/##/#/g' {} \\;"
   },
   "author": "",
   "license": "ISC",
