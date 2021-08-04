@@ -1,17 +1,11 @@
 {
   "title": "Code of Music",
-  "permalink": ":parts/:title/index.html",
   "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "./plugins/p5"],
   "files": [
-    "content/index.html",
-    "content/toc.html",
+    "static-docs/index.html",
     {
       "label": "Elements",
-      "files": [
-        "content/elements/rhythm.html",
-        "content/elements/melody.html",
-        "content/elements/timbre.html"
-      ]
+      "files": ["notion-docs/**/index.md"]
     },
     {
       "images": {
