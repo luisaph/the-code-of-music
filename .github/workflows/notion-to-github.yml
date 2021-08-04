@@ -25,7 +25,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: notion-update-docs
+          branch: notion-update-docs-2
           delete-branch: true
           title: '[Notion] Update docs'
 #           body: |
