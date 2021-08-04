@@ -16,6 +16,8 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
 
+      - name: Reduce Header Levels
+        run: npm run reduce-md-headers
       - name: Format documents
         uses: creyD/prettier_action@v3.1
         with:
