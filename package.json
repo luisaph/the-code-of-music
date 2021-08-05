@@ -6,9 +6,15 @@
   "scripts": {
     "dev": "magicbook build --watch --config=magicbook-dev.json",
     "serve": "live-server build/build-dev/web --port=5000",
-    "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json && yarn cppdf",
-    "cppdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf",
-    "reduce-md-headers": "find ./notion-docs -iname '*.md' -type f -exec sed -i 's/##/#/g' {} \\;"
+    "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json && yarn copy-pdf",
+    "copy-pdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf",
+    "move-images": "find ./notion-docs -name '*.png' -exec mv '{}' ./images/ \\;",
+    "reduce-md-headers": "find ./notion-docs -iname '*.md' -type f -exec sed -i 's/##/#/g' {} \\;",
+    "reduce-md-headers-mac": "find ./notion-docs -iname '*.md' -type f -exec sed -i '' 's/##/#/g' {} \\;",
+    "replace-image-links": "find ./notion-docs -iname '*.md' -type f -exec sed -i 's#./images/##' {} \\;",
+    "replace-image-links-mac": "find ./notion-docs -iname '*.md' -type f -exec sed -i '' 's#./images/##' {} \\;",
+    "post-notion-import": "yarn move-images && yarn reduce-md-headers-mac && yarn replace-image-links-mac",
+    "post-notion-import-mac": "yarn move-images && yarn reduce-md-headers-mac && yarn replace-image-links-mac"
   },
   "author": "",
   "license": "ISC",
