@@ -9,7 +9,7 @@
     "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json && yarn copy-pdf",
     "copy-pdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf",
     "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",
-    "post-notion-import": "node scripts/post-notion-import.js"
+    "post-notion-import": "sudo node scripts/post-notion-import.js"
   },
   "author": "",
   "license": "ISC",
