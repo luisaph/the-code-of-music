@@ -9,12 +9,7 @@
     "build:prod": "NODE_ENV=production magicbook build --config=magicbook-prod.json && yarn copy-pdf",
     "copy-pdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf",
     "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",
-    "reduce-md-headers": "find ./notion-docs -iname '*.md' -type f -exec sed -i 's/##/#/g' {} \\;",
-    "reduce-md-headers-mac": "find ./notion-docs -iname '*.md' -type f -exec sed -i '' 's/##/#/g' {} \\;",
-    "replace-image-links": "find ./notion-docs -iname '*.md' -type f -exec sed -i 's#./images/##' {} \\;",
-    "replace-image-links-mac": "find ./notion-docs -iname '*.md' -type f -exec sed -i '' 's#./images/##' {} \\;",
-    "post-notion-import": "yarn move-images && yarn reduce-md-headers && yarn replace-image-links",
-    "post-notion-import-mac": "yarn move-images && yarn reduce-md-headers-mac && yarn replace-image-links-mac"
+    "post-notion-import": "node scripts/post-notion-import.js"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +25,7 @@
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "replace-in-file": "^6.2.0",
     "roughjs": "^4.4.1",
     "source-map-loader": "^3.0.0",
     "tinyliquid": "^0.2.34",
@@ -37,7 +33,7 @@
     "webpack": "^4.42.1"
   },
   "devDependencies": {
-    "live-server": "^1.2.1",
-    "firebase-tools": "^9.16.0"
+    "firebase-tools": "^9.16.0",
+    "live-server": "^1.2.1"
   }
 }
