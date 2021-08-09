@@ -15,12 +15,15 @@ jobs:
           cache: 'yarn'
 
       - name: Notion2Github
-        uses: younho9/notion2github@v1.1.1
+        uses: younho9/notion2github@main
         with:
-          database-url: 'https://www.notion.so/4081964150024719ac433b4dd0b770fa'
-          docs-directory: content
+          database-url: https://www.notion.so/4081964150024719ac433b4dd0b770fa
+          docs-directory: notion-docs
         env:
           NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
+
+      - name: Reduce Header Levels
+        run: npm run reduce-md-headers
 
       - name: Create Pull Request
         id: cpr
@@ -32,7 +35,7 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: notion-update-docs
-          delete-branch: true
+          delete-branch: false
           title: '[Notion] Update docs'
 
       - name: Install and Build 🔧
@@ -40,7 +43,7 @@ jobs:
           yarn install
           yarn build:prod
 
-      - name: Deploy 🚀
+      - name: Deploy to Staging 🚀
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

@@ -1,4 +1,4 @@
-name: Notion to Github -- Create PR
+name: Notion to Github Direct Commit
 on:
   workflow_dispatch:
 jobs:
@@ -18,16 +18,10 @@ jobs:
 
       - name: Reduce Header Levels
         run: npm run reduce-md-headers
-
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3
+      - name: Format documents
+        uses: creyD/prettier_action@v3.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Notion - Update docs
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          branch: notion-update-docs-2
-          delete-branch: true
-          title: '[Notion] Update docs'
+          prettier_options: --write ./notion-docs/**/*.md
+          commit_message: 'notion-docs: Update notion-docs (auto)'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
