@@ -16,6 +16,9 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
 
+      - name: update permissions
+        run: sudo chmod -R ug+w .;
+
       - name: Post Notion Import
         run: npm run post-notion-import
 
