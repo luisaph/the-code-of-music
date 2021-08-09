@@ -14,7 +14,10 @@ jobs:
           node-version: '14.7.0'
           cache: 'yarn'
 
-      - name: Install and Build 🔧
+      - name: Update folder permissions
+        run: sudo chmod -R ug+w .;
+
+      - name: Yarn Install
         run: yarn install
 
       - name: Notion2Github
