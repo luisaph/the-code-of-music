@@ -8,6 +8,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.7.0'
+          cache: 'yarn'
+
+      - name: Update folder permissions
+        run: sudo chmod -R ug+w .;
+
+      - name: Yarn Install
+        run: yarn install
+
       - name: Notion2Github
         uses: younho9/notion2github@main
         with:
@@ -16,8 +28,8 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
 
-      - name: Reduce Header Levels
-        run: npm run reduce-md-headers
+      - name: Post Notion Import
+        run: npm run post-notion-import
 
       - name: Create Pull Request
         id: cpr
@@ -28,6 +40,6 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: notion-update-docs-2
-          delete-branch: true
+          branch: notion-update-docs
+          delete-branch: false
           title: '[Notion] Update docs'
