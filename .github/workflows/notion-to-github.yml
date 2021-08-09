@@ -14,9 +14,6 @@ jobs:
           node-version: '14.7.0'
           cache: 'yarn'
 
-      - name: Update folder permissions
-        run: sudo chmod -R ug+w .;
-
       - name: Yarn Install
         run: yarn install
 
@@ -30,6 +27,9 @@ jobs:
 
       - name: Post Notion Import
         run: npm run post-notion-import
+
+      - name: Update folder permissions
+        run: sudo chmod -R ug+w ./notion-docs;
 
       - name: Create Pull Request
         id: cpr
