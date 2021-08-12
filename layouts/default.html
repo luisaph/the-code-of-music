@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{ stylesheets }} {% if page.extrajs %}
     <script src="{{page.extrajs}}" type="text/javascript"></script>
-    {% endif %} {{ javascripts }}
+    {% endif %}
   </head>
   <body>
     <button class="menu-button">Menu</button>
@@ -36,5 +36,6 @@
       </div>
     </div>
     <script src="{{ webpack.main }}" type="text/javascript"></script>
+    {{ javascripts }}
   </body>
 </html>

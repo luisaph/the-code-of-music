@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "rm -rf build/build-dev && magicbook build --watch --config=magicbook-dev.json",
     "serve": "live-server build/build-dev/web --port=5000",
+    "serve:prod": "live-server build/build-prod/web --port=5001",
     "build:prod": "rm -rf build/build-prod && magicbook build --config=magicbook-prod.json && yarn copy-pdf",
     "copy-pdf": "cp build/build-prod/pdf/consolidated.pdf build/build-prod/web/the-code-of-music.pdf",
     "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",

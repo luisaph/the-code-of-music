@@ -21,7 +21,7 @@
   },
   "javascripts": {
     "files": ["javascripts/main.js"],
-    "bundle": true
+    "bundle": false
   },
   "fonts": {
     "files": "fonts/**/*.*"
@@ -31,10 +31,6 @@
     {
       "format": "html",
       "destination": "build/build-prod/web"
-    },
-    {
-      "format": "pdf",
-      "destination": "build/build-prod/pdf"
     }
   ],
   "codesplit": {
