@@ -9,7 +9,7 @@
     },
     {
       "images": {
-        "files": "assets/**/*.png"
+        "files": "images/**/*.png"
       }
     }
   ],
