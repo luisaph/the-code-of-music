@@ -13,7 +13,7 @@ If rhythm is the element of music that makes us tap our foot and want to dance, 
 
 A melody is a sequence of tones of that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is how high or low each tone is.
 
-{% melody/text-example.js %}
+{% p5 melody/text-example.js %}
 
 <br />
 
