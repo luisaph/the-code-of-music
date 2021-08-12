@@ -12,10 +12,12 @@ if (window.p5Examples) {
     const node = document.querySelector(
       '#' + p5Examples[i][0] + ' .p5container'
     );
-    const example = new p5(p5Examples[i][1], node, true);
-    // Make it resizable
-    example.canvas.style.width = '100%';
-    example.canvas.style.height = 'auto';
+
+    /* TODO: see what's going on here */
+    // const example = new p5(p5Examples[i][1], node, true);
+    // // Make it resizable
+    // example.canvas.style.width = '100%';
+    // example.canvas.style.height = 'auto';
   }
 }
 window.dispatchEvent(new Event('libsLoaded'));
