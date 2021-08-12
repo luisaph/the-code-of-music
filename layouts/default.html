@@ -13,6 +13,7 @@
     {% endif %}
   </head>
   <body>
+    <button class="menu-button">Menu</button>
     <nav class="menu">
       <div class="wrapper">{{toc}}</div>
     </nav>
@@ -20,17 +21,22 @@
       <div>
         <header class="site-header">
           <div>
-            <h2>The Code of Music</h2>
+            <h2>
+              <span class="small">The</span> Code
+              <span class="small">of</span> Music
+            </h2>
           </div>
         </header>
         <main class="chap">
           <article>
             <div>{{ content }}</div>
-            <!-- {% include navigation.html %} -->
+            <div class="next-prev-links">{% include navigation.html %}</div>
           </article>
         </main>
       </div>
     </div>
     <script src="{{ webpack.main }}" type="text/javascript"></script>
+
+    {{ javascripts }}
   </body>
 </html>
