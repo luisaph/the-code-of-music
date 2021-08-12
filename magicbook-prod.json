@@ -19,6 +19,12 @@
     "digest": true,
     "files": ["stylesheets/html.scss"]
   },
+  "javascripts": {
+    "files": ["javascripts/main.js"]
+  },
+  "fonts": {
+    "files": "fonts/**/*.*"
+  },
   "webpack": "webpack.config.js",
   "builds": [
     {
