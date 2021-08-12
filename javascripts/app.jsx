@@ -14,7 +14,7 @@ if (window.p5Examples) {
     );
 
     /* TODO: see what's going on here */
-    // const example = new p5(p5Examples[i][1], node, true);
+    const example = new p5(p5Examples[i][1], node, true);
     // // Make it resizable
     // example.canvas.style.width = '100%';
     // example.canvas.style.height = 'auto';
