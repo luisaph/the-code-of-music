@@ -20,7 +20,8 @@
     "files": ["stylesheets/html.scss"]
   },
   "javascripts": {
-    "files": ["javascripts/main.js"]
+    "files": ["javascripts/main.js"],
+    "bundle": false
   },
   "fonts": {
     "files": "fonts/**/*.*"
