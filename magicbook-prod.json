@@ -4,12 +4,12 @@
   "files": [
     "static-docs/index.html",
     {
-      "label": "Elements",
+      "label": "Chapters",
       "files": ["notion-docs/**/index.md"]
     },
     {
       "images": {
-        "files": "assets/**/*.png"
+        "files": "images/**/*.png"
       }
     }
   ],
@@ -20,7 +20,8 @@
     "files": ["stylesheets/html.scss"]
   },
   "javascripts": {
-    "files": ["javascripts/main.js"]
+    "files": ["javascripts/main.js"],
+    "bundle": false
   },
   "fonts": {
     "files": "fonts/**/*.*"
@@ -30,10 +31,6 @@
     {
       "format": "html",
       "destination": "build/build-prod/web"
-    },
-    {
-      "format": "pdf",
-      "destination": "build/build-prod/pdf"
     }
   ],
   "codesplit": {

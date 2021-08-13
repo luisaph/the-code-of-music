@@ -1,3 +1,4 @@
+console.log('MAIN.JS loaded');
 document.addEventListener('DOMContentLoaded', () => {
   const MENU_CLOSED_CLASSNAME = 'menu-is-closed';
   let chapterSection;
