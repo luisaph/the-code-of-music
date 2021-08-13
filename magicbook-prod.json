@@ -6,13 +6,12 @@
     {
       "label": "Chapters",
       "files": ["notion-docs/**/index.md"]
-    },
-    {
-      "images": {
-        "files": "images/**/*.png"
-      }
     }
   ],
+  "images": {
+    "files": ["images/**/*.png", "examples/img/*.*"],
+    "destination": "assets/img/"
+  },
   "stylesheets": {
     "bundle": true,
     "compress": true,
@@ -24,7 +23,8 @@
     "bundle": false
   },
   "fonts": {
-    "files": "fonts/**/*.*"
+    "files": "fonts/**/*.*",
+    "destination": "assets/fonts/"
   },
   "webpack": "webpack.config.js",
   "builds": [

@@ -153,8 +153,7 @@ Plugin.prototype = {
       }
 
       // Render baby
-      var output =
-        '<figure id="' + idAttr + '" class="' + (attrs.class || '') + '">';
+      var output = '<figure id="' + idAttr + '" class="' + 'p5-figure' + '">';
       if (caption && attrs.captionPosition == 'top') {
         output += caption;
       }

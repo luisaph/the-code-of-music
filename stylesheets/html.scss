@@ -5,6 +5,7 @@ $menu-transition-speed: 0.2s;
 $highlight-color: #e6e6ff;
 $header-height: 180px;
 $bp-medium: 800px;
+$black: #222;
 
 * {
   box-sizing: border-box;
@@ -20,6 +21,7 @@ html {
   text-align: center;
   padding: 1em;
   height: $header-height;
+  // border-bottom: 3px solid $black;
   background: $highlight-color;
   display: flex;
   justify-content: center;
@@ -33,10 +35,21 @@ html {
     font-family: 'Palette Mosaic';
     text-transform: uppercase;
     margin: 0;
+    @media (max-width: $bp-medium) {
+      display: inline-block;
+      width: 4em;
+      text-align: center;
+      line-height: 0.8;
+      font-size: 3em;
+    }
   }
   .small {
     margin: 0 0.3em;
-    font-size: 0.5em;
+    font-size: 0.4em;
+    @media (max-width: $bp-medium) {
+      position: relative;
+      top: -0.5em;
+    }
   }
 }
 
@@ -61,6 +74,7 @@ section {
     max-width: 100%;
   }
 }
+
 .menu-button {
   cursor: pointer;
   position: fixed;
@@ -79,6 +93,7 @@ section {
 }
 
 .next-prev-links {
+  margin-top: 5em;
   display: flex;
   justify-content: space-between;
 }
@@ -95,6 +110,7 @@ section[data-type='chapter'] {
 
 section[data-type='sect1'] {
   padding: 0;
+  margin-top: 5em;
   h1 {
     font-size: 2em;
     border: none;
@@ -122,6 +138,9 @@ a[data-toc='chapter'] {
 }
 
 .menu {
+  z-index: 2;
+  // background: $black;
+  color: $black;
   background: white;
   transition: all $menu-transition-speed;
   width: $menu-width;
@@ -166,7 +185,7 @@ a[data-toc='chapter'] {
 
     &.is-active {
       background: $highlight-color;
-      // border-left: 3px solid #222;
+      // border-left: 3px solid $black;
     }
   }
 }
