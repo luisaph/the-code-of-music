@@ -30,7 +30,7 @@
   "builds": [
     {
       "format": "html",
-      "destination": "build/build-dev/web"
+      "destination": "build/build-prod/web"
     }
   ],
   "codesplit": {
