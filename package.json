@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "yarn build:watch",
+    "dev": "yarn build --watch",
     "serve": "live-server build/web --port=5000",
     "serve:prod": "live-server build/web --port=5001",
-    "build:prod": "rm -rf build/ && magicbook build --config=magicbook-html.json",
-    "build:watch": "rm -rf build/ && magicbook build --watch --config=magicbook-html.json",
+    "build": "rm -rf build/ && magicbook build --config=magicbook-html.json",
     "copy-pdf": "cp build/pdf/consolidated.pdf build/web/the-code-of-music.pdf",
     "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",
     "post-notion-import": "yarn move-images && sudo node scripts/post-notion-import.js"
@@ -20,6 +19,8 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "6",
+    "liquidjs": "^9.25.1",
     "magicbook": "^0.1.19",
     "magicbook-codesplit": "^0.1.6",
     "magicbook-webpack": "0.0.4",

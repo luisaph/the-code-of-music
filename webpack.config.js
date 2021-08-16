@@ -1,4 +1,5 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -24,6 +25,11 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'examples', to: 'examples' }],
+    }),
+  ],
 };
 
 module.exports = config;
