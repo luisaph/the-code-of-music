@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "yarn build --watch",
     "serve": "live-server build/web --port=5000",
-    "serve:prod": "live-server build/web --port=5001",
+    "serve:examples": "live-server examples --port=5002",
     "build": "rm -rf build/ && magicbook build --config=magicbook-html.json",
     "copy-pdf": "cp build/pdf/consolidated.pdf build/web/the-code-of-music.pdf",
     "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",
