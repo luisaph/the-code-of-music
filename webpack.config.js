@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  entry: './javascripts/app.jsx',
+  entry: './javascripts/app.js',
   output: {
     path: 'assets',
     filename: 'app-[hash].js',

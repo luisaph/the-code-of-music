@@ -1,5 +1,5 @@
 window.p5Examples = window.p5Examples || [];
-
+console.log('test-instance-mode file loaded');
 window.p5Examples.push((p) => {
   const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
 
