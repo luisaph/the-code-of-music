@@ -32,14 +32,25 @@ section {
   }
 }
 
-.font--display {
+@mixin icon--visible {
+  transform: scale3d(1, 1, 1);
+  opacity: 1;
+}
+
+@mixin icon--hidden {
+  transform: scale3d(0, 0, 1);
+  opacity: 0;
+}
+
+@mixin font--display {
   font-family: 'Palette Mosaic';
 }
 
 .site-header {
   text-align: center;
   padding: 1em;
-  height: $header-height;
+  // height: $header-height;
+  padding: 2em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,6 +58,10 @@ section {
   z-index: 1;
 }
 
+.home-link {
+  text-decoration: none;
+  color: $black;
+}
 .site-title {
   display: flex;
   align-items: center;
@@ -61,15 +76,18 @@ section {
 }
 
 @media (max-width: $bp-medium) {
-  .site-header .site-title {
-    display: inline-block;
-    width: 4em;
-    text-align: center;
-    line-height: 0.8;
-    font-size: 3em;
-    .small {
-      position: relative;
-      top: -0.5em;
+  .site-header {
+    .site-title {
+      display: inline-block;
+      width: 4em;
+      text-align: center;
+      line-height: 0.8;
+      font-size: 3em;
+      margin-bottom: 1em;
+      .small {
+        position: relative;
+        top: -0.5em;
+      }
     }
   }
 }
@@ -126,22 +144,12 @@ section {
   left: $menu-padding;
 }
 
-.menu__button__icon--visible {
-  transform: scale3d(1, 1, 1);
-  opacity: 1;
-}
-
-.menu__button__icon--hidden {
-  transform: scale3d(0, 0, 1);
-  opacity: 0;
-}
-
 .menu-button__icon--close {
-  @extend .menu__button__icon--visible;
+  @include icon--visible();
 }
 
 .menu-button__icon--open {
-  @extend .menu__button__icon--hidden;
+  @include icon--hidden();
 }
 
 .container {
@@ -194,9 +202,10 @@ section[data-type='sect1'] {
 .divider {
   height: 1em;
 }
+
 .divider:after {
+  @include font--display();
   content: '************';
-  @extend .font--display;
   text-align: center;
   overflow: hidden;
   display: block;
@@ -274,7 +283,7 @@ a[data-toc='chapter'] {
       }
     }
   }
-  a {
+  .toc a {
     color: inherit;
     text-decoration: none;
     padding: 0 0.2em;
@@ -290,7 +299,7 @@ a[data-toc='chapter'] {
       color: $highlight-color;
       font-weight: bold;
       &:after {
-        @extend .font--display;
+        @include font--display();
         display: flex;
         justify-content: center;
         align-items: center;
@@ -301,7 +310,6 @@ a[data-toc='chapter'] {
         left: 0;
         top: 0;
         height: 1.3em;
-        // height: 100%;
         transform: translateX(-100%);
       }
     }
@@ -310,10 +318,10 @@ a[data-toc='chapter'] {
 
 .menu-is-closed {
   .menu-button__icon--close {
-    @extend .menu__button__icon--hidden;
+    @include icon--hidden();
   }
   .menu-button__icon--open {
-    @extend .menu__button__icon--visible;
+    @include icon--visible();
   }
   .menu {
     transform: translate3d(-100%, 0, 0);
