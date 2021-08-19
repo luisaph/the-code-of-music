@@ -16,7 +16,7 @@
     "bundle": true,
     "compress": true,
     "digest": true,
-    "files": ["stylesheets/html.scss"]
+    "files": ["stylesheets/html.scss", "stylesheets/highlightjs.css"]
   },
   "javascripts": {
     "files": ["javascripts/main.js"],

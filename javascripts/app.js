@@ -4,8 +4,16 @@ const p5 = (window.p5 = require('p5'));
 const roughjs = (window.roughjs = rough);
 const Tone = (window.Tone = require('tone'));
 
-console.log('APP.jsx loaded');
+console.log('APP.js loaded');
 console.log('P5', p5);
+
+/* Syntax Highlighting */
+const hljs = require('highlight.js/lib/core');
+hljs.registerLanguage(
+  'javascript',
+  require('highlight.js/lib/languages/javascript')
+);
+hljs.highlightAll();
 
 /* Set assets url to be read by the p5 examples */
 window.EXAMPLES_ASSETS_URL = '/assets/examples/assets';
