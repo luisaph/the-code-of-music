@@ -1,4 +1,4 @@
-name: Notion2Github and Preview Deploy Tests
+name: Notion2Github and Preview Deploy Test
 on:
   workflow_dispatch:
 jobs:
@@ -14,7 +14,6 @@ jobs:
           SECRET_GITHUB: ${{secrets.TOKEN_GITHUB}}
           NOTION_SECRET: ${{secrets.TOKEN_NOTION}}
 
-      
       - name: Install and Build 🔧
         run: |
           yarn install
