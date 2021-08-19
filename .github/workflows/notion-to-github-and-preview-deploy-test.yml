@@ -13,6 +13,9 @@ jobs:
         with:
           SECRET_GITHUB: ${{secrets.TOKEN_GITHUB}}
           NOTION_SECRET: ${{secrets.TOKEN_NOTION}}
+          OWNER: 'luisaph'
+          REPO: 'the-code-of-music'
+          BLOCK_NAME: 'what'
 
       - name: Install and Build 🔧
         run: |
