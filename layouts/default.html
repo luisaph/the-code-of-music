@@ -11,6 +11,7 @@
     {{ stylesheets }} {% if page.extrajs %}
     <script src="{{page.extrajs}}" type="text/javascript"></script>
     {% endif %}
+    <script src="/assets/preload.js" type="text/javascript"></script>
   </head>
   <body>
     <button class="menu-button">
@@ -73,22 +74,12 @@
         <main class="chap">
           <article>
             <div>{{ content }}</div>
-            <div class="next-prev-links">{% include navigation.html %}</div>
+            <!-- <div class="next-prev-links">{% include navigation.html %}</div> -->
           </article>
         </main>
       </div>
     </div>
     <script src="{{ webpack.main }}" type="text/javascript"></script>
     {{ javascripts }}
-
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-
-    <script>
-      hljs.highlightAll();
-    </script> -->
   </body>
 </html>

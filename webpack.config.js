@@ -27,7 +27,10 @@ const config = {
   },
   plugins: [
     new CopyWebpackPlugin({
-      patterns: [{ from: 'examples', to: 'examples' }],
+      patterns: [
+        { from: 'examples', to: 'examples' },
+        { from: 'javascripts/preload.js', to: 'preload.js' },
+      ],
     }),
   ],
 };

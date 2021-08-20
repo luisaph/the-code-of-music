@@ -1,7 +1,6 @@
-window.p5Examples = window.p5Examples || [];
 console.log('test-instance-mode2 file loaded');
 
-window.p5Examples.push((p) => {
+window.registerP5Sketch((p) => {
   const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
 
   console.log('sketch 2 loaded');

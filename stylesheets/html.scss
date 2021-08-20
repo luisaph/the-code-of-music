@@ -32,6 +32,17 @@ section {
   }
 }
 
+@mixin inline-link {
+  text-decoration: none;
+  color: $highlight-color;
+  box-shadow: 0 -0.2em 0 0 $link-underline-color inset;
+  transition: all 0.2s;
+  &:hover {
+    color: darken($highlight-color, 10);
+    box-shadow: 0 -1.2em 0 0 $link-underline-color inset;
+  }
+}
+
 @mixin icon--visible {
   transform: scale3d(1, 1, 1);
   opacity: 1;
@@ -161,22 +172,15 @@ section {
   margin-top: 5em;
   display: flex;
   justify-content: space-between;
-}
 
-.inline-link {
-  text-decoration: none;
-  color: $highlight-color;
-  box-shadow: 0 -0.2em 0 0 $link-underline-color inset;
-  transition: all 0.2s;
-  &:hover {
-    color: darken($highlight-color, 10);
-    box-shadow: 0 -1.2em 0 0 $link-underline-color inset;
+  a {
+    @include inline-link();
   }
 }
 
 p a,
 figure a {
-  @extend .inline-link;
+  @include inline-link();
 }
 
 section[data-type='chapter'] {
