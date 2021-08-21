@@ -6,10 +6,12 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    <script src="sketch.js"></script>
     <script>
       // Load instance-mode sketch
-      new p5(window.p5Examples[0]);
+      window.registerP5Sketch = (sketch) => {
+        new p5(sketch);
+      };
     </script>
+    <script src="sketch.js"></script>
   </body>
 </html>
