@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Notion2Github
-        uses: 43-stuti/notion-github@v1.1
+        uses: 43-stuti/notion-github@v1.2
         with:
           SECRET_GITHUB: ${{secrets.TOKEN_GITHUB}}
           NOTION_SECRET: ${{secrets.TOKEN_NOTION}}
