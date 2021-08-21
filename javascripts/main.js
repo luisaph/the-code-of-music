@@ -1,4 +1,6 @@
 console.log('MAIN.JS loaded');
+
+/* UI Code for handling Menu open/close and highlighting of current page section */
 document.addEventListener('DOMContentLoaded', () => {
   const MENU_CLOSED_CLASSNAME = 'menu-is-closed';
   let chapterSection;

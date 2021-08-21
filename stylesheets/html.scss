@@ -1,11 +1,14 @@
 @import 'shared';
 
-$menu-width: 250px;
+$menu-width: 320px;
+$menu-padding: 2em;
 $menu-transition-speed: 0.2s;
-$highlight-color: #e6e6ff;
+$highlight-color: #009771;
 $header-height: 180px;
 $bp-medium: 800px;
 $black: #222;
+
+$link-underline-color: rgba(lighten($highlight-color, 5), 0.3);
 
 * {
   box-sizing: border-box;
@@ -17,44 +20,101 @@ html {
   height: 100%;
 }
 
+pre[data-type='programlisting'] {
+  border-radius: 2px;
+  padding: 1em;
+  background: #f1f1f1;
+}
+
+section {
+  img {
+    max-width: 100%;
+  }
+}
+
+@mixin inline-link {
+  text-decoration: none;
+  color: $highlight-color;
+  box-shadow: 0 -0.2em 0 0 $link-underline-color inset;
+  transition: all 0.2s;
+  &:hover {
+    color: darken($highlight-color, 10);
+    box-shadow: 0 -1.2em 0 0 $link-underline-color inset;
+  }
+}
+
+@mixin icon--visible {
+  transform: scale3d(1, 1, 1);
+  opacity: 1;
+}
+
+@mixin icon--hidden {
+  transform: scale3d(0, 0, 1);
+  opacity: 0;
+}
+
+@mixin font--display {
+  font-family: 'Palette Mosaic';
+}
+
 .site-header {
   text-align: center;
   padding: 1em;
-  height: $header-height;
-  // border-bottom: 3px solid $black;
-  background: $highlight-color;
+  // height: $header-height;
+  padding: 2em;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   z-index: 1;
-  h2 {
-    display: flex;
-    align-items: center;
-    font-size: 4em;
-    font-family: 'Palette Mosaic';
-    text-transform: uppercase;
-    margin: 0;
-    @media (max-width: $bp-medium) {
+}
+
+.home-link {
+  text-decoration: none;
+  color: $black;
+}
+.site-title {
+  display: flex;
+  align-items: center;
+  font-size: 4em;
+  font-family: 'Palette Mosaic';
+  text-transform: uppercase;
+  margin: 0;
+  .small {
+    margin: 0 0.3em;
+    font-size: 0.4em;
+  }
+}
+
+@media (max-width: $bp-medium) {
+  .site-header {
+    .site-title {
       display: inline-block;
       width: 4em;
       text-align: center;
       line-height: 0.8;
       font-size: 3em;
-    }
-  }
-  .small {
-    margin: 0 0.3em;
-    font-size: 0.4em;
-    @media (max-width: $bp-medium) {
-      position: relative;
-      top: -0.5em;
+      margin-bottom: 1em;
+      .small {
+        position: relative;
+        top: -0.5em;
+      }
     }
   }
 }
 
+.menu__header {
+  .site-title {
+    margin-top: 3em;
+    font-size: 1.83em;
+  }
+  .divider {
+    width: 5em;
+    margin: 0.5em auto;
+  }
+}
+
 .page-container {
-  // display: flex;
   transition: all $menu-transition-speed;
   padding-left: $menu-width;
   height: 100%;
@@ -64,27 +124,43 @@ html {
   }
 }
 
-.p5container {
-  height: 400px;
-  border: 1px solid #333;
+.p5-figure {
+  margin: 2em 2em;
 }
 
-section {
-  img {
-    max-width: 100%;
-  }
+.p5container {
+  height: 400px;
+  border: 2px solid $black;
+  border-radius: 2px;
 }
 
 .menu-button {
   cursor: pointer;
   position: fixed;
-  height: $header-height;
+  height: $header-height / 2;
   width: $menu-width / 2;
   top: 0;
   left: 0;
   z-index: 5;
-  background: rgba(0, 0, 0, 0.1);
+  background: none;
   border: none;
+  transform: scale3d(1, 1, 1);
+  padding: 1em;
+}
+.menu-button svg {
+  transition: all 0.2s;
+  width: 5em;
+  position: absolute;
+  top: $menu-padding;
+  left: $menu-padding;
+}
+
+.menu-button__icon--close {
+  @include icon--visible();
+}
+
+.menu-button__icon--open {
+  @include icon--hidden();
 }
 
 .container {
@@ -96,10 +172,20 @@ section {
   margin-top: 5em;
   display: flex;
   justify-content: space-between;
+
+  a {
+    @include inline-link();
+  }
+}
+
+p a,
+figure a {
+  @include inline-link();
 }
 
 section[data-type='chapter'] {
   h1 {
+    color: $highlight-color;
     margin-bottom: 0.5em;
     margin-top: 0;
     font-size: 4em;
@@ -112,9 +198,27 @@ section[data-type='sect1'] {
   padding: 0;
   margin-top: 5em;
   h1 {
-    font-size: 2em;
+    font-size: 2.5em;
     border: none;
   }
+}
+
+.divider {
+  height: 1em;
+}
+
+.divider:after {
+  @include font--display();
+  content: '************';
+  text-align: center;
+  overflow: hidden;
+  display: block;
+  letter-spacing: 0.3em;
+  font-size: 1.5em;
+  word-wrap: nowrap;
+  width: 100%;
+  height: 1em;
+  text-align: center;
 }
 
 .chap {
@@ -141,7 +245,7 @@ a[data-toc='chapter'] {
   z-index: 2;
   // background: $black;
   color: $black;
-  background: white;
+  background: rgb(238, 238, 238);
   transition: all $menu-transition-speed;
   width: $menu-width;
   position: fixed;
@@ -149,9 +253,9 @@ a[data-toc='chapter'] {
   overflow: scroll;
   top: 0;
   left: 0;
-  padding: 1em;
-  padding-top: $header-height;
-  border-right: 1px solid $highlight-color;
+  padding: $menu-padding;
+  // padding-top: $header-height / 2;
+  // border-right: 2px solid $black;
   display: block;
   @media (max-width: $bp-medium) {
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
@@ -163,6 +267,7 @@ a[data-toc='chapter'] {
   }
 
   h3 {
+    font-size: 2em;
     margin-bottom: 0.8em;
   }
 
@@ -176,21 +281,52 @@ a[data-toc='chapter'] {
     }
     ul,
     ol {
-      margin-left: 1em;
+      margin-left: 0;
+      ol {
+        margin-left: 2em;
+      }
     }
   }
-  a {
+  .toc a {
     color: inherit;
     text-decoration: none;
-
+    padding: 0 0.2em;
+    position: relative;
+    margin-left: 0.5em;
+    &[data-toc='chapter'] {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 0.3em;
+      // text-transform: uppercase;
+    }
     &.is-active {
-      background: $highlight-color;
-      // border-left: 3px solid $black;
+      color: $highlight-color;
+      font-weight: bold;
+      &:after {
+        @include font--display();
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        content: '*';
+        font-size: 1.5em;
+        color: $highlight-color;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 1.3em;
+        transform: translateX(-100%);
+      }
     }
   }
 }
 
 .menu-is-closed {
+  .menu-button__icon--close {
+    @include icon--hidden();
+  }
+  .menu-button__icon--open {
+    @include icon--visible();
+  }
   .menu {
     transform: translate3d(-100%, 0, 0);
     box-shadow: none;
