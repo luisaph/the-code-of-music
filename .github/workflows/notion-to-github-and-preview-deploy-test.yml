@@ -15,7 +15,7 @@ jobs:
           NOTION_SECRET: ${{secrets.TOKEN_NOTION}}
           OWNER: 'luisaph'
           REPO: 'the-code-of-music'
-          BLOCK_NAME: 'what'
+          BLOCK_NAME: 'Book'
 
       - name: Install and Build 🔧
         run: |
