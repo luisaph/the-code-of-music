@@ -72,9 +72,9 @@ window.registerP5Sketch((p) => {
 
         p.push()
             if(state.time) {
-            p.fill("#FB5D04");
+                p.fill("#FB5D04");
             } else {
-            p.fill("black");
+                p.fill("black");
             }
             p.text(buttonText.time, xstart, graph.height-35);
         p.pop()

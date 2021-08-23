@@ -12,29 +12,23 @@ created_time: July 22, 2021
 If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end. Here is one example of a melody:
 
 A melody is a sequence of tones of that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is how high or low each tone is.
-
-{% p5 melody/test-instance-mode %}
-
 <br />
 
-{% p5 melody/melody-1 %}
 
-<br />
-
+{% p5 melody/melody-0 %}
 <br />
 
 We also perceive the duration of the tones in a melody: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
 
 <br />
 
-{% p5 melody/test-instance-mode2 %}
-
-
-
 
 The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: _click here to show grid on sketch (and add a metronome?)_.
 
 But what about the pitches? There seem to be only three or four pitches in this melody  ––are they placed on an underlying perceptual grid as well? (_click here to show pitch grid on sketch_) 
+
+{% p5 melody/melody-1 %}
+<br />
 
 We will address this question in the next sections, by creating a series of digital instruments and generative melodies.
 
@@ -44,7 +38,9 @@ When we whistle, we displace the air molecules next to our lips, and cause them 
 
 Interactive: Pitch as Vibration. [See UX and references here](/1130b077fd2f41b692acc28ae4f54e98#4e3a0b99170841b4a8aca25ddc9e0c09).
 
+{% p5 melody/melody-2 %}
 
+<br />
 
 If we zoomed into a single molecule, we would see that its trajectory draws a waveform over time: 
 
