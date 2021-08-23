@@ -5,7 +5,7 @@ window.registerP5Sketch((p) => {
 
     let fft = new Tone.FFT();
     player.connect(fft);
-    const buttonStyle = `
+    let buttonStyle = `
     display: block;
     padding: 20px;
     background-image:url("${assetsUrl}/img/microphone.png");

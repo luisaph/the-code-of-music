@@ -29,7 +29,7 @@ window.registerP5Sketch((p) => {
     let pitch;
     fft = new Tone.FFT();
 
-    const buttonStyle = `
+    let buttonStyle = `
     display: block;
     padding: 20px;
     background-image:url("${assetsUrl}/img/microphone.png");
@@ -138,18 +138,20 @@ window.registerP5Sketch((p) => {
     }
     function getPitch() {
         let frequencyData = fft.getValue();
-        let max = -Infinity;
+        let max = -1*p.int(Infinity)
         let min = 0;
         let f;
         for (let i = 0; i < frequencyData.length; i++) {
+            console.log('freq',frequencyData[i])
             if(frequencyData[i] > max){
                 max = frequencyData[i];
                 f = i;
             } 
         }
 
-        let newfreq = map(f,1,1024,10,300);
-        if(prevFreq != newfreq && (p.frameCount-lastUpdate) > 10 && p.Math.abs(newfreq-freq) > 0.99) {
+        let newfreq = p.map(f,1,1024,10,300);
+        console.log('math',Math.abs(newfreq-freq))
+        if(prevFreq != newfreq && (p.frameCount-lastUpdate) > 10 && Math.abs(newfreq-freq) > 0.99) {
             lastUpdate = p.frameCount
             prevFreq = freq;
             freq = newfreq;
