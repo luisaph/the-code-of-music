@@ -12,13 +12,16 @@ const Plugin = function (registry) {
 
 Plugin.prototype = {
   liquidTag: function (config, extras, cb) {
+    const { format } = config;
+
     let count = 0;
 
     // function that gets called for every p5 tag
     function p5tag(context, tag, input) {
-      console.log('=== Running P5 Plugin ===');
       const examplePathString = input.split(' ')[0];
-      console.log('Adding example:', examplePathString);
+      console.log(
+        `\x1b[35mP5 Plugin: Adding example: ${examplePathString}\x1b[0m`
+      );
 
       const examplePath = path.join(
         '/assets',
@@ -26,14 +29,25 @@ Plugin.prototype = {
         examplePathString
       );
       const scriptPath = path.join(examplePath, 'sketch.js');
-      const idAttr = `example${count}`;
+      const idAttr = `example-${count}`;
 
-      const output = `
+      const output =
+        format === 'pdf'
+          ? `
+        <figure id="${idAttr}" class="p5-figure">
+          <div class="p5container">
+            <img src=".${examplePath}/placeholder.png" />
+            <span>${examplePath}</span>
+          </div>
+        </figure>
+      `
+          : `
         <figure id="${idAttr}" class="p5-figure">
           <div class="p5container"></div>
           <script type="text/javascript" src="${scriptPath}"></script>
           <a href="${examplePath}" target="_blank">View in new window</a>
-        </figure>`;
+        </figure>
+      `;
 
       const parsedOutput = tinyliquid.parse(output.trim());
 
