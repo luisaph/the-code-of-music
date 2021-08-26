@@ -1,6 +1,6 @@
 window.registerP5Sketch((p) => {
-    const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
-    const player = new Tone.Player(assetsUrl+"/sound/kill_bill_whistle.mp3");
+    let assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
+    let player = new Tone.Player(assetsUrl+"/sound/kill_bill_whistle.mp3");
     player.toDestination();
 
     let fft = new Tone.FFT();
@@ -87,7 +87,7 @@ window.registerP5Sketch((p) => {
             //min max found empirically
             let fHeight = p.map(f, 50, 120, 0, h);
             fHeight = p.constrain(fHeight,0, h);
-            p.fill('#fd7e14');
+            p.fill('#FFB240');
             p.noStroke();
             // Bar
             // rect(x, y+h-fHeight, w, fHeight);

@@ -14,51 +14,44 @@ window.registerP5Sketch((p) => {
     let gridLines = 5;
     let ystart = h-30;
     let yend = 0 ;
-    let xstart = 30;
+    let xstart = 20;
     let xend = w-xstart;
     let currentValue = 0;
-
+    let startTime = 0;
+    let currentPlayTime = 0;
     //images
-    let graph,pitchgrid,timegrid,timepitchgrid,measure;
-
-    let audio;
+    let playBtn;
+    let graph,pitchgrid,timegrid,timepitchgrid,measure,pitchLine,timeLine;
+    let audio = new Tone.Player(assetsUrl+ "/sound/whistle.mp3");
+    audio.toDestination();
     let isPlaying = false;
 
     let state = {
     time:false,
     pitch:false
     }
-    let buttonText = {
-    time:"Show time grid",
-    pitch:"Show pitch grid"
-    }
+    let showtimebtn,actshowtimebtn;
+    let showpitchbtn,actshowpitchbtn;
 
     p.preload = function() {
         //font = p.loadFont('../../../assets/fonts/fg-virgil.ttf');
-        console.log('assetsUrl',assetsUrl);
         graph = p.loadImage(assetsUrl+"/img/grid.png");
         pitchgrid = p.loadImage(assetsUrl+"/img/pitchgrid.png");
         timegrid = p.loadImage(assetsUrl+"/img/timegrid.png");
         timepitchgrid = p.loadImage(assetsUrl+"/img/timepitchgrid.png");
-        measure = p.loadImage(assetsUrl + "/img/measure.png")
-        audio = p.loadSound(assetsUrl+ "/sound/whistle.mp3");
+        measure = p.loadImage(assetsUrl + "/img/measure.png");
+        showtimebtn = p.loadImage(assetsUrl+"/img/showtime.png");
+        showpitchbtn = p.loadImage(assetsUrl + "/img/showpitch.png");
+        actshowtimebtn = p.loadImage(assetsUrl+"/img/showtimeactive.png");
+        actshowpitchbtn = p.loadImage(assetsUrl + "/img/showpitchactive.png");
+        pitchLine = p.loadImage(assetsUrl+"/img/pitch.png");
+        timeLine = p.loadImage(assetsUrl + "/img/time.png")
+        
     }
-
-
-
     p.setup = () => {
-        c = p.createCanvas(800, 250);
-        rc = rough.canvas(c.elt);
-
-        let generator = rc.generator;
-        line1 = generator.line(xstart, graph.height-80, xstart+graph.width, graph.height-80, 
-                                    { stroke:"black",
-                                        roughness: 0.4 });
-        line2 = generator.line(xstart, graph.height-70, xstart, 0, 
-            { stroke:"black",
-            roughness: 0.4 });
+        c = p.createCanvas(800, 450);
         playBtn = p.createButton('');
-        playBtn.position(p.width/2-20, p.height-50);
+        //playBtn.position(p.width/2-20, p.height-50);
         playBtn.style(`"background-image:url("${assetsUrl}/img/play.png"); background-position: center;background-repeat: no-repeat; background-size: 100%; border-radius: 50%; width:40px; height:40px; background-color:white"`);
         playBtn.mouseReleased(togglePlay);
         //p.textFont(font);
@@ -68,88 +61,82 @@ window.registerP5Sketch((p) => {
     p.draw = () => {
         p.background(255);
         p.imageMode(p.CORNER);
+        pickButton();
         pickImage()
-
-        p.push()
-            if(state.time) {
-                p.fill("#FB5D04");
-            } else {
-                p.fill("black");
-            }
-            p.text(buttonText.time, xstart, graph.height-35);
-        p.pop()
-
-        p.push()
-            if(state.pitch) {
-                p.fill("#FB5D04");
-            } else {
-                p.fill("black");
-            }
-            p.text(buttonText.pitch, xstart, graph.height-15);
-        p.pop()
-
-        rc.draw(line1);
-        p.text("time", graph.width-p.textWidth("time"), graph.height-35);
-        rc.draw(line2);
-        p.text("pitch", 0, 10);
-        if(!audio.isPlaying()) {
+        p.image(pitchLine, 0, graph.height/2-90, 30, (pitchLine.height*30/pitchLine.width)+100);
+        //p.image(timeLine, 20, graph.height, (timeLine.width*2/timeLine.height)+100, 2);
+        if(audio.state == "stopped") {
             playBtn.style(`"background-image:url("${assetsUrl}/img/play.png")"`);
         } else {
             playBtn.style(`"background-image:url("${assetsUrl}/img/pause.png")"`);
+            console.log('wwhy?');
+            console.log('currentTime',currentPlayTime);
+            currentPlayTime ++ ;
         }
 
         p.push()
             p.noStroke()
-            p.fill('rgba(255,141,1, 0.1)');
-            let currentTime = audio.currentTime();
-            let rectWidth = p.map(p.round(currentTime,2),0,audio.duration(),0,p.width);
-            p.rect(xstart, 0, rectWidth, graph.height-80);
+            p.fill('rgba(176,221,49, 0.2)');
+            let currentTime = currentPlayTime;
+            //let currentTime = audio.currentTime();
+            let rectWidth = p.map(currentTime,0,745,0,p.width);
+            p.rect(xstart, 125, rectWidth, graph.height-100);
+            
         p.pop()
     }
 
     function togglePlay(){
         if(!isPlaying) {
             isPlaying = true;
-            audio.play();
+            if(currentPlayTime == 0) {
+                startTime = p.frameCount;
+            }
+            audio.start();
         } else {
             isPlaying = false;
-            audio.pause()
+            audio.stop()
         }
     }
 
-    function mousePressed() {
-        if(mouseX > xstart && mouseX < xstart+textWidth(buttonText.time) && mouseY > graph.height-60 && mouseY < graph.height-35) {
-            if(state.time) {
-            buttonText.time = "Show time grid"
-            } else {
-            buttonText.time = "Hide time grid"
-            }
+    p.mousePressed = () => {
+        if(p.mouseX > xstart && p.mouseX < xstart+showtimebtn.width && p.mouseY > 0 && p.mouseY < showtimebtn.height) {
             state.time = !state.time;
         }
 
-        if(mouseX > xstart && mouseX < xstart+textWidth(buttonText.time) && mouseY > graph.height-34 && mouseY < graph.height-15) {
-            if(state.pitch) {
-            buttonText.pitch = "Show pitch grid"
-            } else {
-            buttonText.pitch = "Hide pitch grid"
-            }
+        if(p.mouseX > xstart && p.mouseX < xstart+showtimebtn.width && p.mouseY > showtimebtn.height && p.mouseY < 2*showtimebtn.height) {
+            
             state.pitch = !state.pitch;
         }
     }
 
+    function pickButton() {
+        if(!state.time) {
+            p.image(showtimebtn, xstart, 0, 100, showtimebtn.height*100/showtimebtn.width);
+        }
+        if(state.time) {
+            p.image(actshowtimebtn, xstart, 0, 100, showpitchbtn.height*100/showpitchbtn.width);
+        } 
+        if(!state.pitch) {
+            p.image(showpitchbtn, xstart, showtimebtn.height, 100, showpitchbtn.height*100/showpitchbtn.width);
+        }
+        if(state.pitch) {
+            p.image(actshowpitchbtn, xstart, showtimebtn.height, 100, showpitchbtn.height*100/showpitchbtn.width);
+        } 
+    }
     function pickImage() {
+        let yPos = 2*showtimebtn.height + 70
         if(state.time && state.pitch) {
-            p.image(timepitchgrid, xstart, 0, p.width, graph.height*(width-xstart)/graph.width);
+            p.image(timepitchgrid, xstart, yPos, (p.width-xstart), graph.height*(p.width-xstart)/graph.width);
         }
         if(!state.time && !state.pitch) {
-            p.image(graph, xstart, 0, p.width, graph.height*(p.width-xstart)/graph.width);
+            p.image(graph, xstart, yPos, (p.width-xstart), graph.height*(p.width-xstart)/graph.width);
         }
         if(state.time && !state.pitch) {
-            p.image(timegrid, xstart, 0, p.width, graph.height*(p.width-xstart)/graph.width);
-            p.image(measure, xstart, graph.height-75, p.width, measure.height*(width-xstart)/measure.width);
+            p.image(timegrid, xstart,yPos, (p.width-xstart), graph.height*(p.width-xstart)/graph.width);
+            //p.image(measure, xstart, graph.height-75, p.width, measure.height*(p.width-xstart)/measure.width);
         }
         if(!state.time && state.pitch) {
-            p.image(pitchgrid, xstart, 0, p.width, graph.height*(p.width-xstart)/graph.width);
+            p.image(pitchgrid, xstart, yPos, (p.width-xstart), graph.height*(p.width-xstart)/graph.width);
         }
     }
 });
