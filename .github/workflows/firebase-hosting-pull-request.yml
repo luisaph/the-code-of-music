@@ -7,7 +7,7 @@ on: pull_request
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
@@ -19,6 +19,11 @@ jobs:
         with:
           node-version: '14.7.0'
           cache: 'yarn'
+
+    - name: Install Prince
+        run: |
+          sudo apt-get -y install prince
+          which prince
 
       - name: Install and Build 🔧
         run: |
