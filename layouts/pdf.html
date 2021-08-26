@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>{{ config.title }}</title>
-    {{ javascripts }}
     {{ stylesheets }}
   </head>
   <body data-type="book">
-    {{ content }}
+    <header class="site-header">
+      <div>
+        <a class="home-link" href="/">
+          <h2 class="site-title">
+            <span class="small">The</span> Code
+            <span class="small">of</span> Music
+          </h2>
+        </a>
+      </div>
+    </header>
+    <div class="menu menu--pdf">{{ toc }}</div>
+    <div>{{ content }}</div>
   </body>
 </html>

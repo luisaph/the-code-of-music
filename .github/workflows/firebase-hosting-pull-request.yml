@@ -23,7 +23,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           yarn install
-          yarn build
+          yarn build:all
 
       - name: Deploy 🚀
         uses: FirebaseExtended/action-hosting-deploy@v0

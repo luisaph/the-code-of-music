@@ -1,0 +1,41 @@
+{
+  "title": "Code of Music",
+  "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "./plugins/p5"],
+  "files": [
+    "static-docs/index.html",
+    {
+      "label": "Chapters",
+      "files": ["notion-docs/**/index.md"]
+    }
+  ],
+  "images": {
+    "files": ["images/**/*.png", "examples/img/*.*"],
+    "destination": "assets/img/"
+  },
+  "stylesheets": {
+    "bundle": true,
+    "compress": true,
+    "digest": true,
+    "files": ["stylesheets/html.scss", "stylesheets/highlightjs.css"]
+  },
+  "fonts": {
+    "files": "fonts/**/*.*",
+    "destination": "assets/fonts/"
+  },
+  "webpack": "webpack.config.js",
+
+  "builds": [
+    {
+      "format": "html",
+      "destination": "build/pdf"
+    },
+    {
+      "format": "pdf",
+      "destination": "build/pdf/pdf"
+    }
+  ],
+  "codesplit": {
+    "includes": "examples"
+  },
+  "layout": "layouts/pdf.html"
+}

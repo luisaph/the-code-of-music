@@ -1,18 +1,21 @@
-// @font-face {
-//   font-family: 'Roboto';
-//   src: font-path('Roboto-Bold.eot');
-//   src: font-path('Roboto-Bold.eot?#iefix') format('embedded-opentype'),
-//     font-path('Roboto-Bold.woff') format('woff'),
-//     font-path('Roboto-Bold.ttf') format('truetype'),
-//     font-path('Roboto-Bold.svg#robotobold') format('svg');
-//   font-weight: normal;
-//   font-style: normal;
-// }
-
 @font-face {
   font-family: 'Palette Mosaic';
   src: font-path('Palette_Mosaic/PaletteMosaic-Regular.ttf');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fredoka One';
+  src: font-path('Fredoka_One/FredokaOne-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fredoka One';
+  src: font-path('Fredoka_One/FredokaOne-Regular.ttf');
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -49,14 +52,16 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Atkinson';
+  font-family: 'Fredoka One';
+  font-weight: normal;
 }
 
 p {
-  font-family: 'Lora';
+  font-family: 'Atkinson', sans-serif;
 }
 
 body {
   font-family: 'Atkinson', 'Arial', sans-serif;
+  font-weight: normal;
   color: #333;
 }

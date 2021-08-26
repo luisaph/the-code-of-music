@@ -54,7 +54,7 @@ section {
 }
 
 @mixin font--display {
-  font-family: 'Palette Mosaic';
+  font-family: 'Fredoka One';
 }
 
 .site-header {
@@ -77,7 +77,7 @@ section {
   display: flex;
   align-items: center;
   font-size: 4em;
-  font-family: 'Palette Mosaic';
+  @include font--display();
   text-transform: uppercase;
   margin: 0;
   .small {
@@ -90,7 +90,7 @@ section {
   .site-header {
     .site-title {
       display: inline-block;
-      width: 4em;
+      width: 3em;
       text-align: center;
       line-height: 0.8;
       font-size: 3em;
@@ -125,13 +125,16 @@ section {
 }
 
 .p5-figure {
+  page-break-before: avoid;
+
+  position: relative;
   margin: 2em 2em;
 }
 
 .p5container {
   border: 2px solid $black;
   border-radius: 2px;
-  padding: 50px;;
+  padding: 50px;
 }
 
 .menu-button {
@@ -185,12 +188,14 @@ figure a {
 
 section[data-type='chapter'] {
   h1 {
+    page-break-before: always;
+
     color: $highlight-color;
     margin-bottom: 0.5em;
     margin-top: 0;
     font-size: 4em;
     padding-bottom: 0.2em;
-    border-bottom: 3px dashed $highlight-color;
+    // border-bottom: 3px dashed $highlight-color;
   }
 }
 
@@ -198,6 +203,7 @@ section[data-type='sect1'] {
   padding: 0;
   margin-top: 5em;
   h1 {
+    page-break-before: auto;
     font-size: 2.5em;
     border: none;
   }
@@ -254,7 +260,7 @@ a[data-toc='chapter'] {
   top: 0;
   left: 0;
   padding: $menu-padding;
-  // padding-top: $header-height / 2;
+  padding-top: $header-height / 2;
   // border-right: 2px solid $black;
   display: block;
   @media (max-width: $bp-medium) {
@@ -293,10 +299,18 @@ a[data-toc='chapter'] {
     padding: 0 0.2em;
     position: relative;
     margin-left: 0.5em;
+    color: $black;
     &[data-toc='chapter'] {
+      color: white;
+      @include font--display();
+      -webkit-text-stroke: 1px $highlight-color;
+      &.is-active {
+        -webkit-text-stroke: 0px;
+      }
       font-size: 2em;
       font-weight: bold;
       margin-bottom: 0.3em;
+
       // text-transform: uppercase;
     }
     &.is-active {
@@ -307,16 +321,30 @@ a[data-toc='chapter'] {
         display: flex;
         justify-content: center;
         align-items: center;
-        content: '*';
-        font-size: 1.5em;
-        color: $highlight-color;
+        content: '';
+        width: 0.8em;
+        height: 0.3em;
+        border-radius: 0.2em;
+        background: $highlight-color;
         position: absolute;
         left: 0;
-        top: 0;
-        height: 1.3em;
-        transform: translateX(-100%);
+        top: 0.5em;
+        transform: translateX(-120%);
       }
     }
+  }
+}
+
+.menu--pdf {
+  page-break-after: always;
+  page-break-before: always;
+  background: none;
+  box-shadow: none;
+  position: static;
+  color: $black;
+
+  .toc a {
+    color: $black !important;
   }
 }
 
