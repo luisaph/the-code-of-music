@@ -22,8 +22,8 @@ jobs:
 
       - name: Install Prince
         run: |
-          sudo apt-get -y install prince
-          which prince
+          sudo curl https://www.princexml.com/download/prince_14.2-1_ubuntu20.04_amd64.deb -o prince_14.2-1_ubuntu20.04_amd64.deb
+          sudo gdebi prince_14.2-1_ubuntu20.04_amd64.deb
 
       - name: Install and Build 🔧
         run: |
