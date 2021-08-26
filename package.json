@@ -29,6 +29,7 @@
     "magicbook-webpack": "0.0.4",
     "p5": "^1.4.0",
     "path": "^0.12.7",
+    "prince": "^1.8.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "replace-in-file": "^6.2.0",
@@ -37,6 +38,9 @@
     "tinyliquid": "^0.2.34",
     "tone": "^14.7.77",
     "webpack": "^4.42.1"
+  },
+  "resolutions": {
+    "magicbook/prince": "^1.8.6"
   },
   "devDependencies": {
     "firebase-tools": "^9.16.0",

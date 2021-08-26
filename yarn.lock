@@ -6104,6 +6104,7 @@ minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.4.tgz#63f5af868a38746ca7b33b03393ddf8c291244fe"
   integrity sha512-TielGogIzbUEtd1LsjZFs47RWuHHfhl6TiCx1InVxApBAmQ8bL0dL5ilkLGcRvuyW/A9nE+Lvn855Ewz8S0PnQ==
   dependencies:
+    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"
@@ -7003,7 +7004,7 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prince@^1.6.3:
+prince@^1.6.3, prince@^1.8.6:
   version "1.8.6"
   resolved "https://registry.yarnpkg.com/prince/-/prince-1.8.6.tgz#03399f519aa89833bc3cf87712e4989160af9bb6"
   integrity sha512-zeTkDo5z/j3Xa3TQRA3hHaJnrnLwaU/GBM7s0XO0EO64k7WgiYFeSzRkUlPd3g/G8TGQTEk3/maVbuLBtAf+RA==
