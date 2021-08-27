@@ -3,7 +3,7 @@
 $menu-width: 320px;
 $menu-padding: 2em;
 $menu-transition-speed: 0.2s;
-$highlight-color: #009771;
+$highlight-color: #004ec2;
 $header-height: 180px;
 $bp-medium: 800px;
 $black: #222;
@@ -28,7 +28,11 @@ pre[data-type='programlisting'] {
 
 section {
   img {
+    display: block;
     max-width: 100%;
+  }
+  figure em {
+    font-size: 0.8em;
   }
 }
 
@@ -128,13 +132,13 @@ section {
   page-break-before: avoid;
 
   position: relative;
-  margin: 2em 2em;
+  margin: 2em 0;
 }
 
 .p5container {
-  border: 2px solid $black;
-  border-radius: 2px;
-  padding: 50px;
+  // border: 2px solid $black;
+  // border-radius: 2px;
+  // padding: 50px;
 }
 
 .menu-button {

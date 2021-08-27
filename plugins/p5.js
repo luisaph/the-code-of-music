@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const fs = require('fs');
 const path = require('path');
 const tinyliquid = require('tinyliquid');
 
@@ -16,7 +15,7 @@ Plugin.prototype = {
 
     let count = 0;
 
-    // function that gets called for every p5 tag
+    /* function that gets called for every p5 tag */
     function p5tag(context, tag, input) {
       const examplePathString = input.split(' ')[0];
       console.log(
@@ -31,6 +30,7 @@ Plugin.prototype = {
       const scriptPath = path.join(examplePath, 'sketch.js');
       const idAttr = `example-${count}`;
 
+      /* Image for PDF version, interactive sketch for web version */
       const output =
         format === 'pdf'
           ? `
@@ -49,7 +49,8 @@ Plugin.prototype = {
         </figure>
       `;
 
-      const parsedOutput = tinyliquid.parse(output.trim());
+      /* Add new line so that the following content is parsed correctly */
+      const parsedOutput = tinyliquid.parse(output.trim() + '\n\n');
 
       context.astStack.push(parsedOutput);
       count++;
