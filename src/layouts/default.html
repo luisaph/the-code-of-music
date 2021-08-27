@@ -61,11 +61,10 @@
       <!-- <div class="menu__header">
         <a class="home-link" href="/">
           <h2 class="site-title" style="margin-bottom: 0">
-            <span class="small">The</span> Code
+            Code
             <span class="small">of</span> Music
           </h2>
         </a>
-        <div class="divider"></div>
       </div> -->
       <div class="wrapper">{{toc}}</div>
     </nav>
@@ -76,7 +75,7 @@
           <div>
             <a class="home-link" href="/">
               <h2 class="site-title">
-                <span class="small">The</span> Code
+                Code
                 <span class="small">of</span> Music
               </h2>
             </a>
@@ -85,11 +84,14 @@
         <main class="chap">
           <article>
             <div>{{ content }}</div>
-            <!-- <div class="next-prev-links">{% include navigation.html %}</div> -->
+            <div class="next-prev-links">{% include navigation.html %}</div>
           </article>
         </main>
       </div>
     </div>
+
+    <div style="position: absolute; font-weight: bold; opacity: 0">T</div>
+
     <script src="{{ webpack.main }}" type="text/javascript"></script>
     {{ javascripts }}
   </body>

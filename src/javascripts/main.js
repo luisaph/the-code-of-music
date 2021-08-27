@@ -5,13 +5,11 @@ function isAnyPartOfElementInViewport(el) {
   // DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
   const windowHeight =
     window.innerHeight || document.documentElement.clientHeight;
-  const windowWidth = window.innerWidth || document.documentElement.clientWidth;
 
   // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
   const vertInView = rect.top <= windowHeight && rect.top + rect.height >= 0;
-  const horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
 
-  return vertInView && horInView;
+  return vertInView;
 }
 
 /* UI Code for handling Menu open/close and highlighting of current page section */
@@ -34,13 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateActiveMenuLink = () => {
     document.querySelectorAll('.menu a').forEach((el) => {
       el.classList.remove('is-active');
-      if (el.hash === location.hash) {
+      /* TODO: clean this up -- don't need to check the parent/chapter link each time */
+      if (el.hash === location.hash || el.hash === `#${chapterSection.id}`) {
         el.classList.add('is-active');
       }
     });
-    // if (!location.hash) {
-    //   chapterSection.classList.add('is-active');
-    // }
   };
 
   const isMenuClosed = localStorage.getItem(MENU_CLOSED_CLASSNAME);

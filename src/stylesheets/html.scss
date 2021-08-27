@@ -7,6 +7,7 @@ $highlight-color: #004ec2;
 $header-height: 180px;
 $bp-medium: 800px;
 $black: #222;
+$white: #fff;
 
 $link-underline-color: rgba(lighten($highlight-color, 5), 0.3);
 
@@ -109,8 +110,8 @@ section {
 
 .menu__header {
   .site-title {
-    margin-top: 3em;
-    font-size: 1.83em;
+    margin-top: 1em;
+    font-size: 2em;
   }
   .divider {
     width: 5em;
@@ -144,8 +145,8 @@ section {
 .menu-button {
   cursor: pointer;
   position: fixed;
-  height: $header-height / 2;
-  width: $menu-width / 2;
+  height: 8em;
+  width: 8em;
   top: 0;
   left: 0;
   z-index: 5;
@@ -164,6 +165,8 @@ section {
 
 .menu-button__icon--close {
   @include icon--visible();
+  opacity: 0.4;
+  // transform: scale3d(0.6, 0.6, 1);
 }
 
 .menu-button__icon--open {
@@ -244,18 +247,12 @@ section[data-type='sect1'] {
   }
 }
 
-a[data-toc='chapter'] {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
-  margin-top: 1.5em;
-  display: block;
-}
-
 .menu {
   z-index: 2;
   // background: $black;
   color: $black;
-  background: rgb(238, 238, 238);
+  background: $white;
+  border-right: 2px solid $black;
   transition: all $menu-transition-speed;
   width: $menu-width;
   position: fixed;
@@ -265,7 +262,6 @@ a[data-toc='chapter'] {
   left: 0;
   padding: $menu-padding;
   padding-top: $header-height / 2;
-  // border-right: 2px solid $black;
   display: block;
   @media (max-width: $bp-medium) {
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
@@ -292,48 +288,83 @@ a[data-toc='chapter'] {
     ul,
     ol {
       margin-left: 0;
+      // margin-left: 1em;
+
       ol {
-        margin-left: 2em;
+        font-size: 0.9em;
+        margin-left: 1em;
+        li {
+          margin: 0;
+        }
       }
     }
   }
   .toc a {
     color: inherit;
     text-decoration: none;
-    padding: 0 0.2em;
+    padding: 0;
     position: relative;
-    margin-left: 0.5em;
+    margin: 0;
     color: $black;
-    &[data-toc='chapter'] {
-      color: white;
-      @include font--display();
-      -webkit-text-stroke: 1px $highlight-color;
-      &.is-active {
-        -webkit-text-stroke: 0px;
-      }
-      font-size: 2em;
-      font-weight: bold;
-      margin-bottom: 0.3em;
+    transition: all 0.2s;
 
-      // text-transform: uppercase;
+    &:after {
+      content: '';
+      width: 0.6em;
+      height: 0.3em;
+      border-radius: 0.2em;
+      background: $highlight-color;
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      transition: all 0.2s;
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    &:hover {
+      color: $highlight-color;
     }
     &.is-active {
       color: $highlight-color;
       font-weight: bold;
+      padding-left: 0.8em;
       &:after {
-        @include font--display();
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        content: '';
-        width: 0.8em;
-        height: 0.3em;
-        border-radius: 0.2em;
-        background: $highlight-color;
-        position: absolute;
-        left: 0;
-        top: 0.5em;
-        transform: translateX(-120%);
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+    &[data-toc='sect1'] {
+      font-size: 1.2em;
+      display: block;
+      padding-bottom: 0.3em;
+    }
+    &[data-toc='sect2'] {
+      opacity: 0.8;
+    }
+    &[data-toc='chapter'] {
+      padding-left: 0em;
+
+      &:after {
+        opacity: 0 !important;
+      }
+      &:hover {
+        color: rgba($highlight-color, 0.5);
+      }
+      @include font--display();
+      margin-top: 1em;
+      display: block;
+      color: white;
+      -webkit-text-stroke: 1px $highlight-color;
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 0.3em;
+
+      &.is-active {
+        color: $highlight-color;
+        &:after {
+          display: none;
+        }
+        -webkit-text-stroke: 0px;
       }
     }
   }
