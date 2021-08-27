@@ -12,9 +12,8 @@
     "build:all": "yarn build && yarn build:pdf",
     "copy-pdf": "cp build/pdf/pdf/consolidated.pdf build/web/the-code-of-music.pdf",
     "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",
-    "post-notion-import": "yarn move-images && sudo node scripts/post-notion-import.js",
     "import-notion-docs": "node scripts/notion-importer.js && yarn format-docs",
-    "format-docs": "yarn prettier --write 'notion-docs-2/**/*.md'"
+    "format-docs": "yarn prettier --write 'src/notion-docs/**/*.md'"
   },
   "author": "",
   "license": "ISC",

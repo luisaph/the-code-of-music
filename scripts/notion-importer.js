@@ -13,8 +13,8 @@ let contentArray = [];
 const { NOTION_TOKEN } = process.env;
 
 const BLOCK_NAME = 'Book';
-const DESTINATION_FOLDER = 'src/notion-docs-2/';
-const IMAGE_FOLDER = 'src/notion-images/';
+const DESTINATION_FOLDER = 'src/notion-docs/';
+const IMAGE_FOLDER = 'src/notion-docs/images/';
 const CODE_BLOCK_SYMBOL = '``';
 
 let imageIndex = 0;
@@ -48,15 +48,15 @@ async function importNotionPages() {
 
     /* Write files */
     contentArray.forEach((page) => {
-      const { path, base, pageString, isParentPage } = page;
-      const filePath = `${DESTINATION_FOLDER}${path}`;
+      const { path, title, pageString, isParentPage } = page;
+      const filePath = `${DESTINATION_FOLDER}${path.toLowerCase()}`;
 
       console.log('Creating directory', filePath);
       fs.mkdirSync(filePath, { recursive: true }, () => {});
 
       if (!isParentPage) {
         const fileContents = pageString.toString('base64');
-        const fileName = `${base}.md`;
+        const fileName = `${title.toLowerCase()}.md`;
         console.log('Creating file', fileName);
         fs.writeFileSync(`${filePath}${fileName}`, fileContents);
       }
@@ -220,7 +220,7 @@ async function getPages(id, name, parentPath) {
   contentArray.push({
     pageString,
     path: parentPath,
-    base: name,
+    title: name,
     isParentPage: hasOnlyChildPages,
   });
 }
