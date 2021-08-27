@@ -25,7 +25,11 @@ window.registerP5Sketch((p) => {
 
   /* Duration of audio sample */
   const AUDIO_DURATION = 13;
-  let audio = new Tone.Player(assetsUrl + '/sound/whistle_2.mp3');
+
+  Tone.Transport.loop = true;
+  Tone.Transport.loopEnd = AUDIO_DURATION;
+
+  const audio = new Tone.Player(assetsUrl + '/sound/whistle_2.mp3');
   audio.toDestination();
   audio.sync().start(0);
 
@@ -97,10 +101,11 @@ window.registerP5Sketch((p) => {
   };
 
   function togglePlay() {
-    Tone.Transport.toggle();
-    if (Tone.Transport.state == 'stopped') {
+    if (Tone.Transport.state === 'started') {
+      Tone.Transport.pause();
       playBtn.style(`background-image:url("${assetsUrl}/img/play.png")`);
     } else {
+      Tone.Transport.start();
       playBtn.style(`background-image:url("${assetsUrl}/img/pause.png")`);
     }
   }
