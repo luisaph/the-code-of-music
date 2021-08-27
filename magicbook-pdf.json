@@ -1,25 +1,30 @@
 {
   "title": "Code of Music",
-  "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "./plugins/p5"],
-  "files": [
-    "static-docs/index.html",
-    {
-      "label": "Chapters",
-      "files": ["notion-docs/**/index.md"]
-    }
-  ],
+  "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "src/plugins/p5"],
+  "files": ["src/notion-docs-2/**/*.md"],
   "images": {
-    "files": ["images/**/*.png", "examples/img/*.*"],
+    "files": [
+      "src/notion-images/**/*.png",
+      "src/images/**/*.png",
+      "src/examples/img/*.*"
+    ],
     "destination": "assets/img/"
   },
   "stylesheets": {
     "bundle": true,
     "compress": true,
     "digest": true,
-    "files": ["stylesheets/html.scss", "stylesheets/highlightjs.css"]
+    "files": ["src/stylesheets/html.scss", "src/stylesheets/highlightjs.css"]
+  },
+  "liquid": {
+    "includes": "src/includes"
+  },
+  "javascripts": {
+    "files": ["src/javascripts/main.js"],
+    "bundle": false
   },
   "fonts": {
-    "files": "fonts/**/*.*",
+    "files": "src/fonts/**/*.*",
     "destination": "assets/fonts/"
   },
   "webpack": "webpack.config.js",
@@ -35,7 +40,7 @@
     }
   ],
   "codesplit": {
-    "includes": "examples"
+    "includes": "src/examples"
   },
-  "layout": "layouts/pdf.html"
+  "layout": "src/layouts/pdf.html"
 }

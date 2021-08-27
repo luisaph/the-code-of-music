@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  entry: './javascripts/app.js',
+  entry: './src/javascripts/app.js',
   output: {
     path: 'assets',
     filename: 'app-[hash].js',
@@ -28,8 +28,8 @@ const config = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'examples', to: 'examples' },
-        { from: 'javascripts/preload.js', to: 'preload.js' },
+        { from: 'src/examples', to: 'examples' },
+        { from: 'src/javascripts/preload.js', to: 'preload.js' },
       ],
     }),
   ],

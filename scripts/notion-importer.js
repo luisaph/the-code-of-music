@@ -13,8 +13,8 @@ let contentArray = [];
 const { NOTION_TOKEN } = process.env;
 
 const BLOCK_NAME = 'Book';
-const DESTINATION_FOLDER = 'notion-docs-2/';
-const IMAGE_FOLDER = 'notion-images/';
+const DESTINATION_FOLDER = 'src/notion-docs-2/';
+const IMAGE_FOLDER = 'src/notion-images/';
 const CODE_BLOCK_SYMBOL = '``';
 
 let imageIndex = 0;

@@ -1,23 +1,30 @@
 {
   "title": "Code of Music",
-  "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "./plugins/p5"],
-  "files": ["notion-docs-2/**/*.md"],
+  "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "src/plugins/p5"],
+  "files": ["src/notion-docs-2/**/*.md"],
   "images": {
-    "files": ["notion-images/**/*.png", "images/**/*.png", "examples/img/*.*"],
+    "files": [
+      "src/notion-images/**/*.png",
+      "src/images/**/*.png",
+      "src/examples/img/*.*"
+    ],
     "destination": "assets/img/"
+  },
+  "liquid": {
+    "includes": "src/includes"
   },
   "stylesheets": {
     "bundle": true,
     "compress": true,
     "digest": true,
-    "files": ["stylesheets/html.scss", "stylesheets/highlightjs.css"]
+    "files": ["src/stylesheets/html.scss", "src/stylesheets/highlightjs.css"]
   },
   "javascripts": {
-    "files": ["javascripts/main.js"],
+    "files": ["src/javascripts/main.js"],
     "bundle": false
   },
   "fonts": {
-    "files": "fonts/**/*.*",
+    "files": "src/fonts/**/*.*",
     "destination": "assets/fonts/"
   },
   "webpack": "webpack.config.js",
@@ -28,7 +35,7 @@
     }
   ],
   "codesplit": {
-    "includes": "examples"
+    "includes": "src/examples"
   },
-  "layout": "layouts/default.html"
+  "layout": "src/layouts/default.html"
 }
