@@ -1,31 +1,49 @@
 window.registerP5Sketch((p) => {
+  const colorOrange = '#FFB240';
   let assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
-  let player = new Tone.Player(assetsUrl + '/sound/kill_bill_whistle.mp3');
+  let player = new Tone.Player(
+    assetsUrl + '/sound/kill_bill_whistle_short.mp3'
+  );
   player.toDestination();
 
   let fft = new Tone.FFT();
   player.connect(fft);
   let buttonStyle = `
-        display: block;
-        padding: 20px;
-        background-image:url("${assetsUrl}/img/microphone.png");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 100%;
-        border-radius: 50%;
-        background-color: white;
-    `;
+      display: block;
+      padding: 20px;
+      background-image:url("${assetsUrl}/img/play.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      border-radius: 50%;
+      background-color: white;
+  `;
+
+  function togglePlay() {
+    if (player.state == 'started') {
+      player.stop();
+    } else {
+      player.start();
+    }
+
+    if (player.state === 'stopped') {
+      playBtn.style(`background-image:url("${assetsUrl}/img/play.png")`);
+    } else {
+      playBtn.style(`background-image:url("${assetsUrl}/img/pause.png")`);
+    }
+  }
+
   p.preload = () => {
     //font = loadFont('../../../assets/fonts/fg-virgil.ttf');
   };
 
   p.setup = () => {
-    p.createCanvas(620, 200);
+    p.createCanvas(150, 240);
 
     playBtn = p.createButton('');
     playBtn.style(buttonStyle);
     playBtn.mouseReleased(togglePlay);
-
+    playBtn.position(0, p.height - 50);
     //p.textFont(font);
     p.textSize(12);
 
@@ -37,24 +55,12 @@ window.registerP5Sketch((p) => {
   // let fmax = -Infinity;
   p.draw = () => {
     p.background(255);
-    if (player.state == 'stopped') {
-      console.log('STOP');
-      playBtn.style(`background-image:url("${assetsUrl}/img/play.png")`);
-    } else {
-      playBtn.style(`background-image:url("${assetsUrl}/img/pause.png")`);
-    }
-
-    // Whole canvas
-    // let w = width;
-    // let h = height;
-    // let x = 0;
-    // let y = 0;
 
     // Rectangle
     let w = 40;
-    let h = 120;
+    let h = p.height * 0.7;
     let x = 2;
-    let y = (p.height - h) / 2;
+    let y = 0;
     p.fill('white');
     p.stroke('black');
     p.rect(x, y, w, h);
@@ -83,7 +89,7 @@ window.registerP5Sketch((p) => {
       //min max found empirically
       let fHeight = p.map(f, 50, 120, 0, h);
       fHeight = p.constrain(fHeight, 0, h);
-      p.fill('#FFB240');
+      p.fill(colorOrange);
       p.noStroke();
       // Bar
       // rect(x, y+h-fHeight, w, fHeight);
@@ -91,12 +97,4 @@ window.registerP5Sketch((p) => {
       p.rect(x, y + h - fHeight, w, 4);
     }
   };
-
-  function togglePlay() {
-    if (player.state == 'started') {
-      player.stop();
-    } else {
-      player.start();
-    }
-  }
 });

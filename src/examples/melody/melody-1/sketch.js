@@ -22,8 +22,13 @@ window.registerP5Sketch((p) => {
   //images
   let playBtn;
   let graph, pitchgrid, timegrid, timepitchgrid, measure, pitchLine, timeLine;
-  let audio = new Tone.Player(assetsUrl + '/sound/whistle.mp3');
+
+  /* Duration of audio sample */
+  const AUDIO_DURATION = 13;
+  let audio = new Tone.Player(assetsUrl + '/sound/whistle_2.mp3');
   audio.toDestination();
+  audio.sync().start(0);
+
   let isPlaying = false;
 
   let state = {
@@ -47,6 +52,7 @@ window.registerP5Sketch((p) => {
     pitchLine = p.loadImage(assetsUrl + '/img/pitch.png');
     timeLine = p.loadImage(assetsUrl + '/img/time.png');
   };
+
   p.setup = () => {
     c = p.createCanvas(800, 480);
     playBtn = p.createButton('');
@@ -79,36 +85,23 @@ window.registerP5Sketch((p) => {
       (pitchLine.height * 30) / pitchLine.width + 100
     );
     //p.image(timeLine, 20, graph.height, (timeLine.width*2/timeLine.height)+100, 2);
-    if (audio.state == 'stopped') {
-      playBtn.style(`"background-image:url("${assetsUrl}/img/play.png")"`);
-    } else {
-      playBtn.style(`"background-image:url("${assetsUrl}/img/pause.png")"`);
-      console.log('wwhy?');
-      console.log('currentTime', currentPlayTime);
-      currentPlayTime++;
-    }
 
     p.push();
     p.noStroke();
     p.fill('rgba(176,221,49, 0.2)');
-    let currentTime = currentPlayTime;
-    //let currentTime = audio.currentTime();
-    let rectWidth = p.map(currentTime, 0, 745, 0, p.width);
+    let currentTime = Tone.Transport.seconds / AUDIO_DURATION;
+    let rectWidth = p.map(currentTime, 0, 1, 0, p.width);
     p.rect(xstart, 125, rectWidth, graph.height - 100);
 
     p.pop();
   };
 
   function togglePlay() {
-    if (!isPlaying) {
-      isPlaying = true;
-      if (currentPlayTime == 0) {
-        startTime = p.frameCount;
-      }
-      audio.start();
+    Tone.Transport.toggle();
+    if (Tone.Transport.state == 'stopped') {
+      playBtn.style(`background-image:url("${assetsUrl}/img/play.png")`);
     } else {
-      isPlaying = false;
-      audio.stop();
+      playBtn.style(`background-image:url("${assetsUrl}/img/pause.png")`);
     }
   }
 
