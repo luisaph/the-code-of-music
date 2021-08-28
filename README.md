@@ -101,7 +101,7 @@ Locally, run `NOTION_TOKEN=<YOUR_TOKEN_HERE> yarn import-notion-docs`. This will
 
 #### Using GitHub Actions
 
-To create a PR with the latest data from Notion, run the [Import Notion Docs and create PR](https://github.com/luisaph/the-code-of-music/actions/workflows/import-notion-docs-PR.yml) action. This workflow simply runs the above script.
+To create a PR with the latest data from Notion, run the [Import Notion Docs and create PR](https://github.com/luisaph/the-code-of-music/actions/workflows/import-notion-docs-PR.yml) action by clicking the "Run Workflow" button. This workflow simply runs the above script and creates a PR with the changes.
 
 Note that Github Actions cannot trigger other Github actions directly. That means that this workflow will not automatically trigger the Deploy Preview action. Right now there are a couple workaraounds.
 
