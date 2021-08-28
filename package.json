@@ -11,7 +11,6 @@
     "build:pdf": "magicbook build --config=magicbook-pdf.json && yarn copy-pdf",
     "build:all": "yarn build && yarn build:pdf",
     "copy-pdf": "cp build/pdf/pdf/consolidated.pdf build/web/the-code-of-music.pdf",
-    "move-images": "find ./notion-docs -name '*.png' -exec sudo mv '{}' ./images/ \\;",
     "import-notion-docs": "node scripts/notion-importer.js && yarn format-docs",
     "format-docs": "yarn prettier --write 'src/notion-docs/**/*.md'"
   },

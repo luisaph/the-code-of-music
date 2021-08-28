@@ -10,13 +10,17 @@
       <div>
         <a class="home-link" href="/">
           <h2 class="site-title">
-            <span class="small">The</span> Code
+            Code
             <span class="small">of</span> Music
           </h2>
         </a>
       </div>
     </header>
-    <div class="menu menu--pdf">{{ toc }}</div>
+
+    <div class="menu menu--pdf">
+      <div><h2>Table of Contents</h2></div>
+      {{ toc }}
+    </div>
     <div>{{ content }}</div>
   </body>
 </html>

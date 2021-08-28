@@ -14,16 +14,14 @@ jobs:
           node-version: '14.7.0'
           cache: 'yarn'
 
-      - name: Notion2Github
-        uses: younho9/notion2github@main
-        with:
-          database-url: https://www.notion.so/4081964150024719ac433b4dd0b770fa
-          docs-directory: notion-docs
-        env:
-          NOTION_TOKEN: ${{ secrets.TOKEN_NOTION }}
+      - name: Yarn Install
+        run: yarn install
 
-      - name: Post Notion Import
-        run: npm run post-notion-import
+      - name: Import Notion Docs
+        run: NOTION_TOKEN=${{ secrets.TOKEN_NOTION }} yarn import-notion-docs
+
+      - name: Update folder permissions
+        run: sudo chown -R $USER:$USER .
 
       - name: Create Pull Request
         id: cpr

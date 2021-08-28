@@ -28,7 +28,6 @@
     "destination": "assets/fonts/"
   },
   "webpack": "webpack.config.js",
-
   "builds": [
     {
       "format": "html",

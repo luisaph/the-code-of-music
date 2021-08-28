@@ -62,6 +62,10 @@ section {
   font-family: 'Fredoka One';
 }
 
+@mixin font--content {
+  font-family: 'Atkinson';
+}
+
 .site-header {
   text-align: center;
   padding: 1em;
@@ -376,8 +380,29 @@ section[data-type='sect1'] {
   background: none;
   box-shadow: none;
   position: static;
+  border: none;
   color: $black;
 
+  ol {
+    list-style: decimal;
+    margin-left: 2em;
+
+    ::marker {
+      @include font--display();
+      font-size: 2em;
+    }
+    ol {
+      margin-left: 3em;
+      list-style: lower-roman;
+      ::marker {
+        @include font--content();
+        font-size: 1em;
+      }
+      ol {
+        list-style: none;
+      }
+    }
+  }
   .toc a {
     color: $black !important;
   }
