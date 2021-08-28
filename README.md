@@ -1,6 +1,7 @@
 # The Code of Music (magicbook)
 
-https://codeofmusic-16a81.web.app/
+Web: https://codeofmusic-16a81.web.app/
+PDF: https://codeofmusic-16a81.web.app/the-code-of-music.pdf
 
 The Code of Music is an interactive book that teaches the fundamentals of music theory through code that is available in website or PDF format. It uses [magicbook](https://github.com/magicbookproject/magicbook) and is takes inspiration and architecture from Rune Madsen's [Programming Design Systems](https://github.com/runemadsen/programmingdesignsystems.com) book.
 
