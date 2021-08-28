@@ -22,7 +22,7 @@ The Code of Music is an interactive book that teaches the fundamentals of music 
 - `yarn build` to build the site
 - `yarn build:pdf` to build the PDF version. The PDF will be copied to `build/web` and should be viewable at: http://localhost:5000/the-code-of-music.pdf
 
-### Interactive Examples
+## Interactive P5 Examples
 
 - `yarn serve:examples` serves the static `examples` folder.
 - If you are running the web server, you can also just view the individual examples at `http://localhost:5000/assets/examples/<example_path>`
@@ -81,7 +81,7 @@ window.registerP5Sketch((p) => {
 
 During the build the entire `examples` folder is moved to `build/assets/examples`.
 
-### How the Sketches Render
+### How the P5 Sketches Render
 
 1. The [P5 plugin](https://github.com/luisaph/the-code-of-music/blob/master/plugins/p5.js) defines a tag that we can use in the source documentation and renders the related sketch on the page. The tag's usage is: `{% p5 examples/<folder_containing_example> %}`. Note that it contains logic for rendering the `placeholder.png` in the PDF build.
 
