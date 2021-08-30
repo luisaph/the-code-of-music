@@ -19,6 +19,26 @@ The Code of Music is an interactive book that teaches the fundamentals of music 
 2. In a new tab run `yarn serve` -- this will start a [`live-server`](https://github.com/tapio/live-server) at localhost:5000 and auto refresh when the magic build finishes
 3. Open http://localhost:5000/
 
+## Writing in Notion
+
+#### Code Blocks
+
+There are some quirks with converting notion to markdown because the [official API](https://github.com/makenotion/notion-sdk-js) is still in Beta. A gap in the API is that it [does not support code blocks](https://developers.notion.com/reference/block#block-object-keys). For this reason, we have established our own plain-text way of creating code blocks -- To get around this we use **two back ticks** (``) instead of three to denote a code block. Actual code blocks can still be in the document, but they will be ignored during the import. Example:
+
+```
+``js
+const foo = bar;
+``
+```
+
+#### P5 Sketches
+
+To load an interactive sketch, write
+
+```
+{% p5 examples/<folder_containing_example> %}
+```
+
 ## Build
 
 - `yarn build` to build the site

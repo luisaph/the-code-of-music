@@ -7,28 +7,29 @@ const { Client } = require('@notionhq/client');
 const axios = require('axios');
 const fs = require('fs');
 
-let notion;
-let contentArray = [];
-
 const { NOTION_TOKEN } = process.env;
 
-const BLOCK_NAME = 'Book';
 const DESTINATION_FOLDER = 'src/notion-docs/';
 const IMAGE_FOLDER = 'src/notion-docs/images/';
 const CODE_BLOCK_SYMBOL = '``';
+const DB_ID = 'c36f6b93fcd74dfaa4a7853d87b93bbb';
 
+let notion = new Client({ auth: NOTION_TOKEN });
 let imageIndex = 0;
 
 async function importNotionPages() {
   try {
-    let { results } = await notion.search({
-      query: BLOCK_NAME,
+    /* Get published pages */
+    /* TODO: show draft pages if not production? */
+    let { results: pages } = await notion.databases.query({
+      database_id: DB_ID,
+      filter: {
+        property: 'Status',
+        multi_select: {
+          contains: 'Published',
+        },
+      },
     });
-
-    if (!results || !results.length) {
-      console.log('No data found for block:', BLOCK_NAME);
-      return;
-    }
 
     console.log(`Deleting ${DESTINATION_FOLDER}`);
     fs.rmdirSync(DESTINATION_FOLDER, { recursive: true });
@@ -36,30 +37,20 @@ async function importNotionPages() {
     console.log(`Creating ${DESTINATION_FOLDER}`);
     fs.mkdirSync(DESTINATION_FOLDER, {});
 
-    console.log(`Deleting ${IMAGE_FOLDER}`);
-    fs.rmdirSync(IMAGE_FOLDER, { recursive: true });
-
     console.log(`Creating ${IMAGE_FOLDER}`);
     fs.mkdirSync(IMAGE_FOLDER, {});
 
-    /* Fill contentArray with page data */
-    const blockId = results[0].id;
-    await getPages(blockId, BLOCK_NAME, '');
-
-    /* Write files */
-    contentArray.forEach((page) => {
-      const { path, title, pageString, isParentPage } = page;
+    pages.forEach(async (page) => {
+      const { path, title, pageString } = await pageToMd(page);
       const filePath = `${DESTINATION_FOLDER}${path.toLowerCase()}`;
 
       console.log('Creating directory', filePath);
       fs.mkdirSync(filePath, { recursive: true }, () => {});
 
-      if (!isParentPage) {
-        const fileContents = pageString.toString('base64');
-        const fileName = `${title.toLowerCase()}.md`;
-        console.log('Creating file', fileName);
-        fs.writeFileSync(`${filePath}${fileName}`, fileContents);
-      }
+      const fileContents = pageString.toString('base64');
+      const fileName = `${title.toLowerCase()}.md`;
+      console.log('Creating file', fileName);
+      fs.writeFileSync(`${filePath}/${fileName}`, fileContents);
     });
   } catch (error) {
     throw error;
@@ -67,7 +58,7 @@ async function importNotionPages() {
 }
 
 async function downloadImage(url, fileName) {
-  console.log('downloading image', url);
+  // console.log('downloading image', url);
 
   const { data } = await axios
     .get(url, {
@@ -186,47 +177,72 @@ async function blockToMd(block, chapterTitle) {
   return '';
 }
 
-async function getPages(id, name, parentPath) {
+async function pageContentToMd(blocks, pageTitle) {
+  let result = '';
+  for (let i = 0; i < blocks.length; i++) {
+    let block = blocks[i];
+    result += await blockToMd(block, pageTitle);
+  }
+  return result;
+}
+
+async function pageToMd(page) {
+  const { id, properties } = page;
+  const pageTitle = properties['Name'].title[0].plain_text;
+  const pageType = properties['Page Type'].multi_select[0].name;
+  const templateField = properties['Template'].multi_select;
+  const templateName = templateField[0] && templateField[0].name;
+
+  const isLandingPage = pageType === 'Landing Page';
+
+  /* Special case for the landing page -- name it index and put it in the top-level directory */
+  const pagePath = isLandingPage ? '' : 'chapters';
+  const fileName = isLandingPage ? 'index' : pageTitle;
+
   let { results: blocks } = await notion.blocks.children.list({
     block_id: id,
   });
 
-  /* "Parent" page that only contains child pages */
-  const hasOnlyChildPages =
-    blocks.filter(({ type }) => type === 'child_page').length === blocks.length;
+  /* Create page Frontmatter -- https://github.com/magicbookproject/magicbook#yaml-frontmatter */
+  const frontMatter = {
+    title: pageTitle,
+  };
 
-  if (!blocks || blocks.length <= 0) {
-    return;
-  }
+  /* TODO: add custom template -- this seems to break the PDF build though, so might not be worth it */
 
-  /* Does not add header for index page */
-  let pageString = name === 'index' ? '' : `# ${name}\n`;
+  // if (templateName) {
+  //   frontMatter.layout = `src/layouts/${templateName}`;
+  // }
 
-  for (let i = 0; i < blocks.length; i++) {
-    let block = blocks[i];
-    if (block.type == 'child_page') {
-      /* Recursive call */
-      await getPages(
-        block.id,
-        block[block.type].title,
-        parentPath + (name === BLOCK_NAME ? '' : `${name}/`)
-      );
-    } else {
-      let blockMardkwon = await blockToMd(block, name);
-      pageString += blockMardkwon;
-    }
-  }
-
-  contentArray.push({
-    pageString,
-    path: parentPath,
-    title: name,
-    isParentPage: hasOnlyChildPages,
+  let frontMatterString = '';
+  Object.keys(frontMatter).forEach((key) => {
+    const val = frontMatter[key];
+    if (!val) return;
+    frontMatterString += `${key}: ${val}\n`;
   });
+
+  let pageString = `
+  ---
+  ${frontMatterString}
+  ---
+  `;
+
+  /* Add H1 Header for non-landing pages */
+  if (!isLandingPage) {
+    pageString += `# ${pageTitle}\n`;
+  }
+
+  const pageContentMarkdown = await pageContentToMd(blocks, pageTitle);
+  pageString += pageContentMarkdown;
+
+  return {
+    pageString,
+    path: pagePath,
+    title: fileName,
+  };
 }
 
 async function onStart() {
-  notion = new Client({ auth: NOTION_TOKEN });
   await importNotionPages();
 }
 

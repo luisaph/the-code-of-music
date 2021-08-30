@@ -1,5 +1,0 @@
-# Rhythm
-
-Coming soon...
-
-Changes

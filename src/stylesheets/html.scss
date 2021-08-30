@@ -3,6 +3,7 @@
 $menu-width: 320px;
 $menu-padding: 2em;
 $menu-transition-speed: 0.2s;
+$orange: #f56324;
 $highlight-color: #004ec2;
 $header-height: 180px;
 $bp-medium: 800px;
@@ -82,6 +83,11 @@ section {
   text-decoration: none;
   color: $black;
 }
+
+.logo {
+  max-width: 17em;
+}
+
 .site-title {
   display: flex;
   align-items: center;
@@ -243,7 +249,7 @@ section[data-type='sect1'] {
   padding: 40px;
   word-wrap: break-word;
   width: 90%;
-  max-width: 1000px;
+  max-width: 980px;
   margin: 0 auto;
   p {
     font-size: 1.2em;

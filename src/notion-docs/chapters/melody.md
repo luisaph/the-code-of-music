@@ -1,3 +1,9 @@
+---
+
+title: Melody
+
+---
+
 # Melody
 
 If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end. Here is one example of a melody:

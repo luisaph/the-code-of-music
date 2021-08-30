@@ -5,7 +5,7 @@
   "images": {
     "files": [
       "src/notion-docs/images/**/*.png",
-      "src/images/**/*.png",
+      "src/images/**/*.*",
       "src/examples/img/*.*"
     ],
     "destination": "assets/img/"

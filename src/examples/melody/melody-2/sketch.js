@@ -1,4 +1,6 @@
 window.registerP5Sketch((p) => {
+  const colorOrange = [245, 18, 0];
+
   const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
   let lasteventframecount;
   let lastDecay = 0;
@@ -50,6 +52,7 @@ window.registerP5Sketch((p) => {
     mic = new Tone.UserMedia().toDestination();
     playBtn = p.createButton('');
     playBtn.style(buttonStylemp);
+    playBtn.position(0, p.height - 70);
     playBtn.mouseReleased(togglePlay);
     //playBtn.position(p.width/2, p.height/2);
 
@@ -108,7 +111,7 @@ window.registerP5Sketch((p) => {
         p.push();
         p.noStroke();
         if (isRecording) {
-          p.fill('#FFB240');
+          p.fill(colorOrange);
         } else {
           p.fill('#333333');
         }

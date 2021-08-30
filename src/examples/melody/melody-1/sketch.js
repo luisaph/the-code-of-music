@@ -1,27 +1,14 @@
 window.registerP5Sketch((p) => {
+  const colorOrange = [245, 18, 0];
+
   const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
-  let c;
-  let rc;
-  let frame = 0;
-  let pitchValues = [];
-  let fromcolour = '#f56a07';
-  let tocolour = '#c1ff7a';
-  let fmin = 0;
-  let fmax = 120;
   let w = 800;
   let h = 250;
-
-  let gridLines = 5;
-  let ystart = h - 30;
-  let yend = 0;
   let xstart = 20;
-  let xend = w - xstart;
-  let currentValue = 0;
-  let startTime = 0;
-  let currentPlayTime = 0;
+
   //images
   let playBtn;
-  let graph, pitchgrid, timegrid, timepitchgrid, measure, pitchLine, timeLine;
+  let graph, pitchgrid, timegrid, timepitchgrid, pitchLine;
 
   /* Duration of audio sample */
   const AUDIO_DURATION = 13;
@@ -33,12 +20,11 @@ window.registerP5Sketch((p) => {
   audio.toDestination();
   audio.sync().start(0);
 
-  let isPlaying = false;
-
   let state = {
     time: false,
     pitch: false,
   };
+
   let showtimebtn, actshowtimebtn;
   let showpitchbtn, actshowpitchbtn;
 
@@ -92,7 +78,7 @@ window.registerP5Sketch((p) => {
 
     p.push();
     p.noStroke();
-    p.fill('rgba(176,221,49, 0.2)');
+    p.fill(...colorOrange, 50);
     let currentTime = Tone.Transport.seconds / AUDIO_DURATION;
     let rectWidth = p.map(currentTime, 0, 1, 0, p.width);
     p.rect(xstart, 125, rectWidth, graph.height - 100);

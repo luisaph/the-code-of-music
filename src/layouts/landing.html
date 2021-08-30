@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ config.title }}</title>
+    {{ javascripts }} {{ stylesheets }}
+  </head>
+  <body data-type="book">
+    {% if format == 'html' %} {% include nav.html %} {% endif %}
+
+    <div class="page-container">
+      <div>
+        {% include header.html %}
+        <main class="chap">
+          <article>
+            <div>{{ content }}</div>
+            {% if format == 'html' %}
+            <div>
+              <a href="/chapters/melody.html"
+                ><button>Start Reading!</button></a
+              >
+            </div>
+            {% endif %}
+          </article>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

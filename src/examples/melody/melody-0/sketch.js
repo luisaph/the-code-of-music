@@ -1,5 +1,5 @@
 window.registerP5Sketch((p) => {
-  const colorOrange = '#FFB240';
+  const colorOrange = '#F56324';
   let assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
   let player = new Tone.Player(
     assetsUrl + '/sound/kill_bill_whistle_short.mp3'
