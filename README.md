@@ -107,7 +107,7 @@ During the build the entire `examples` folder is moved to `build/assets/examples
 
 1. The [P5 plugin](https://github.com/luisaph/the-code-of-music/blob/master/plugins/p5.js) defines a tag that we can use in the source documentation and renders the related sketch on the page. The tag's usage is: `{% p5 examples/<folder_containing_example> %}`. Note that it contains logic for rendering the `placeholder.png` in the PDF build.
 
-2. In [preload.js](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js) we define a class to manage the P5 sketches. This file is [loaded in the `<head>`](https://github.com/luisaph/the-code-of-music/blob/master/layouts/default.html#23), so before the content loads. It [exposes](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L71) the global `registerP5Sketch` function.
+2. In [P5SketchManager.js](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/P5SketchManager.js) we define a class to manage the P5 sketches. This file is [loaded in the `<head>`](https://github.com/luisaph/the-code-of-music/blob/master/layouts/default.html#23), so before the content loads. It [exposes](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L71) the global `registerP5Sketch` function.
 
 3. As the content renders, the P5 sketch scripts each call `window.registerP5Sketch` which [adds them to the list of sketches to be loaded](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L25).
 

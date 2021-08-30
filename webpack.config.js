@@ -29,7 +29,10 @@ const config = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/examples', to: 'examples' },
-        { from: 'src/javascripts/preload.js', to: 'preload.js' },
+        {
+          from: 'src/javascripts/P5SketchManager.js',
+          to: 'P5SketchManager.js',
+        },
       ],
     }),
   ],
