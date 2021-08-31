@@ -13,6 +13,7 @@ const DESTINATION_FOLDER = 'src/notion-docs/';
 const IMAGE_FOLDER = 'src/notion-docs/images/';
 const CODE_BLOCK_SYMBOL = '``';
 const DB_ID = 'c36f6b93fcd74dfaa4a7853d87b93bbb';
+const LOCAL_EMBED_DOMAIN_NAME = 'codeofmusic-16a81.web.app';
 
 let notion = new Client({ auth: NOTION_TOKEN });
 let imageIndex = 0;
@@ -131,7 +132,11 @@ async function blockToMd(block, chapterTitle) {
   }
 
   if (type === 'paragraph') {
-    /* NOTE: HACK!!! -- this allows us to render code blocks by replacing `` in the source with ``` in markdown */
+    /*
+      NOTE: HACK!!! -- this allows us to render code blocks by
+      replacing `` in the source with ``` in markdown
+      We should remove this when the API supports code blocks
+    */
     let rendered = textToMd(text);
     if (rendered === CODE_BLOCK_SYMBOL) {
       return '```\n';
@@ -145,13 +150,18 @@ async function blockToMd(block, chapterTitle) {
 
   if (type === 'embed') {
     const { url } = block[type];
-    /* TODO: extract embed name and add P5 tag: {% P5 <path> %} */
-    // return `Embed: ${url}\n\n`;
 
-    /* Example iframe usage */
-    // return `<iframe src="${url}"></iframe>\n\n`;
+    /* Check URL to see if it's our own local example */
+    const isLocalExampleUrl = url.includes(LOCAL_EMBED_DOMAIN_NAME);
 
-    return '';
+    /* Create custom p5 tag for local examples */
+    if (isLocalExampleUrl) {
+      const examplePath = url.split('examples/')[1];
+      return `{% p5 ${examplePath} %}\n\n`;
+    }
+
+    /* Otherwise create iframe */
+    return `<iframe src="${url}"></iframe>\n\n`;
   }
 
   if (type === 'image') {
