@@ -29,6 +29,7 @@ const config = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/examples', to: 'examples' },
+        { from: 'src/libs', to: 'libs' },
         {
           from: 'src/javascripts/P5SketchManager.js',
           to: 'P5SketchManager.js',
