@@ -1,186 +1,121 @@
 window.registerP5Sketch((p) => {
-  const colorOrange = [245, 18, 0];
-
+  const colorPrimary = '#ff3100';
+  const colorSecondary = '#176beb';
   const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
-  let lasteventframecount;
-  let lastDecay = 0;
-  let freqUpdate = false;
-  let previousPosition = [];
-  let c;
-  let rc;
-  let circles = 50;
-  let amp = 6;
-  let divs = 4;
-  let x, y, w, h;
-  let cy, cx;
 
-  let mic, fft;
-  let freq = 10;
-  let prevFreq = 10;
-  let lastUpdate = 0;
-  let minFreq = 100;
-  let maxFreq = 2000;
-  let notePosX = 0;
-  let osc, generator;
+  let midiData, audioDuration;
 
-  let isRecording = false;
+  let showTimeGrid = false;
+  let showNoteGrid = false;
 
-  let mouth, ear;
+  Midi.fromUrl(`${assetsUrl}/sound/kill_bill_whistle_short2.mid`).then(
+    (data) => {
+      midiData = data;
 
-  let audioContext;
-  let pitch;
-  fft = new Tone.FFT();
-  let playBtn;
-  let buttonStylemp = `
-    display: block;
-    padding: 20px;
-    background-image:url("${assetsUrl}/img/microphone.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 50%;
-    background-color: white;
-  `;
+      const { endOfTrackTicks } = midiData.tracks[0];
 
-  p.preload = () => {
-    console.log('assetsUrl', assetsUrl);
-    mouth = p.loadImage(assetsUrl + '/img/mouth.png');
-    ear = p.loadImage(assetsUrl + '/img/ear.png');
-  };
+      /* Duration of audio sample */
+      const sPerTick = 60000 / (111.96 * 96);
+      audioDuration = (endOfTrackTicks * sPerTick) / 1000;
+
+      Tone.Transport.loop = true;
+      Tone.Transport.loopEnd = audioDuration;
+
+      const audio = new Tone.Player(`${assetsUrl}/sound/whistle_2.mp3`);
+      audio.toDestination();
+      audio.sync().start(0);
+    }
+  );
+
   p.setup = () => {
-    c = p.createCanvas(800, 300);
-    mic = new Tone.UserMedia().toDestination();
-    playBtn = p.createButton('');
-    playBtn.style(buttonStylemp);
-    playBtn.position(0, p.height - 70);
+    c = p.createCanvas(800, 480);
+    const playBtn = p.createButton('');
+    playBtn.class('play-button mt-1');
     playBtn.mouseReleased(togglePlay);
-    //playBtn.position(p.width/2, p.height/2);
-
-    // angleMode(DEGREES);
-
-    //textFont(font);
     p.textSize(12);
+
+    const showTimeGridBtn = p
+      .createButton('Show Time Grid')
+      .class('btn btn--toggle mt-1')
+      .mousePressed(() => {
+        showTimeGrid = !showTimeGrid;
+      });
+
+    const showNoteGridBtn = p
+      .createButton('Show Note Grid')
+      .class('btn btn--toggle mt-1')
+      .mousePressed(() => {
+        showNoteGrid = !showNoteGrid;
+      });
+
+    /* Custom load handler */
+    if (p.onLoaded) {
+      p.onLoaded();
+    }
   };
 
   p.draw = () => {
+    if (!midiData) return;
+
+    const { endOfTrackTicks, notes } = midiData.tracks[0];
+    const noteHeight = 30;
+    const minNote = 84;
+    const numLines = 6;
+
     p.background(255);
-    x = 2;
-    y = p.height / 2;
-    w = p.width - 2 * x;
-    cy = p.height / 2;
-    cx = p.width / 4 - 40;
-    p.image(
-      ear,
-      cx + p.width - ear.width - 240,
-      p.height / 3,
-      80,
-      (ear.height * 80) / ear.width
-    );
-    p.push();
-    p.textSize(12);
-    let textString = '';
+    p.stroke(0, 50);
 
-    for (let i = 0; i < circles; i++) {
-      //draw circle
-      let r =
-        20 +
-        9 * i +
-        amp *
-          p.sin(p.frameCount * (-2 * p.PI * freq * 0.002) + (p.PI / 4.5) * i);
-      p.push();
-      p.noFill();
-      p.strokeWeight(0.6);
-      p.stroke(230, 230, 230);
-      p.arc(cx, p.height / 2, 2 * r, 2 * r, p.PI / 10, 2 * p.PI - p.PI / 9);
-      p.pop();
-
-      //draw molecule
-      let phaseDiff = 0;
-      /*if(prevFreq != freq) {
-                    phaseDiff = Math.abs(freq-prevFreq)*2*PI*frameCount
-                }*/
-      let div = divs;
-      if (i < 6) {
-        div = (7 - i) * divs;
-      }
-      for (let j = 0; j < p.floor(40 / div); j++) {
-        let radian = p.radians(j * div);
-        let x, y;
-        x = cx + r * p.sin(radian + p.PI / 2.5);
-        y = cy + r * p.cos(radian + p.PI / 2.5);
-        p.push();
-        p.noStroke();
-        if (isRecording) {
-          p.fill(colorOrange);
-        } else {
-          p.fill('#333333');
-        }
-        p.ellipse(x, y, 4);
-        p.pop();
+    if (showTimeGrid) {
+      for (let i = 0; i < p.width; i += p.width / numLines) {
+        p.line(i, 0, i, p.height);
       }
     }
-    if (isRecording) {
-      textString = 'Stop recording';
-      getPitch();
-    } else {
-      textString = 'Start recording';
-    }
-    p.text(textString, 0, p.height - 3);
-    p.pop();
-    p.imageMode(p.CORNER);
-    p.image(
-      mouth,
-      cx - 75,
-      p.height / 3 - 25,
-      100,
-      (mouth.height * 100) / mouth.width
-    );
-    p.push();
-    p.textSize(15);
-    p.textStyle(p.BOLD);
-    /*if(freq) {
-                p. text("Frequency: " + freq.toFixed(2) + "Hz", 0, p.height-30);
-            }*/
-    p.pop();
-  };
-  function togglePlay() {
-    if (!isRecording) {
-      //mic = new p5.AudioIn();
-      //mic.start(startPitch);
-      startAudio();
-    }
-    isRecording = !isRecording;
-  }
 
-  function startAudio() {
-    mic.open().then(function () {
-      mic.connect(fft);
-      getPitch();
+    if (showNoteGrid) {
+      for (let i = 0; i < p.height; i += noteHeight) {
+        p.line(0, i, p.width, i);
+      }
+    }
+
+    const currentTime = Tone.Transport.seconds / audioDuration;
+
+    notes.forEach(({ ticks, time, durationTicks, midi }, i) => {
+      /* Don't show last note which is used to set the end time */
+      if (i === notes.length - 1) return;
+
+      const x = p.map(ticks, 0, endOfTrackTicks, 0, p.width);
+      const y = p.height - (midi - minNote) * noteHeight;
+      const w = p.map(durationTicks, 0, endOfTrackTicks, 0, p.width);
+
+      var c = p.color(colorPrimary);
+
+      if (currentTime > ticks / endOfTrackTicks) {
+        c.setAlpha(255);
+      } else {
+        c.setAlpha(50);
+      }
+
+      p.fill(c);
+      p.noStroke();
+      p.rect(x, y, w, noteHeight);
     });
-  }
-  function getPitch() {
-    let frequencyData = fft.getValue();
-    let max = -1 * p.int(Infinity);
-    let min = 0;
-    let f;
-    for (let i = 0; i < frequencyData.length; i++) {
-      console.log('freq', frequencyData[i]);
-      if (frequencyData[i] > max) {
-        max = frequencyData[i];
-        f = i;
-      }
-    }
 
-    let newfreq = p.map(f, 1, 1024, 10, 300);
-    console.log('math', Math.abs(newfreq - freq));
-    if (
-      prevFreq != newfreq &&
-      p.frameCount - lastUpdate > 10 &&
-      Math.abs(newfreq - freq) > 0.99
-    ) {
-      lastUpdate = p.frameCount;
-      prevFreq = freq;
-      freq = newfreq;
+    const overlayC = p.color(colorSecondary);
+    const rectWidth = p.map(currentTime, 0, 1, 0, p.width);
+
+    overlayC.setAlpha(20);
+    p.fill(overlayC);
+    p.rect(0, 0, rectWidth, p.height);
+    overlayC.setAlpha(100);
+    p.fill(overlayC);
+    p.rect(rectWidth - 2, 0, 4, p.height);
+  };
+
+  function togglePlay() {
+    if (Tone.Transport.state === 'started') {
+      Tone.Transport.pause();
+    } else {
+      Tone.Transport.start();
     }
   }
 });

@@ -1,67 +1,19 @@
-@font-face {
-  font-family: 'Palette Mosaic';
-  src: font-path('Palette_Mosaic/PaletteMosaic-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
+$orange: #f56324;
+$header-height: 180px;
+$bp-medium: 800px;
+$black: #222;
+$white: #fff;
+$page-max-width: 980px;
 
-@font-face {
-  font-family: 'Fredoka One';
-  src: font-path('Fredoka_One/FredokaOne-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
+$theme-red: #ff3100;
+$theme-blue: #176beb;
 
-@font-face {
-  font-family: 'Fredoka One';
-  src: font-path('Fredoka_One/FredokaOne-Regular.ttf');
-  font-weight: bold;
-  font-style: normal;
-}
+$highlight-color: $black;
+$link-underline-color: $black;
 
-@font-face {
-  font-family: 'Lora';
-  src: font-path('Lora/Lora-VariableFont_wght.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
+$menu-width: 320px;
+$menu-padding: 1.5em;
+$menu-transition-speed: 0.2s;
 
-@font-face {
-  font-family: 'Lora';
-  src: font-path('Lora/Lora-Italic-VariableFont_wght.ttf');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Atkinson';
-  src: font-path('Atkinson_Hyperlegible/AtkinsonHyperlegible-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Atkinson';
-  src: font-path('Atkinson_Hyperlegible/AtkinsonHyperlegible-Bold.ttf');
-  font-weight: bold;
-  font-style: normal;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: 'Fredoka One';
-  font-weight: normal;
-}
-
-p {
-  font-family: 'Atkinson', sans-serif;
-}
-
-body {
-  font-family: 'Atkinson', 'Arial', sans-serif;
-  font-weight: normal;
-  color: #333;
-}
+$font--display: 'Darker Grotesque', 'Helvetica', sans-serif;
+$font--body: 'Cousine', sans-serif;

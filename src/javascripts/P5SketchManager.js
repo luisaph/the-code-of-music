@@ -18,6 +18,13 @@ function P5SketchManager() {
   /* Sketches that have been loaded */
   const activeSketches = [];
 
+  const resizeSketches = () => {
+    const mainWidth = document.querySelector('main article').offsetWidth;
+    activeSketches.forEach((sketch) => {
+      sketch.resizeCanvas(mainWidth, sketch.height);
+    });
+  };
+
   return {
     loopOnlyOnScreenSketches,
 
@@ -41,6 +48,12 @@ function P5SketchManager() {
         /* Render the sketch */
         const sketch = new p5(fn, node, true);
 
+        /* Custom on loaded handler to set width */
+        sketch.onLoaded = () => {
+          sketch.resizeCanvas(node.offsetWidth, sketch.height);
+          node.getElementsByClassName.height = sketch.height;
+        };
+
         if (loopOnlyOnScreenSketches) {
           /* For performance reasons, disable by default  */
           sketch.noLoop();
@@ -62,10 +75,13 @@ function P5SketchManager() {
       const index = sketchId.split('-')[1];
       activeSketches[index].loop();
     },
+
+    resizeSketches,
   };
 }
 
 window.P5SketchManager = new P5SketchManager();
 
+window.addEventListener('resize', P5SketchManager.resizeSketches);
 /* Expose register function to p5 sketch files */
 window.registerP5Sketch = P5SketchManager.registerP5Sketch;
