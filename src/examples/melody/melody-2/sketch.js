@@ -31,7 +31,15 @@ window.registerP5Sketch((p) => {
     c = p.createCanvas(800, 480);
     const playBtn = p.createButton('');
     playBtn.class('play-button mt-1');
-    playBtn.mouseReleased(togglePlay);
+    playBtn.mouseReleased(() => {
+      if (Tone.Transport.state === 'started') {
+        Tone.Transport.pause();
+        playBtn.removeClass('play-button--stop');
+      } else {
+        Tone.Transport.start();
+        playBtn.addClass('play-button--stop');
+      }
+    });
     p.textSize(12);
 
     const showTimeGridBtn = p
@@ -110,12 +118,4 @@ window.registerP5Sketch((p) => {
     p.fill(overlayC);
     p.rect(rectWidth - 2, 0, 4, p.height);
   };
-
-  function togglePlay() {
-    if (Tone.Transport.state === 'started') {
-      Tone.Transport.pause();
-    } else {
-      Tone.Transport.start();
-    }
-  }
 });

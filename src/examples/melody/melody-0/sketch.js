@@ -8,13 +8,7 @@ window.registerP5Sketch((p) => {
 
   player.toDestination();
 
-  function togglePlay() {
-    if (player.state == 'started') {
-      player.stop();
-    } else {
-      player.start();
-    }
-  }
+  function togglePlay() {}
 
   p.setup = () => {
     p.createCanvas(p.windowWidth, sketchHeight);
@@ -22,7 +16,15 @@ window.registerP5Sketch((p) => {
     const pad = 10;
     const playBtn = p.createButton('');
     playBtn.class('play-button');
-    playBtn.mouseReleased(togglePlay);
+    playBtn.mouseReleased(() => {
+      if (player.state == 'started') {
+        player.stop();
+        playBtn.removeClass('play-button--stop');
+      } else {
+        player.start();
+        playBtn.addClass('play-button--stop');
+      }
+    });
     playBtn.position(pad, 8);
 
     p.background(255);

@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
       MENU_CLOSED_CLASSNAME,
       document.body.classList.contains(MENU_CLOSED_CLASSNAME)
     );
+
+    /* Resize Sketches when animation completes */
+    setTimeout(P5SketchManager.resizeSketches, 200);
   });
 
   window.addEventListener('hashchange', () => {

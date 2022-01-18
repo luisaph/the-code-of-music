@@ -10,21 +10,10 @@ body {
   width: 100%;
 }
 
-.play-button {
-  background: black;
-  width: 3.5em;
-  height: 3.5em;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  justify-content: center;
-  align-content: center;
-}
-
 .mt-1 {
   margin-top: 1em;
 }
+
 .btn {
   padding: 1em 4em;
   cursor: pointer;
@@ -36,20 +25,45 @@ body {
   height: 3.5em;
 }
 
-.play-button:hover {
-  transform: scale3d(1.1, 1.1, 1);
-}
-.play-button:active {
-  transform: scale3d(0.8, 0.8, 1);
+.play-button {
+  background: black;
+  width: 3.5em;
+  height: 3.5em;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  justify-content: center;
+  align-content: center;
+  transform: scale3d(1, 1, 1);
 }
 
 .play-button:after {
   content: '';
   position: absolute;
-  border: 10px solid transparent;
-  border-left-width: 15px;
+  border: 12px solid transparent;
+  border-left-width: 18px;
   border-left-color: white;
   width: 0;
   height: 0;
-  transform: translateX(-15%) translateY(-45%);
+  transform: translate3d(-23%, -50%, 0);
+}
+
+.play-button.play-button--stop:after {
+  content: '';
+  width: 40%;
+  height: 40%;
+  border: none;
+  margin: 0 auto;
+  border-radius: 1px;
+  background: white;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.play-button:hover {
+  transform: scale3d(1.1, 1.1, 1);
+}
+
+.play-button:active {
+  transform: scale3d(0.8, 0.8, 1);
 }

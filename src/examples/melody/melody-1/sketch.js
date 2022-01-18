@@ -13,14 +13,6 @@ window.registerP5Sketch((p) => {
   player.connect(fft);
   player.toDestination();
 
-  function togglePlay() {
-    if (player.state == 'started') {
-      player.stop();
-    } else {
-      player.start();
-    }
-  }
-
   p.setup = () => {
     const pad = 10;
     p.createCanvas(p.windowWidth, sketchHeight);
@@ -32,7 +24,15 @@ window.registerP5Sketch((p) => {
 
     const playBtn = p.createButton('');
     playBtn.class('play-button');
-    playBtn.mouseReleased(togglePlay);
+    playBtn.mouseReleased(() => {
+      if (player.state == 'started') {
+        player.stop();
+        playBtn.removeClass('play-button--stop');
+      } else {
+        player.start();
+        playBtn.addClass('play-button--stop');
+      }
+    });
     playBtn.position(pad, p.height - 56);
 
     /* Custom load handler */
