@@ -37,7 +37,7 @@ body {
   @include font--content();
   font-weight: normal;
   color: $black;
-  background: #eee;
+  background: $gray-light;
 }
 
 button {
@@ -84,7 +84,7 @@ iframe {
   width: 100%;
   height: 100%;
   min-height: 250px;
-  border: 1px dashed #eee;
+  border: 1px dashed $gray-light;
 }
 
 .site-header {
@@ -169,13 +169,13 @@ iframe {
   position: fixed;
   height: 8em;
   width: 8em;
-  top: 0;
+  top: 2em;
   left: 0;
   z-index: 5;
   background: none;
   border: none;
-  transform: scale3d(1, 1, 1);
-  padding: 1em;
+  transform: scale3d(0.8, 0.8, 1);
+  // padding: 1.8em;
 }
 .menu-button svg {
   transition: all 0.2s;
@@ -187,7 +187,7 @@ iframe {
 
 .menu-button__icon--close {
   @include icon--visible();
-  opacity: 0.4;
+  opacity: 0.8;
   // transform: scale3d(0.6, 0.6, 1);
 }
 
@@ -279,9 +279,9 @@ section[data-type='sect1'] {
 
 .menu {
   z-index: 2;
-  // background: $black;
+  background: $gray-light;
   color: $black;
-  background: #fafafa;
+  // background: #fafafa;
   // border-right: 2px solid $black;
   transition: all $menu-transition-speed;
   width: $menu-width;
@@ -342,36 +342,45 @@ section[data-type='sect1'] {
     color: $black;
     transition: all 0.2s;
     display: inline;
+
     &:after {
       content: '';
-      width: 0.6em;
-      height: 0.3em;
-      border-radius: 0.2em;
-      background: $highlight-color;
+      width: 0.5em;
+      height: 0.5em;
+      border-radius: 50%;
+      background: $theme-red;
       position: absolute;
       left: 0;
-      top: 0.5em;
+      top: 0.25em;
       transition: all 0.2s;
       opacity: 0;
       transform: scaleX(0);
     }
+
     &:hover {
-      background: rgba(0, 0, 0, 0.05);
-      color: $highlight-color;
-    }
-    &.is-active {
-      color: $highlight-color;
       font-weight: bold;
-      background: rgba(0, 0, 0, 0.1);
+      color: $highlight-color;
     }
+
+    &.is-active {
+      font-weight: bold;
+      padding-left: 0.75em;
+      &:after {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
     &[data-toc='sect1'] {
       font-size: 1.2em;
       display: inline-block;
       margin-bottom: 0.3em;
     }
+
     &[data-toc='sect2'] {
       opacity: 0.8;
     }
+
     &[data-toc='chapter'] {
       padding-left: 0em;
       border-top: 2px solid $black;
@@ -383,9 +392,6 @@ section[data-type='sect1'] {
       font-size: 2em;
       font-weight: bold;
       margin-bottom: 0.6em;
-      &:after {
-        opacity: 0 !important;
-      }
       &:hover {
         color: rgba($highlight-color, 0.5);
       }
