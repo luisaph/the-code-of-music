@@ -1,9 +1,25 @@
+@import url('https://rsms.me/inter/inter.css');
+html {
+  font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
+@font-face {
+  font-family: 'Compagnon';
+  src: url('fonts/Compagnon/Compagnon-Roman.woff2') format('woff2'),
+    url('fonts/Compagnon/Compagnon-Roman.woff') format('woff');
+}
+
 $orange: #f56324;
 $header-height: 180px;
 $bp-medium: 800px;
-$black: #222;
+$black: rgb(34, 33, 33);
 $white: #fff;
-$gray-light: #eee;
+$gray-light: rgb(238, 235, 232);
 $page-max-width: 980px;
 
 $theme-red: #ff3100;
@@ -16,5 +32,6 @@ $menu-width: 320px;
 $menu-padding: 1.5em;
 $menu-transition-speed: 0.2s;
 
-$font--display: 'Darker Grotesque', 'Helvetica', sans-serif;
-$font--body: 'Cousine', sans-serif;
+$font--display: 'Inter', sans-serif;
+$font--body: 'Compagnon', sans-serif;
+// $font--body: 'Cousine', sans-serif;

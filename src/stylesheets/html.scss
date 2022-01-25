@@ -41,7 +41,7 @@ body {
 }
 
 button {
-  @include font--content();
+  @include font--display();
 }
 
 body,
@@ -87,6 +87,11 @@ iframe {
   border: 1px dashed $gray-light;
 }
 
+#global-volume-control {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
 .site-header {
   max-width: $page-max-width;
   margin: 0 auto;
@@ -154,6 +159,7 @@ iframe {
 }
 
 .p5-sketch-link {
+  @include font--display();
   font-size: 0.7em;
   position: absolute;
   top: 0;
@@ -278,6 +284,8 @@ section[data-type='sect1'] {
 }
 
 .menu {
+  @include font--display();
+
   z-index: 2;
   background: $gray-light;
   color: $black;
