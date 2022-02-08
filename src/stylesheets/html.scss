@@ -151,11 +151,9 @@ iframe {
   margin: 2em 0;
 }
 
-.p5container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  position: relative;
+.p5-figure .is-active {
+  /* ENABLE FOR DEBUGGING ACTIVE SKETCHES */
+  // outline: 10px solid rgb(255, 0, 0);
 }
 
 .p5-sketch-link {

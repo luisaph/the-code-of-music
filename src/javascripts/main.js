@@ -1,17 +1,5 @@
 console.log('MAIN.JS loaded');
 
-function isAnyPartOfElementInViewport(el) {
-  const rect = el.getBoundingClientRect();
-  // DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
-  const windowHeight =
-    window.innerHeight || document.documentElement.clientHeight;
-
-  // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
-  const vertInView = rect.top <= windowHeight && rect.top + rect.height >= 0;
-
-  return vertInView;
-}
-
 /* UI Code for handling Menu open/close and highlighting of current page section */
 document.addEventListener('DOMContentLoaded', () => {
   const MENU_CLOSED_CLASSNAME = 'menu-is-closed';
@@ -21,15 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
   let sections;
   let sketches;
 
-  const debounce = (callback, wait) => {
-    let timeoutId = null;
-    return (...args) => {
-      window.clearTimeout(timeoutId);
-      timeoutId = window.setTimeout(() => {
-        callback.apply(null, args);
-      }, wait);
-    };
-  };
+  // const enableVisibleSketches = () => {
+  //   sketches.forEach((s) => s.classList.remove('is-active'));
+  //   const visibleSketches = [...sketches].filter(
+  //     utils.isAnyPartOfElementInViewport
+  //   );
+
+  //   console.log('visibleSketches:', visibleSketches);
+  //   visibleSketches.forEach((s) => s.classList.add('is-active'));
+
+  //   if (P5SketchManager.loopOnlyOnScreenSketches) {
+  //     P5SketchManager.pauseAllP5Sketches();
+
+  //     visibleSketches.forEach((e) => {
+  //       P5SketchManager.resumeP5Sketch(e.id);
+  //     });
+  //   }
+  // };
 
   const updateActiveMenuLink = () => {
     document.querySelectorAll('.menu a').forEach((el) => {
@@ -51,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
   sketches = document.querySelectorAll('.p5-figure');
   console.log('SKETCHES', sketches);
 
+  // setTimeout(() => {
+  //   P5SketchManager.enableVisibleSketches();
+  // }, 500);
   /* Read from local storage */
   /* TODO: can we do this before the first page render? */
 
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener(
     'scroll',
-    debounce(() => {
+    utils.debounce(() => {
       let newActiveSectionId;
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -114,21 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
           location.hash = `#${activeSectionId}`;
         }
         updateActiveMenuLink();
-
-        const sectionSketches = [...sketches].filter(
-          isAnyPartOfElementInViewport
-        );
-
-        console.log('section sketches', sectionSketches);
-
-        if (P5SketchManager.loopOnlyOnScreenSketches) {
-          P5SketchManager.pauseAllP5Sketches();
-
-          sectionSketches.forEach((e) => {
-            P5SketchManager.resumeP5Sketch(e.id);
-          });
-        }
       }
+
+      P5SketchManager.enableVisibleSketches();
     }),
     200
   );

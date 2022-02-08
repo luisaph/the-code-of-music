@@ -13,9 +13,10 @@
     <script>
       // Load instance-mode sketch
       window.registerP5Sketch = (sketch) => {
-        new p5(sketch);
+        new p5(sketch, 'p5container');
       };
     </script>
+    <div id="p5container" class="p5container"></div>
     <script src="sketch.js"></script>
   </body>
 </html>

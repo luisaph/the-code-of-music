@@ -10,13 +10,16 @@ window.EXAMPLES_ASSETS_URL = '/assets/examples/assets';
 */
 function P5SketchManager() {
   /* Experimental feature to only 'loop' the visible sketches -- additional logic in main.js */
-  const loopOnlyOnScreenSketches = false;
+  const loopOnlyOnScreenSketches = true;
+
+  let activeSketchId = null;
 
   /* Array of p5 instance-mode functions on this page */
   const p5SketchesToLoad = [];
 
   /* Sketches that have been loaded */
   const activeSketches = [];
+  const nodes = [];
 
   const resizeSketches = () => {
     const mainWidth = document.querySelector('main article').offsetWidth;
@@ -48,32 +51,41 @@ function P5SketchManager() {
         /* Render the sketch */
         const sketch = new p5(fn, node, true);
 
+        sketch.setActive = (isActive) => {
+          if (sketch.isActive !== isActive) {
+            sketch.isActive = isActive;
+            if (isActive) {
+              sketch.canvas.classList.add('is-active');
+              sketch.loop();
+            } else {
+              sketch.canvas.classList.remove('is-active');
+              sketch.noLoop();
+            }
+          }
+        };
+
         /* Custom on loaded handler to set width */
         sketch.onLoaded = () => {
           sketch.resizeCanvas(node.offsetWidth, sketch.height);
           node.getElementsByClassName.height = sketch.height;
+
+          if (utils.isAnyPartOfElementInViewport(node)) {
+            sketch.setActive(true);
+          } else {
+            sketch.setActive(false);
+          }
         };
 
-        if (loopOnlyOnScreenSketches) {
-          /* For performance reasons, disable by default  */
-          sketch.noLoop();
-        }
-
         activeSketches.push(sketch);
+        nodes.push(node);
       }
     },
 
-    pauseAllP5Sketches: () => {
-      console.log('pausing all sketches', sketchId);
-      activeSketches.forEach((sketch) => {
-        sketch.noLoop();
+    enableVisibleSketches: () => {
+      activeSketches.forEach(({ canvas, setActive }) => {
+        const isActive = utils.isAnyPartOfElementInViewport(canvas);
+        setActive(isActive);
       });
-    },
-
-    resumeP5Sketch: (sketchId) => {
-      console.log('resuming sketch', sketchId);
-      const index = sketchId.split('-')[1];
-      activeSketches[index].loop();
     },
 
     resizeSketches,
@@ -83,5 +95,6 @@ function P5SketchManager() {
 window.P5SketchManager = new P5SketchManager();
 
 window.addEventListener('resize', P5SketchManager.resizeSketches);
+
 /* Expose register function to p5 sketch files */
 window.registerP5Sketch = P5SketchManager.registerP5Sketch;

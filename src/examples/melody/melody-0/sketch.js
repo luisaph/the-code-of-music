@@ -27,16 +27,11 @@ window.registerP5Sketch((p) => {
     });
     playBtn.position(pad, 8);
 
-    p.background(255);
+    p.noLoop();
 
     /* Custom load handler */
     if (p.onLoaded) {
       p.onLoaded();
     }
-  };
-
-  p.draw = () => {
-    p.background(255);
-    p.noLoop();
   };
 });
