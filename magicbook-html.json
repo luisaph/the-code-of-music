@@ -14,7 +14,11 @@
     "bundle": true,
     "compress": true,
     "digest": true,
-    "files": ["src/stylesheets/html.scss", "src/stylesheets/highlightjs.css"]
+    "files": [
+      "src/stylesheets/html.scss",
+      "src/stylesheets/highlightjs.css",
+      "src/examples/assets/examples.css"
+    ]
   },
   "liquid": {
     "includes": "src/includes"

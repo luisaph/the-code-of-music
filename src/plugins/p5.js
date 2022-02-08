@@ -45,7 +45,7 @@ Plugin.prototype = {
         <figure id="${idAttr}" class="p5-figure">
           <div class="p5container"></div>
           <script type="text/javascript" src="${scriptPath}"></script>
-          <a href="${examplePath}" target="_blank">View in new window</a>
+          <a class="p5-sketch-link" href="${examplePath}" target="_blank">View</a>
         </figure>
       `;
 
