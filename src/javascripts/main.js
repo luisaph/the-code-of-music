@@ -15,6 +15,8 @@ function isAnyPartOfElementInViewport(el) {
 /* UI Code for handling Menu open/close and highlighting of current page section */
 document.addEventListener('DOMContentLoaded', () => {
   const MENU_CLOSED_CLASSNAME = 'menu-is-closed';
+  const GLOBAL_VOLUME = 'global-volume';
+
   let chapterSection;
   let sections;
   let sketches;
@@ -60,6 +62,26 @@ document.addEventListener('DOMContentLoaded', () => {
       MENU_CLOSED_CLASSNAME,
       document.body.classList.contains(MENU_CLOSED_CLASSNAME)
     );
+
+    /* Resize Sketches when animation completes */
+    setTimeout(P5SketchManager.resizeSketches, 200);
+  });
+
+  /* Set global volume control */
+  const volumeControl = document.querySelector('#global-volume-control');
+  const existingValue = localStorage.getItem(GLOBAL_VOLUME);
+  if (parseInt(existingValue)) {
+    Tone.Destination.volume.value = existingValue;
+  }
+
+  volumeControl.value = Tone.Destination.volume.value;
+  volumeControl.addEventListener('input', (e) => {
+    const val = e.target.value;
+    if (Tone) {
+      Tone.Destination.volume.rampTo(val, 0.2);
+    }
+
+    localStorage.setItem(GLOBAL_VOLUME, val);
   });
 
   window.addEventListener('hashchange', () => {

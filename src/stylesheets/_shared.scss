@@ -1,67 +1,37 @@
-@font-face {
-  font-family: 'Palette Mosaic';
-  src: font-path('Palette_Mosaic/PaletteMosaic-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
+@import url('https://rsms.me/inter/inter.css');
+html {
+  font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
 }
 
 @font-face {
-  font-family: 'Fredoka One';
-  src: font-path('Fredoka_One/FredokaOne-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Compagnon';
+  src: url('fonts/Compagnon/Compagnon-Roman.woff2') format('woff2'),
+    url('fonts/Compagnon/Compagnon-Roman.woff') format('woff');
 }
 
-@font-face {
-  font-family: 'Fredoka One';
-  src: font-path('Fredoka_One/FredokaOne-Regular.ttf');
-  font-weight: bold;
-  font-style: normal;
-}
+$orange: #f56324;
+$header-height: 180px;
+$bp-medium: 800px;
+$black: rgb(34, 33, 33);
+$white: #fff;
+$gray-light: rgb(238, 235, 232);
+$page-max-width: 980px;
 
-@font-face {
-  font-family: 'Lora';
-  src: font-path('Lora/Lora-VariableFont_wght.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
+$theme-red: #ff3100;
+$theme-blue: #176beb;
 
-@font-face {
-  font-family: 'Lora';
-  src: font-path('Lora/Lora-Italic-VariableFont_wght.ttf');
-  font-weight: normal;
-  font-style: italic;
-}
+$highlight-color: $black;
+$link-underline-color: $black;
 
-@font-face {
-  font-family: 'Atkinson';
-  src: font-path('Atkinson_Hyperlegible/AtkinsonHyperlegible-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
+$menu-width: 320px;
+$menu-padding: 1.5em;
+$menu-transition-speed: 0.2s;
 
-@font-face {
-  font-family: 'Atkinson';
-  src: font-path('Atkinson_Hyperlegible/AtkinsonHyperlegible-Bold.ttf');
-  font-weight: bold;
-  font-style: normal;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: 'Fredoka One';
-  font-weight: normal;
-}
-
-p {
-  font-family: 'Atkinson', sans-serif;
-}
-
-body {
-  font-family: 'Atkinson', 'Arial', sans-serif;
-  font-weight: normal;
-  color: #333;
-}
+$font--display: 'Inter', sans-serif;
+$font--body: 'Compagnon', sans-serif;
+// $font--body: 'Cousine', sans-serif;

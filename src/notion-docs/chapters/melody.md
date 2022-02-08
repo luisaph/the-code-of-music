@@ -1,22 +1,20 @@
 ---
-
 title: Melody
-
 ---
 
 # Melody
 
-If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end. Here is one example of a melody:
-
-<iframe height="100%" src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_4/index.html"></iframe>
-
-A melody is a sequence of tones of that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is how high or low each tone is.
+If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end. Here is one example of a melo
 
 {% p5 melody/melody-0/ %}
 
+A melody is a sequence of tones that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is how high or low each tone is.
+
+{% p5 melody/melody-1 %}
+
 We also perceive the duration of the tones in a melody: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
 
-{% p5 melody/melody-1/ %}
+{% p5 melody/melody-2 %}
 
 The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: click here to show grid on sketch (and add a metronome?).
 
@@ -28,7 +26,7 @@ We will address this question in the next sections, by creating a series of digi
 
 When we whistle, we displace the air molecules next to our lips, and cause them to move back and forth - to oscillate. This causes the molecules next to them to oscillate, and so on. The chain reaction creates a sound wave that, when it reaches our ears, we perceive as pitch.
 
-{% p5 melody/melody-2/ %}
+{% p5 melody/melody-3 %}
 
 If we zoomed into a single molecule, we would see that its trajectory draws a waveform over time:
 
@@ -100,7 +98,7 @@ Starter Code (has Tone.js imported, the oscillator running, suggestions to use m
 
 In our oscillator example above, we are laying out frequencies on a line, like so:
 
-<iframe height="100%" src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_1/index.html"></iframe>
+<!-- <iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_1/index.html"></iframe> -->
 
 But a line might not be the best way to represent pitches. Using the frequency input box above, set the frequency to 100Hz and listen to it. Then, compare it to 200Hz, and to 110Hz. Which of these feels more similar to the original 100Hz?
 
@@ -108,11 +106,11 @@ It is likely that 200Hz feels more similar: like it's the same kind of pitch, bu
 
 A helix might be a better representation for pitches as we perceive them:
 
-<iframe height="100%" src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_glide_up_mouseIsPressed/index.html"></iframe>
+<!-- <iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_glide_up_mouseIsPressed/index.html"></iframe> -->
 
 On the sketch below, start with the lowest pitch, drag a full cycle up (until you get to the same color), and then another. Do you get a feeling of arrival when you get to the same color again?
 
-<iframe height="100%" src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_2/index.html"></iframe>
+<!-- <iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_2/index.html"></iframe> -->
 
 Now using the input field, input 100Hz, 200Hz, 400Hz, 800Hz. Do these all feel similar?
 
