@@ -66,12 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(P5SketchManager.resizeSketches, 200);
   });
 
+  /* P5 Sketch for displaying global volume */
+  const meterSketch = (p) => {
+    p.setup = () => {
+      p.createCanvas(20, 150);
+      p.frameRate(30);
+    };
+    p.draw = () => {
+      p.background(120);
+      const h = p.map(meter.getValue(), 0, -100, p.height, true);
+      p.noStroke();
+      p.rect(0, p.height, p.width, -h);
+    };
+  };
+
+  new p5(meterSketch, 'global-meter');
+
   /* Set global volume control */
   const volumeControl = document.querySelector('#global-volume-control');
   const existingValue = localStorage.getItem(GLOBAL_VOLUME);
   if (parseInt(existingValue)) {
     Tone.Destination.volume.value = existingValue;
   }
+
+  const meter = new Tone.Meter();
+  Tone.Destination.connect(meter);
 
   volumeControl.value = Tone.Destination.volume.value;
   volumeControl.addEventListener('input', (e) => {

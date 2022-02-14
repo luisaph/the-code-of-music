@@ -32,13 +32,10 @@
     {% include nav.html %}
 
     <div class="page-container">
-      <input
-        id="global-volume-control"
-        type="range"
-        min="-60"
-        max="0"
-        value="0"
-      />
+      <div id="global-volume-control">
+        <div id="global-meter"></div>
+        <input name="volume" type="range" min="-60" max="0" value="0" />
+      </div>
       <div>
         {% include header.html %}
 
