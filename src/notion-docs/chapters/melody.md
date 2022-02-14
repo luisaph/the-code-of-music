@@ -1,20 +1,24 @@
 ---
+
 title: Melody
+
 ---
 
 # Melody
 
-If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end. Here is one example of a melo
+If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end.
+
+A melody is a sequence of tones that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is pitch - how high or low each tone is. Here is one example of a melody:
 
 {% p5 melody/melody-0/ %}
 
-A melody is a sequence of tones that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is how high or low each tone is.
+There are also slight differences in loudness: some tones are louder, some are softer:
+
+[New interactive highlighting this. Try rectangles of the same size but brighter/paler, a circle w/changing sizes. OR: add this to the above]
+
+Tones also have a duration: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
 
 {% p5 melody/melody-1 %}
-
-We also perceive the duration of the tones in a melody: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
-
-{% p5 melody/melody-2 %}
 
 The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: click here to show grid on sketch (and add a metronome?).
 
@@ -22,11 +26,15 @@ But what about the pitches? There seem to be only three or four pitches in this 
 
 We will address this question in the next sections, by creating a series of digital instruments and generative melodies.
 
+[This interactive will move to the Elements of Sound chapter in the Introduction section]
+
+{% p5 melody/melody-2 %}
+
 ## Pitch and Loudness
 
 When we whistle, we displace the air molecules next to our lips, and cause them to move back and forth - to oscillate. This causes the molecules next to them to oscillate, and so on. The chain reaction creates a sound wave that, when it reaches our ears, we perceive as pitch.
 
-{% p5 melody/melody-3 %}
+{% p5 melody/melody-3/ %}
 
 If we zoomed into a single molecule, we would see that its trajectory draws a waveform over time:
 
@@ -64,7 +72,7 @@ With this knowledge - melodies are sequences of tones, tones are oscillations at
 
 We need an object that oscillates, generating a sound wave that goes out of the computer speakers, and allows us to control the frequency and amplitude of its oscillation. Tone.js' Oscillator does just that.
 
-```js
+```javascript
 // Create an object of the Oscillator class
 let osc = new Tone.Oscillator();
 
@@ -81,7 +89,7 @@ _The ball moves up and down for amplitude; left and right for pitch_
 
 </figure><br>
 
-```js
+```javascript
 osc.frequency.value = 400;
 osc.amplitude.value = 0.9;
 ```
@@ -98,7 +106,7 @@ Starter Code (has Tone.js imported, the oscillator running, suggestions to use m
 
 In our oscillator example above, we are laying out frequencies on a line, like so:
 
-<!-- <iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_1/index.html"></iframe> -->
+<iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_1/index.html"></iframe>
 
 But a line might not be the best way to represent pitches. Using the frequency input box above, set the frequency to 100Hz and listen to it. Then, compare it to 200Hz, and to 110Hz. Which of these feels more similar to the original 100Hz?
 
@@ -106,11 +114,11 @@ It is likely that 200Hz feels more similar: like it's the same kind of pitch, bu
 
 A helix might be a better representation for pitches as we perceive them:
 
-<!-- <iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_glide_up_mouseIsPressed/index.html"></iframe> -->
+<iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_glide_up_mouseIsPressed/index.html"></iframe>
 
 On the sketch below, start with the lowest pitch, drag a full cycle up (until you get to the same color), and then another. Do you get a feeling of arrival when you get to the same color again?
 
-<!-- <iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_2/index.html"></iframe> -->
+<iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_2/index.html"></iframe>
 
 Now using the input field, input 100Hz, 200Hz, 400Hz, 800Hz. Do these all feel similar?
 
