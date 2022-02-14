@@ -11,7 +11,6 @@ const { NOTION_TOKEN } = process.env;
 
 const DESTINATION_FOLDER = 'src/notion-docs/';
 const IMAGE_FOLDER = 'src/notion-docs/images/';
-const CODE_BLOCK_SYMBOL = '``';
 const DB_ID = 'c36f6b93fcd74dfaa4a7853d87b93bbb';
 const LOCAL_EMBED_DOMAIN_NAME = 'codeofmusic-16a81.web.app';
 
@@ -97,7 +96,6 @@ function textToMd(text) {
     "numbered_list_item", "to_do", "toggle", "child_page", "embed", "image",
     "video", "file", "pdf", "bookmark" and "unsupported".
 
-  NOTE: DOES NOT SUPPORT CODE BLOCKS... :(
 */
 async function blockToMd(block, chapterTitle) {
   const { type } = block;
@@ -132,20 +130,7 @@ async function blockToMd(block, chapterTitle) {
   }
 
   if (type === 'paragraph') {
-    /*
-      NOTE: HACK!!! -- this allows us to render code blocks by
-      replacing `` in the source with ``` in markdown
-      We should remove this when the API supports code blocks
-    */
-    let rendered = textToMd(text);
-    if (rendered === CODE_BLOCK_SYMBOL) {
-      return '```\n';
-    } else {
-      if (rendered.includes(CODE_BLOCK_SYMBOL)) {
-        rendered = rendered.replace(CODE_BLOCK_SYMBOL, '```');
-      }
-    }
-    return `${rendered}\n\n`;
+    return `${textToMd(text)}\n\n`;
   }
 
   if (type === 'embed') {
@@ -179,6 +164,12 @@ async function blockToMd(block, chapterTitle) {
       caption && caption.length > 0 ? `_${textToMd(caption).trim()}_` : '';
 
     return `\n<figure>\n\n![${fileName}](${fileName})\n${captionText}\n\n</figure><br>\n\n`;
+  }
+
+  if (type === 'code') {
+    return `\`\`\`${block.code.language}\n${textToMd(
+      block.code.text
+    )}\n\`\`\`\n\n`;
   }
 
   console.log('UNKNOWN BLOCK');
