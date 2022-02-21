@@ -21,9 +21,10 @@ body {
   margin-top: 1em;
 }
 
-button {
+button,
+input {
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 .btn {
   /* box-sizing: border-box; */

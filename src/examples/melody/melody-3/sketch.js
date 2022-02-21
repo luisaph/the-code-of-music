@@ -1,93 +1,92 @@
 window.registerP5Sketch((p) => {
-  let wavelength = 3;
-  let period = 1 / wavelength;
-  let amplitude = 15;
   let minDisplacement = 25;
-  const gridSize = 10;
+
+  const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
+
   const nMolecules = 2000;
   const moleculeSize = 5;
 
   const moleculeColor = p.color('#00A17B');
   const sineWaveColor = p.color('#FF3100');
 
-  let timeMult = 1;
-
   let originPt;
   let showGraph = false;
-  let showWaves = false;
-  let showMolecules = true;
-
+  let showWaves = true;
+  let showMolecules = false;
   let randomPositions;
 
-  const assetsUrl = window.EXAMPLES_ASSETS_URL || '../../assets';
-  const player = new Tone.Player(
-    `${assetsUrl}/sound/kill_bill_whistle_short.mp3`
-  );
-
   const fft = new Tone.FFT();
+  const osc = new Tone.Oscillator(220);
+  const oscGain = new Tone.Gain(0);
+
+  /* reduce frequency to be visible */
+  const getScaledFq = () => osc.frequency.value / 5000;
 
   p.setup = () => {
-    player.connect(fft);
-    player.toDestination();
+    osc.volume.value = -10;
+    osc.chain(oscGain, Tone.Destination);
+
+    originPt = p.createVector(301, 262);
 
     c = p
-      .createCanvas(900, 400)
-      .style('cursor: none; position: relative; z-index: 1');
+      .createCanvas(window.innerWidth, 400)
+      .style('position: relative; z-index: 0; width: 100%');
+
     // p.pixelDensity(1);
     // mic = new Tone.UserMedia().toDestination();
 
-    p.createImg(`${assetsUrl}/img/com-head1.svg`)
-      .position(-120, -50)
-      .style('position: absolute; z-index: 1');
+    p.createImg(`${assetsUrl}/img/com-head1.svg`).style(`
+      height: 400px;
+      position: absolute;
+      z-index: 1 ;
+      pointer-events: none;
+      position: absolute;
+      left: -60px;
+      bottom: 45px;
+    `);
 
     p.createImg(`${assetsUrl}/img/com-head2.svg`).style(
-      'position: absolute; z-index: 0; right: 0px; top: 0'
+      'height: 400px; position: absolute; z-index: -1; right: -0px; bottom: 45px; pointer-events: none'
     );
 
     const playBtn = p.createButton('');
     playBtn.class('play-button');
     playBtn.mouseReleased(() => {
-      if (player.state == 'started') {
-        player.stop();
+      if (osc.state == 'started') {
+        oscGain.gain.rampTo(0, 0.3);
+        setTimeout(() => {
+          osc.stop();
+        }, 300);
         playBtn.removeClass('play-button--stop');
       } else {
-        player.start();
+        osc.start();
+        oscGain.gain.rampTo(1, 0.3);
         playBtn.addClass('play-button--stop');
       }
     });
 
-    p.createSpan('Wavelength');
-    p.createSlider(1, 100).mouseMoved(({ target }) => {
-      const val = target.value;
-      wavelength = parseFloat(val / 50);
-    });
-    p.createSpan('Amplitude');
-    p.createSlider(0, 1000, 1000).mouseMoved(({ target }) => {
-      const scaled = p.map(target.value, 0, 1000, 0, 15);
-      amplitude = parseFloat(scaled);
-    });
-    p.createSpan('Slomo');
-    p.createSlider(100, 800).mouseMoved(({ target }) => {
-      timeMult = parseFloat(100 / target.value);
+    p.createSpan('Freq');
+    p.createSlider(1, 1000).input(({ target: { value } }) => {
+      const pow = p.map(value, 1, 1000, 7, 9);
+      const newFq = p.pow(2, pow);
+      osc.frequency.rampTo(newFq, 0.1);
     });
 
-    p.createButton('pause').mousePressed(() => {
-      p.noLoop();
+    p.createSpan('Amplitude');
+    p.createSlider(0, 1000, 1000).input(({ target: { value } }) => {
+      const newVol = p.map(value, 0, 1000, 0, 1);
+      oscGain.gain.rampTo(newVol, 0.1);
     });
-    p.createButton('play').mousePressed(() => {
-      p.loop();
-    });
-    p.createButton('toggle graph').mousePressed(() => {
-      showGraph = !showGraph;
-    });
+
+    // p.createButton('toggle graph').mousePressed(() => {
+    //   showGraph = !showGraph;
+    // });
     p.createButton('toggle waves').mousePressed(() => {
       showWaves = !showWaves;
     });
     p.createButton('toggle molecules').mousePressed(() => {
       showMolecules = !showMolecules;
     });
-
-    originPt = p.createVector(300, 252);
 
     randomPositions = [...new Array(nMolecules)].map((_, i) =>
       p.createVector(p.random() * p.width, p.random() * p.height)
@@ -101,31 +100,16 @@ window.registerP5Sketch((p) => {
     }
   };
 
-  let lerpTime = 0;
-
   const getDisplacementNormal = (distToSource, time) => {
-    const fq = wavelength;
-    // const fqLerp = fq * p.min(lerpTime / distToSource / 2, 1);
-
+    const fq = getScaledFq();
     const period = 1 / fq;
     const phaseShift = (0.25 * distToSource) / p.TAU;
-    const phase = (100 * time) / period;
-    const speedMult = 1;
+    const phase = time / period;
     const displacement = p.sin(-phase * fq + phaseShift);
     return displacement;
   };
 
-  // const getDisplacementNormal = (distToSource, time) => {
-  //   const phaseShift = distToSource / wavelength;
-  //   const phase = time / period;
-  //   const speedMult = 10;
-  //   const displacement = p.sin(-phase * speedMult + phaseShift);
-  //   return displacement;
-  // };
-
-  // let time = 0;
   p.draw = () => {
-    // p.background(255);
     p.clear();
 
     // if (player.state === 'started') {
@@ -143,8 +127,9 @@ window.registerP5Sketch((p) => {
     //   wavelength = p.map(f, 70, 90, 100, 50, true);
     // }
 
-    // const originPt = p.createVector(p.mouseX, p.mouseY);
-    const time = (timeMult * p.millis()) / 100000;
+    const time = p.millis();
+    const amplitude =
+      osc.state === 'started' ? p.map(oscGain.gain.value, 0, 1, 0, 15) : 0;
 
     /* Draw Concentric Circles */
     if (showWaves || showGraph) {
@@ -178,43 +163,9 @@ window.registerP5Sketch((p) => {
         }
         p.pop();
       }
-
-      /* Draw Wavelength */
-      if (showGraph) {
-        p.push();
-        p.translate(originPt);
-        p.translate(0, -minDisplacement);
-        p.strokeWeight(2);
-        p.blendMode(p.DIFFERENCE);
-
-        sineWaveColor.setAlpha(255);
-        p.stroke(sineWaveColor);
-        p.fill(sineWaveColor);
-        const yPos = getDisplacementNormal(0, time) * -amplitude;
-        const len = wavelength * p.TAU;
-        /* Line */
-        p.line(0, yPos, len, yPos);
-        /* End Points */
-        p.noStroke();
-        p.circle(0, yPos, 11);
-        p.circle(len, yPos, 11);
-        // p.line(0, -50, len, -50);
-        // p.noStroke();
-        // p.text('WAVELENGTH', 0, -50);
-
-        p.pop();
-      }
     }
 
     /* Draw molecules */
-
-    moleculeColor.setAlpha(30);
-    p.fill(moleculeColor);
-    // p.blendMode(p.DIFFERENCE);
-    p.noStroke();
-    p.circle(p.mouseX, p.mouseY, 40);
-    // p.blendMode(p.BLEND);
-
     if (showMolecules) {
       randomPositions.forEach((currPt) => {
         p.push();
@@ -231,16 +182,9 @@ window.registerP5Sketch((p) => {
         p.translate(currPt);
         p.rotate(targetAngle);
         p.noStroke();
-        // const a =
-        //   (displacementNormal + (displacementNormal * p.TAU) / wavelength) * 50 + 100;
         const isUnderMouse =
           p.dist(p.mouseX - minDisplacement, p.mouseY, currPt.x, currPt.y) < 15;
-        // moleculeColor.setAlpha(isUnderMouse ? 255 : 180);
         moleculeColor.setAlpha(alpha);
-        // p.fill(isUnderMouse ? sineWaveColor : moleculeColor);
-        // if (isUnderMouse) {
-        //   p.blendMode(p.DIFFERENCE);
-        // }
         p.fill(moleculeColor);
         p.circle(
           -displacement,
@@ -251,7 +195,5 @@ window.registerP5Sketch((p) => {
         p.pop();
       });
     }
-
-    lerpTime++;
   };
 });
