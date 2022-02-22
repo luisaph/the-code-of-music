@@ -42,19 +42,23 @@ window.registerP5Sketch((p) => {
     });
     p.textSize(12);
 
-    const showTimeGridBtn = p
-      .createButton('Show Time Grid')
-      .class('btn btn--toggle mt-1')
-      .mousePressed(() => {
-        showTimeGrid = !showTimeGrid;
-      });
+    const toggleTimeGrid = () => {
+      showTimeGrid = !showTimeGrid;
+    };
+    const togglePitchGrid = () => {
+      showNoteGrid = !showNoteGrid;
+    };
 
-    const showNoteGridBtn = p
-      .createButton('Show Note Grid')
+    window.sketch2toggleTimeGrid = toggleTimeGrid;
+    window.sketch2togglePitchGrid = togglePitchGrid;
+
+    p.createButton('Show Time Grid')
       .class('btn btn--toggle mt-1')
-      .mousePressed(() => {
-        showNoteGrid = !showNoteGrid;
-      });
+      .mousePressed(toggleTimeGrid);
+
+    p.createButton('Show Note Grid')
+      .class('btn btn--toggle mt-1')
+      .mousePressed(togglePitchGrid);
 
     /* Custom load handler */
     if (p.onLoaded) {

@@ -16,19 +16,19 @@ There are also slight differences in loudness: some tones are louder, some are s
 
 [New interactive highlighting this. Try rectangles of the same size but brighter/paler, a circle w/changing sizes. OR: add this to the above]
 
-Tones also have a duration: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
-
 {% p5 melody/melody-1 %}
 
-The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: click here to show grid on sketch (and add a metronome?).
+Tones also have a duration: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
 
-But what about the pitches? There seem to be only three or four pitches in this melody ––are they placed on an underlying perceptual grid as well? (click here to show pitch grid on sketch)
+{% p5 melody/melody-2 %}
+
+The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: <button onclick=sketch2toggleTimeGrid()>click here to show grid on sketch (and add a metronome?)</button>.
+
+But what about the pitches? There seem to be only three or four pitches in this melody ––are they placed on an underlying perceptual grid as well? <button onclick=sketch2togglePitchGrid()>click here to show pitch grid on sketch</button>
 
 We will address this question in the next sections, by creating a series of digital instruments and generative melodies.
 
 [This interactive will move to the Elements of Sound chapter in the Introduction section]
-
-{% p5 melody/melody-2 %}
 
 ## Pitch and Loudness
 
