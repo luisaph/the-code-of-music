@@ -22,9 +22,9 @@ Tones also have a duration: some are shorter, some are longer. Let's draw the to
 
 {% p5 melody/melody-2 %}
 
-The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: <button onclick=sketch2toggleTimeGrid()>click here to show grid on sketch (and add a metronome?)</button>.
+The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: {% inlinebutton sketch2toggleTimeGrid() [Show Time Grid] %}
 
-But what about the pitches? There seem to be only three or four pitches in this melody ––are they placed on an underlying perceptual grid as well? <button onclick=sketch2togglePitchGrid()>click here to show pitch grid on sketch</button>
+But what about the pitches? There seem to be only three or four pitches in this melody –– are they placed on an underlying perceptual grid as well? {% inlinebutton sketch2togglePitchGrid() [Show Pitch Grid] %}
 
 We will address this question in the next sections, by creating a series of digital instruments and generative melodies.
 

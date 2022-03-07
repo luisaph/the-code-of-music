@@ -264,6 +264,26 @@ section[data-type='sect1'] {
   }
 }
 
+.inlinebutton {
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 4px;
+  color: darken($theme-blue, 10);
+  padding: 3px 8px;
+  background: rgba($theme-blue, 0.1);
+  border: none;
+  font-weight: bold;
+  @include font--content();
+  // border: 1px solid $theme-blue;
+}
+
+.inlinebutton:hover {
+  background: rgba($theme-blue, 0.2);
+}
+.inlinebutton:active {
+  background: rgba($theme-blue, 0.3);
+}
+
 .divider {
   height: 1em;
 }

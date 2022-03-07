@@ -1,7 +1,9 @@
 @import url('https://rsms.me/inter/inter.css');
+
 html {
   font-family: 'Inter', sans-serif;
 }
+
 @supports (font-variation-settings: normal) {
   html {
     font-family: 'Inter var', sans-serif;
@@ -19,11 +21,12 @@ $header-height: 180px;
 $bp-medium: 800px;
 $black: rgb(34, 33, 33);
 $white: #fff;
-$gray-light: rgb(238, 235, 232);
+$gray-light: rgb(246, 246, 244);
 $page-max-width: 980px;
 
 $theme-red: #ff3100;
 $theme-blue: #176beb;
+$theme-green: #00a17b;
 
 $highlight-color: $black;
 $link-underline-color: $black;
@@ -33,5 +36,5 @@ $menu-padding: 1.5em;
 $menu-transition-speed: 0.2s;
 
 $font--display: 'Inter', sans-serif;
-$font--body: 'Compagnon', sans-serif;
-// $font--body: 'Cousine', sans-serif;
+// $font--body: 'Compagnon', sans-serif;
+$font--body: 'Cousine', sans-serif;

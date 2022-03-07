@@ -1,6 +1,11 @@
 {
   "title": "Code of Music",
-  "addPlugins": ["magicbook-codesplit", "magicbook-webpack", "src/plugins/p5"],
+  "addPlugins": [
+    "magicbook-codesplit",
+    "magicbook-webpack",
+    "src/plugins/p5",
+    "src/plugins/inlineButton"
+  ],
   "files": ["src/notion-docs/**/*.md"],
   "images": {
     "files": [
