@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <link href="./assets/examples.css" rel="stylesheet" />
+  </head>
+  <body style="background: #eee">
+    <!-- <h1>p5 embed</h1> -->
+    <script>
+      /* Load and append P5 Script from URL parameter */
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const p5script = urlParams.get('p5script');
+      const parsed = JSON.parse(p5script);
+      const script = document.createElement('script');
+      /* Script is an array of lines */
+      script.innerHTML = parsed.join('\n');
+      document.body.appendChild(script);
+    </script>
+    <script src="./assets/libs/Tone-14.7.77.min.js"></script>
+    <script src="./assets/libs/p5-1.4.0.min.js"></script>
+    <!-- <script src="./assets/libs/rough-2.1.1.min.js"></script> -->
+  </body>
+</html>

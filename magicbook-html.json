@@ -4,7 +4,8 @@
     "magicbook-codesplit",
     "magicbook-webpack",
     "src/plugins/p5",
-    "src/plugins/inlineButton"
+    "src/plugins/inlineButton",
+    "src/plugins/interactiveSketch"
   ],
   "files": ["src/notion-docs/**/*.md"],
   "images": {
