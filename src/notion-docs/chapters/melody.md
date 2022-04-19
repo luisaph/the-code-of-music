@@ -89,7 +89,7 @@ _The ball moves up and down for amplitude; left and right for pitch_
 
 </figure><br>
 
-{% interactiveSketch toneExample1 %}
+{% interactiveSketch toneExample1 5 8 %}
 
 ```javascript
 osc.frequency.value = 400;

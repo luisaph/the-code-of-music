@@ -5,6 +5,14 @@ const tinyliquid = require('tinyliquid');
 
 const INTERACTIVE_EXAMPLES_PATH = 'examples/interactive';
 
+/* 
+  interactivesketch plugin
+  - Renders user-editable javascript code that embeds in an adjacent iframe
+  - Can select which lines to edit
+
+  usage:
+    {% interactivesketch <path> <line_start> <line_end> %}
+*/
 const Plugin = function (registry) {
   this.cache = {};
   registry.before(
@@ -22,8 +30,7 @@ Plugin.prototype = {
 
     /* function that gets called for every interactivesketch tag */
     function interactivesketchtag(context, tag, input) {
-      const [sketchPath] = input.split(' ');
-
+      const [sketchPath, startLine, endLine] = input.split(' ');
       console.log(
         `\x1b[35minteractivesketch Plugin: Adding interactive sketch: ${sketchPath}\x1b[0m`
       );
@@ -42,7 +49,7 @@ Plugin.prototype = {
       `;
 
       const htmlOut = `
-        <div id="${idAttr}" data-path="${examplePath}" class="interactivesketchContainer">
+        <div id="${idAttr}" data-path="${examplePath}" data-start-line="${startLine}" data-end-line="${endLine}" class="interactivesketchContainer">
           <div class="code-mirror-editor"></div>
           <iframe src="${examplePath}/index.html?loadInitial=true" class="code-mirror-embed"></iframe>
         </div>
