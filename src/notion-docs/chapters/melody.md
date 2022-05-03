@@ -14,7 +14,7 @@ A melody is a sequence of tones that we, as listeners, perceive as a single enti
 
 There are also slight differences in loudness: some tones are louder, some are softer:
 
-[New interactive highlighting this. Try rectangles of the same size but brighter/paler, a circle w/changing sizes. OR: add this to the above]
+[Loudness interactive]
 
 {% p5 melody/melody-1 %}
 
@@ -24,11 +24,9 @@ Tones also have a duration: some are shorter, some are longer. Let's draw the to
 
 The drawing suggests that tones can be placed on an underlying grid. On the time axis, the start and duration of tones follows (or breaks) the same kind of time grid we discussed on our Rhythm lesson - we could count them like so: {% inlinebutton sketch2toggleTimeGrid() [Show Time Grid] %}
 
-But what about the pitches? There seem to be only three or four pitches in this melody –– are they placed on an underlying perceptual grid as well? {% inlinebutton sketch2togglePitchGrid() [Show Pitch Grid] %}
+But what about the pitch axis? There seem to be only three or four pitches in this melody –– are they placed on an underlying perceptual grid as well? {% inlinebutton sketch2togglePitchGrid() [Show Pitch Grid] %}
 
 We will address this question in the next sections, by creating a series of digital instruments and generative melodies.
-
-[This interactive will move to the Elements of Sound chapter in the Introduction section]
 
 ## Pitch and Loudness
 
@@ -80,48 +78,21 @@ let osc = new Tone.Oscillator();
 osc.toDestination();
 ```
 
-We can make the oscillator's pitch higher or lower by changing its frequency property, and make it louder or softer by changing the value of its amplitude property. Drag the values on the code below and listen to the changes.
+We can make the oscillator's pitch higher or lower by changing its frequency, and make it louder or softer by changing the value of its amplitude. Drag the circle in the sketch below and listen to the changes in pitch and volume.
 
-<figure>
-
-![Melody-3.png](Melody-3.png)
-_The ball moves up and down for amplitude; left and right for pitch_
-
-</figure><br>
-
-{% interactiveSketch toneExample1 5 8 %}
-
-```javascript
-osc.frequency.value = 400;
-osc.amplitude.value = 0.9;
-```
+{% interactiveSketch theraminInteractive 29 35 %}
 
 ### Exercise
 
-By giving control of these two parameters to the user, create your own [Theremin](https://www.youtube.com/watch?v=PjnaciNT-wQ)-like instrument. Map the x position of the mouse to the pitch, and the y position to the amplitude of the oscillator. What range of frequencies does your instrument have? What's the range of amplitudes?Extension: allow user to add guides to the interface by clicking (see ICM Sound example).
+Modify the example above, and create your own [Theremin](https://www.youtube.com/watch?v=PjnaciNT-wQ)-like instrument:
 
-References: Learning Synths and the Theremin from class.
+- What range of frequencies does your instrument offer? What's the range of amplitudes?
+- Applying what you learned in the Elements of Sound chapter, change the volume and frequency mapping so that instead of being linear, it is on a logarithmic scale. Is the difference noticeable?
+- Allow your user to add pitch guides to the interface by clicking at certain Y positions.
+- Connect the circle’s position to the motion of your body
 
-Starter Code (has Tone.js imported, the oscillator running, suggestions to use map, mouseX and mouseY?)
+References:
 
-## The Pitch Helix
+Picture of Clara Rockmore, link to [https://en.wikipedia.org/wiki/Theremin](https://en.wikipedia.org/wiki/Theremin)
 
-In our oscillator example above, we are laying out frequencies on a line, like so:
-
-<iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_1/index.html"></iframe>
-
-But a line might not be the best way to represent pitches. Using the frequency input box above, set the frequency to 100Hz and listen to it. Then, compare it to 200Hz, and to 110Hz. Which of these feels more similar to the original 100Hz?
-
-It is likely that 200Hz feels more similar: like it's the same kind of pitch, but higher.
-
-A helix might be a better representation for pitches as we perceive them:
-
-<iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_glide_up_mouseIsPressed/index.html"></iframe>
-
-On the sketch below, start with the lowest pitch, drag a full cycle up (until you get to the same color), and then another. Do you get a feeling of arrival when you get to the same color again?
-
-<iframe src="https://luisaph.github.io/the-code-of-music-jekyll/sketches/melody/2_melody_2/index.html"></iframe>
-
-Now using the input field, input 100Hz, 200Hz, 400Hz, 800Hz. Do these all feel similar?
-
-If we take any pitch and multiply its frequency by two, we will get a pitch that we perceive to be higher, but of the same class. In the interactive above, pitch classes are represented by color hues.
+Picture of Pamela Z, link to [https://en.wikipedia.org/wiki/Theremin](https://en.wikipedia.org/wiki/Theremin)
