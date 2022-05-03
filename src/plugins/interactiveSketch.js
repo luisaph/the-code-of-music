@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const path = require('path');
-const fs = require('fs');
 const tinyliquid = require('tinyliquid');
 
+/* Folder where the sketches */
 const INTERACTIVE_EXAMPLES_PATH = 'examples/interactive';
 
 /* 
@@ -13,6 +13,7 @@ const INTERACTIVE_EXAMPLES_PATH = 'examples/interactive';
   usage:
     {% interactivesketch <path> <line_start> <line_end> %}
 */
+
 const Plugin = function (registry) {
   this.cache = {};
   registry.before(
@@ -43,16 +44,23 @@ Plugin.prototype = {
 
       const idAttr = `interactive-sketch-${count}`;
 
+      const sketchLink = `https://github.com/luisaph/the-code-of-music/tree/master/src/examples/interactive/${sketchPath}`;
+
       /* TODO: Add pdf version */
       const pdfOut = `
-       <div></div>
+       <div>
+         <span>[code editor example]</span>
+       </div>
       `;
 
       const htmlOut = `
         <div id="${idAttr}" data-path="${examplePath}" data-start-line="${startLine}" data-end-line="${endLine}" class="interactivesketchContainer">
-          <div class="code-mirror-editor"></div>
+          <div class="code-mirror-editor">
+           <a href="${sketchLink}" target="blank">View source</a>
+          </div>
           <iframe src="${examplePath}/index.html?loadInitial=true" class="code-mirror-embed"></iframe>
         </div>
+       
       `;
 
       const output = format === 'pdf' ? pdfOut : htmlOut;

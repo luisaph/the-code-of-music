@@ -10,6 +10,7 @@ hljs.registerLanguage(
 
 console.log('APP.js loaded');
 
+/* Code for loading code editor sketches */
 const loadInteractiveSketches = () => {
   console.log('loading interactives');
 
@@ -20,6 +21,7 @@ const loadInteractiveSketches = () => {
   interactiveExamples.forEach(async (e) => {
     const { id } = e;
 
+    /* Retrieve data from element attribute (created in interactiveSketch plugin) */
     const path = e.getAttribute('data-path');
 
     const htmlPath = `${path}/index.html`;
@@ -30,13 +32,21 @@ const loadInteractiveSketches = () => {
 
     const sketchLines = sketchString.split('\n');
 
-    // Defaults to first and last lines
+    console.log('sketchLines: ');
+    console.log(sketchLines);
+
+    /* Get editable section -- defaults to first and last lines */
     const startLine = (e.getAttribute('data-start-line') || 1) - 1;
     const endLine = e.getAttribute('data-end-line') || sketchLines.length;
 
+    /* Divide sketch into sections */
     const sketchPre = sketchLines.slice(0, startLine - 1);
     const sketchEditable = sketchLines.slice(startLine, endLine);
-    const sketchPost = sketchLines.slice(endLine + 1);
+    const sketchPost = sketchLines.slice(endLine, -1);
+
+    console.log(sketchPre);
+    console.log(sketchEditable);
+    console.log(sketchPost);
 
     const initialState = EditorState.create({
       doc: sketchEditable.join('\n'),
@@ -45,12 +55,14 @@ const loadInteractiveSketches = () => {
         javascript(),
         EditorView.updateListener.of(({ docChanged, view }) => {
           if (docChanged) {
-            console.log('DOCUMENT CHANGED');
-
+            /* Get current document and combine with hidden code */
             const docData = view.state.doc.toJSON();
             const fullScript = [...sketchPre, ...docData, ...sketchPost];
+            // console.log(fullScript);
             const docString = JSON.stringify(fullScript);
+            // console.log(docString);
 
+            /* Updates frame source with code in URL */
             embedFrame.src = `${htmlPath}?p5script=${docString}`;
           }
         }),

@@ -1,3 +1,11 @@
+/*
+  This script is used by the interactive sketches in this folder
+  It loads code text from the URL and injects it as a script to run
+  Url Params: 
+    loadInitial -- set to true if it should load the sketch.js script
+    p5script -- the stringified script to run
+*/
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 

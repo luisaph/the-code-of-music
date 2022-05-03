@@ -10,18 +10,18 @@ html {
   }
 }
 
-@font-face {
-  font-family: 'Compagnon';
-  src: url('fonts/Compagnon/Compagnon-Roman.woff2') format('woff2'),
-    url('fonts/Compagnon/Compagnon-Roman.woff') format('woff');
-}
+// @font-face {
+//   font-family: 'Compagnon';
+//   src: url('fonts/Compagnon/Compagnon-Roman.woff2') format('woff2'),
+//     url('fonts/Compagnon/Compagnon-Roman.woff') format('woff');
+// }
 
 $orange: #f56324;
 $header-height: 180px;
 $bp-medium: 800px;
 $black: rgb(34, 33, 33);
 $white: #fff;
-$gray-light: rgb(246, 246, 244);
+$gray-light: rgb(246, 244, 239);
 $page-max-width: 980px;
 
 $theme-red: #ff3100;
@@ -36,5 +36,8 @@ $menu-padding: 1.5em;
 $menu-transition-speed: 0.2s;
 
 $font--display: 'Inter', sans-serif;
+$font--body: 'Inter', sans-serif;
 // $font--body: 'Compagnon', sans-serif;
-$font--body: 'Cousine', sans-serif;
+
+$code-bg: $white;
+$code-shadow: 0 3px 50px -10px rgba(43, 40, 36, 0.1);

@@ -30,24 +30,25 @@ Plugin.prototype = {
       const scriptPath = path.join(examplePath, 'sketch.js');
       const idAttr = `example-${count}`;
 
-      /* Image for PDF version, interactive sketch for web version */
-      const output =
-        format === 'pdf'
-          ? `
+      const pdfOutput = `
         <figure id="${idAttr}" class="p5-figure">
           <div class="p5container">
             <img src=".${examplePath}/placeholder.png" />
             <span>${examplePath}</span>
           </div>
         </figure>
-      `
-          : `
+      `;
+
+      const htmlOutput = `
         <figure id="${idAttr}" class="p5-figure">
           <div class="p5container"></div>
           <script type="text/javascript" src="${scriptPath}"></script>
           <a class="p5-sketch-link" href="${examplePath}" target="_blank">View</a>
         </figure>
       `;
+
+      /* Image for PDF version, interactive sketch for web version */
+      const output = format === 'pdf' ? pdfOutput : htmlOutput;
 
       /* Add new line so that the following content is parsed correctly */
       const parsedOutput = tinyliquid.parse(output.trim() + '\n\n');

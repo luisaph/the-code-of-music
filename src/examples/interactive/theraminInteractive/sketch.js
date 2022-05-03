@@ -27,15 +27,15 @@ function mouseDragged() {
   // note: ideally, the mapping of mouseX to volume and mouseY to frequency
   // would be on a log scale - see Elements of Sound chapter
 
-  let volume = map(mouseX, 0, width, -100, 0);
+  let volume = map(mouseX, 0, width, -100, 0, true);
   osc.volume.rampTo(volume, 0.1);
 
-  let frequency = map(mouseY, 0, height, 880, 440);
+  let frequency = map(mouseY, 0, height, 880, 440, true);
   osc.frequency.rampTo(frequency, 0.1);
 
   // update ellipse position for drawing
-  x = mouseX;
-  y = mouseY;
+  x = constrain(mouseX, 0, width);
+  y = constrain(mouseY, 0, height);
 }
 
 function mouseReleased() {

@@ -9,24 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let sections;
   let sketches;
 
-  // const enableVisibleSketches = () => {
-  //   sketches.forEach((s) => s.classList.remove('is-active'));
-  //   const visibleSketches = [...sketches].filter(
-  //     utils.isAnyPartOfElementInViewport
-  //   );
-
-  //   console.log('visibleSketches:', visibleSketches);
-  //   visibleSketches.forEach((s) => s.classList.add('is-active'));
-
-  //   if (P5SketchManager.loopOnlyOnScreenSketches) {
-  //     P5SketchManager.pauseAllP5Sketches();
-
-  //     visibleSketches.forEach((e) => {
-  //       P5SketchManager.resumeP5Sketch(e.id);
-  //     });
-  //   }
-  // };
-
   const updateActiveMenuLink = () => {
     document.querySelectorAll('.menu a').forEach((el) => {
       el.classList.remove('is-active');
@@ -45,13 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   chapterSection = document.querySelector('section[data-type="chapter"]');
   sections = document.querySelectorAll('section section');
   sketches = document.querySelectorAll('.p5-figure');
-  console.log('SKETCHES', sketches);
-
-  // setTimeout(() => {
-  //   P5SketchManager.enableVisibleSketches();
-  // }, 500);
-  /* Read from local storage */
-  /* TODO: can we do this before the first page render? */
 
   /* Toggle Menu Open/Close */
   const menuButton = document.querySelector('.menu-button');
@@ -108,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let activeSectionId;
 
+  /* Scroll handler -- update menu link styles and pause/unpause P5 Sketches */
   document.addEventListener(
     'scroll',
     utils.debounce(() => {
