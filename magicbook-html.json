@@ -7,7 +7,7 @@
     "src/plugins/inlineButton",
     "src/plugins/interactiveSketch"
   ],
-  "files": ["src/notion-docs/**/*.md"],
+  "files": ["src/notion-docs/**/*.md","src/AR/pdfinteractive.html"],
   "images": {
     "files": [
       "src/notion-docs/images/**/*.png",
@@ -30,7 +30,7 @@
     "includes": "src/includes"
   },
   "javascripts": {
-    "files": ["src/javascripts/utils.js", "src/javascripts/main.js"],
+    "files": ["src/javascripts/utils.js", "src/javascripts/main.js","src/javascripts/xr.js"],
     "bundle": false
   },
   "fonts": {

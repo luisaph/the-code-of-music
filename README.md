@@ -168,6 +168,65 @@ During the build the entire `examples` folder is moved to `build/assets/examples
 
 5. Code in [`main.js`](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/main.js#L87) pauses/unpauses the sketches depending on whether they are visible as the user scrolls.
 
+## 🤳 AR for pdfs
+
+The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdfInteractive.html
+
+### Overview
+
+1. All the code for the AR rendering lives in `src/javascripts/xr.js` in the codebase.
+2. It uses threejs to create the XR environment.
+3. Different interactives are loaded based on the image that that phone sees.
+
+### How interactives are rendered in AR
+
+1. The AR scene has 2 components - DOM and a plane geometry.
+2. The DOM is used for interactions with the environmnet(buttons, sliders etc). Native buttons and sliders are being used as - as of now threejs does not support threejs geometries to be interactive elements in AR.
+3. Based on the image marker that the phone sees, a p5 interactive from `examples/interactive/**/**/sketch.js` is loaded
+4. As these interactives are created in instance mode, the canvas element loaded by invoking a sketch is loaded on to the plane geometry as a texture on the geometry. Even when the p5 canvas is loaded as a texture, it functions as a normal p5 sketch with the setup() and draw() functions working as they normally would which allows all the sketch animations to work.
+5. This was done in order to be able to use the p5 code written for the web version to be resued for the AR for pdfs.
+
+### The functions in xr.js
+
+1. `activateXR` :
+
+- sets up the threejs scene and initializes the xr environment.
+- It also sets the default `window.registerP5Sketch = overrideregisterP5Sketch`.
+- This is done so that instead of getting registed to the p5 magicbook plugin the sketch can now be used by threejs as a texture instead.
+
+2. `onXRFrame`:
+
+- Called on each frame
+- gets camera positions
+- checks for detected marker and its position on each frame.
+
+3. `loadARAssets(pathOfSketch)`
+
+- On image detection : Appends the path of the sketch.js file to the head of the document so the sketch can get invoked in instance mode.
+
+4. `overrideregisterP5Sketch(p5Instance)`
+
+- Adds the loaded sketch as a texture to a threejs geometry
+
+5. `overrideP5functions(p5Instance,p5Canvas)`
+
+- Overrides some default p5 functions like - createButton, createSlider etc
+
+### Modifications in p5 sketch
+
+1. Instead of `p.createCanvas(p.windowWidth, sketchHeight);` modify it to `let p5Obj = window.overrideP5functions(p,p.createCanvas(window.innerWidth, 400)`
+   this returns an object from which the canvas can be extracted like `c = p5Obj.p5Canvas`.
+2. All p5 DOM functions like createImage, createButton, createSlider etc do not work when the sketch is used as a canvas texture. Which is why the `overrideP5functions` is used which overrides the p5functions to use the standard js way of creation buttons and sliders. The overriding is done so that there is a generic function that would handle all these things in the AR environment and the p5 code can be witten in pretty much the standard way.
+3. One other change that is required in the p5 sketch is `addClass` and `removeClass` functions need to be modified to `.elm.classList.add` and `.elm.classList.remove`
+
+See. `examples/interactive/melody/melody-3/sketch.js` for reference
+
+### TODOs:
+
+1. Modify other interactives the way it is done in `examples/interactive/melody/melody-3/sketch.js`
+2. Handle all other DOM functions in `overrideP5functions()`. As of now it handles only `createButton` and `createSlider`
+3. Stylise the Buttons, sliders and any other interactive element.
+
 ## 🚀 Deploy
 
 For every commit to the master branch, the [firebase-hosting-merge](https://github.com/luisaph/the-code-of-music/blob/deploy-firebase/.github/workflows/firebase-hosting-merge.yml) action builds and deploys the site to Firebase Hosting at https://codeofmusic-16a81.web.app/.

@@ -89,7 +89,7 @@ function P5SketchManager() {
 }
 
 window.P5SketchManager = new P5SketchManager();
-
+window.overrideP5functions = () =>{}
 window.addEventListener('resize', P5SketchManager.resizeSketches);
 
 /* Expose register function to p5 sketch files */

@@ -28,9 +28,13 @@ window.registerP5Sketch((p) => {
 
     originPt = p.createVector(301, 262);
 
-    c = p
-      .createCanvas(window.innerWidth, 400)
-      .style('position: relative; z-index: 0; width: 100%');
+    let p5Obj = window.overrideP5functions(
+      p,
+      p
+        .createCanvas(window.innerWidth, 400)
+        .style('position: relative; z-index: 0; width: 100%')
+    );
+    //c = p5Obj.p5Canvas
 
     // p.pixelDensity(1);
     // mic = new Tone.UserMedia().toDestination();
@@ -50,43 +54,53 @@ window.registerP5Sketch((p) => {
     );
 
     const playBtn = p.createButton('');
-    playBtn.class('play-button');
-    playBtn.mouseReleased(() => {
+    playBtn.elt.classList.add('play-button');
+    playBtn.elt.onclick = () => {
       if (osc.state == 'started') {
-        oscGain.gain.rampTo(0, 0.3);
+        oscGain.gain.rampTo(0, 0.6);
         setTimeout(() => {
           osc.stop();
         }, 300);
-        playBtn.removeClass('play-button--stop');
+        playBtn.elt.classList.remove('play-button--stop');
       } else {
         osc.start();
         oscGain.gain.rampTo(1, 0.3);
-        playBtn.addClass('play-button--stop');
+        playBtn.elt.classList.add('play-button--stop');
       }
-    });
+    };
 
-    p.createSpan('Freq');
-    p.createSlider(1, 1000).input(({ target: { value } }) => {
-      const pow = p.map(value, 1, 1000, 7, 9);
+    let freqSp = p.createSpan('Freq');
+    let freqSlid = p.createSlider(1, 1000);
+    freqSlid.elt.oninput = () => {
+      let val = freqSlid.elt.value;
+      const pow = p.map(val, 1, 1000, 7, 9);
       const newFq = p.pow(2, pow);
       osc.frequency.rampTo(newFq, 0.1);
-    });
+    };
 
     p.createSpan('Amplitude');
-    p.createSlider(0, 1000, 1000).input(({ target: { value } }) => {
-      const newVol = p.map(value, 0, 1000, 0, 1);
+    let ampSlid = p.createSlider(0, 1000, 1000);
+    ampSlid.elt.oninput = () => {
+      let val = ampSlid.elt.value;
+      const newVol = p.map(val, 0, 1000, 0, 1);
       oscGain.gain.rampTo(newVol, 0.1);
-    });
+    };
 
     // p.createButton('toggle graph').mousePressed(() => {
     //   showGraph = !showGraph;
     // });
-    p.createButton('toggle waves').mousePressed(() => {
+    let togGph = p.createButton('toggle graph');
+    togGph.elt.onclick = () => {
+      showGraph = !showGraph;
+    };
+    let togWav = p.createButton('toggle waves');
+    togWav.elt.onclick = () => {
       showWaves = !showWaves;
-    });
-    p.createButton('toggle molecules').mousePressed(() => {
+    };
+    let togMol = p.createButton('toggle molecules');
+    togMol.elt.onclick = () => {
       showMolecules = !showMolecules;
-    });
+    };
 
     randomPositions = [...new Array(nMolecules)].map((_, i) =>
       p.createVector(p.random() * p.width, p.random() * p.height)
