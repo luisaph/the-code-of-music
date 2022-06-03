@@ -179,8 +179,17 @@ The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdf
   - Overrides some default p5 functions like - createButton, createSlider etc
   
 ### Modifications in p5 sketch
+1. Instead of `p.createCanvas(p.windowWidth, sketchHeight);` modify it to `let p5Obj = window.overrideP5functions(p,p.createCanvas(window.innerWidth, 400)`
+this returns an object from which the canvas can be extracted like `c = p5Obj.p5Canvas`.
+2. All p5 DOM functions like createImage, createButton, createSlider etc do not work when the sketch is used as a canvas texture. Which is why the `overrideP5functions` is used which overrides the p5functions to use the standard js way of creation buttons and sliders. The overriding is done so that there is a generic function that would handle all these things in the AR environment and the p5 code can be witten in pretty much the standard way.
+3. One other change that is required in the p5 sketch is `addClass` and `removeClass` functions need to be modified to `.elm.classList.add` and `.elm.classList.remove`
+
+See. `examples/interactive/melody/melody-3/sketch.js` for reference
 ### TODOs: 
-1. 
+1. Modify other interactives the way it is done in `examples/interactive/melody/melody-3/sketch.js`
+2. Handle all other DOM functions in `overrideP5functions()`. As of now it handles only `createButton` and `createSlider`
+3. Stylise the Buttons, sliders and any other interactive element.
+
 ## 🚀 Deploy
 
 For every commit to the master branch, the [firebase-hosting-merge](https://github.com/luisaph/the-code-of-music/blob/deploy-firebase/.github/workflows/firebase-hosting-merge.yml) action builds and deploys the site to Firebase Hosting at https://codeofmusic-16a81.web.app/.
