@@ -20,7 +20,7 @@
     "bundle": true,
     "compress": true,
     "digest": true,
-    "files": ["src/stylesheets/html.scss", "src/stylesheets/highlightjs.css"]
+    "files": ["src/stylesheets/pdf-2.scss", "src/stylesheets/highlightjs.css"]
   },
   "liquid": {
     "includes": "src/includes"

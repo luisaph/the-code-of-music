@@ -1,0 +1,333 @@
+@import '_shared';
+
+// @import url('https://rsms.me/inter/inter.css');
+
+@font-face {
+  font-family: 'Compagnon';
+  src: url('fonts/Compagnon/Compagnon-Roman.otf') format('itf'),
+    url('fonts/Compagnon/Compagnon-Light.otf') format('oft');
+}
+
+// @font-face {
+//   font-family: 'Compagnon';
+//   src: url('fonts/Compagnon/Compagnon-Roman.woff2') format('woff2'),
+//     url('fonts/Compagnon/Compagnon-Roman.woff') format('woff');
+// }
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/Inter.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Fivo Sans Modern';
+  src: url('fonts/Fivo/FivoSansModern-Regular.oft') format('oft'),
+    url('fonts/Fivo/FivoSansModern-Regular.oft') format('otf');
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
+
+section[data-type="chapter"] {
+  page-break-before: always;
+}
+
+nav[data-type="toc"] a[href]::after {
+  content: " [Page " target-counter(attr(href), page) "]"
+}
+
+@media screen {
+
+  body {}
+
+}
+
+@media print {
+
+  html,
+  body {}
+
+
+  @page {
+    size: 203.2mm 241.3mm;
+
+  }
+
+  @page :left {
+    margin-left: 38.1mm;
+    margin-right: 19.05mm;
+
+    @bottom-left {
+
+      content: "Code of Music" !important;
+      font-size: 9pt;
+      color: #333;
+    }
+
+
+  }
+
+  @page :right {
+    margin-left: 19.05mm;
+    margin-right: 38.1mm;
+
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+
+
+  .parent1 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 18px;
+    grid-row-gap: 0px;
+  }
+
+
+
+  h1 {
+
+    grid-area: auto / 1 / auto / 4 !important;
+
+    left: 17.71%;
+    bottom: 15.5%;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 194px;
+    line-height: 83.5%;
+    /* or 162px */
+    margin-top: 3%;
+    margin-bottom: 5%;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+
+    color: #000000;
+  }
+
+  section h1 {
+
+    grid-area: auto / 1 / auto / 4 !important;
+    left: 17.71%;
+    top: 9.65%;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 92px;
+    line-height: 86.02%;
+    /* or 79px */
+
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    color: #000000;
+
+
+
+  }
+
+  h3 {
+    grid-area: auto / 1 / auto / 4 !important;
+
+    left: 18.4%;
+    top: 10.09%;
+
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 50px;
+    line-height: 86.02%;
+    /* or 43px */
+    margin-top: 3%;
+    margin-bottom: 5%;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+
+    color: #000000;
+
+
+  }
+
+  p {
+    grid-area: auto / 1 / auto / 4 !important;
+    left: 52.95%;
+    right: 19.97%;
+    top: 3.22%;
+    bottom: 67.84%;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 130%;
+    /* or 11px */
+
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+
+    color: #000000;
+
+    page-break-inside: avoid;
+
+  }
+
+
+  /* code */
+  .hljs {
+    /*  grid-area: auto / 1 / auto / 4 !important; */
+    left: 0%;
+    right: 19.97%;
+    top: 3.22%;
+    bottom: 67.84%;
+
+    font-family: Compagnon;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 130%;
+    /* or 11px */
+
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+
+    color: #000000;
+  }
+
+  .hljs-comment {
+
+    color: #acacac;
+  }
+
+  .hljs-keyword {
+
+    color: #000000;
+
+  }
+
+  .hljs-title {
+
+    color: #3150ff;
+  }
+
+
+  figure {
+    grid-area: auto / 1 / auto / 4 !important;
+    page-break-inside: avoid !important;
+  }
+
+  img {
+
+    /*   grid-area: auto / 1 / auto / 4 !important;*/
+    display: block;
+    max-width: 100%;
+    page-break-inside: avoid !important;
+    page-break-after: auto;
+  }
+
+  /* caption// */
+  figure em {
+    grid-area: auto / 1 / auto / 4 !important;
+
+    left: 4.34%;
+    right: 73.78%;
+    top: 22.37%;
+    bottom: 76.02%;
+
+    font-family: 'Fivo Sans Modern';
+    font-style: italic;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 86.02%;
+    /* or 9px */
+
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+
+    color: #7e7e7e;
+
+  }
+
+
+  iframe {
+    grid-area: auto / 1 / auto / 4 !important;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    border: 1px dashed gray-light;
+    page-break-inside: avoid !important;
+  }
+
+
+  .chapter {
+    page-break-before: always;
+
+  }
+
+  section {
+    page-break-before: always;
+    grid-area: auto / 1 / auto / 4 !important;
+  }
+
+  /* Bullets */
+  ul {
+
+    grid-area: auto / 1 / auto / 4 !important;
+    left: 52.95%;
+    right: 19.97%;
+    top: 3.22%;
+    bottom: 67.84%;
+
+    font-family: 'Fivo Sans Modern';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 130%;
+    /* or 11px */
+
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+
+    color: #000000;
+
+    page-break-inside: avoid !important;
+  }
+
+  li {
+    grid-area: auto / 1 / auto / 3 !important;
+    left: 52.95%;
+    right: 19.97%;
+    top: 3.22%;
+    bottom: 67.84%;
+
+    font-family: 'Fivo Sans Modern';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 130%;
+    /* or 11px */
+
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+
+    color: #000000;
+
+    page-break-inside: avoid !important;
+  }
+
+
+
+
+}
