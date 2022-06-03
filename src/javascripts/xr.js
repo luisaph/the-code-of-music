@@ -9,7 +9,7 @@ function XRSetup() {
   let lastTracked = -2;
   let loadNew = 1;
   let ratio = 18/10;
-  let width = 0.09;
+  let width = 0.39;
   let height = width/ratio;
   window.sketchVariables = {};
 
@@ -60,9 +60,11 @@ function XRSetup() {
             //prev and current tracked check
             if(geometry) {
               /* updates geomerty position if the detected marker does not change but the position updates*/
-              geometry.position.x = poseImg.transform.position.x+width;
+              geometry.position.x = poseImg.transform.position.x+width/2;;
               geometry.position.y = poseImg.transform.position.y-height;
               geometry.position.z = poseImg.transform.position.z;
+              geometry.rotation.x = -Math.PI/2;
+              geometry.rotation.y = -Math.PI;
             }
           }
         }
@@ -107,11 +109,11 @@ function XRSetup() {
     geometry.name = 'ARObject'
   
     /**hard coded the positions and rotation for now as  geometry.matrix.fromArray(poseImg.transform.matrix); was not working as intended*/
-    geometry.position.x = poseImg.transform.position.x+width;
+    geometry.position.x = poseImg.transform.position.x+width/2;
     geometry.position.y = poseImg.transform.position.y-height;
     geometry.position.z = poseImg.transform.position.z;
-    geometry.rotation.y = -3.14;
-    //geometry.rotation.x = -1.57;
+    geometry.rotation.y = -Math.PI;
+    geometry.rotation.x = -Math.PI/2;
     scene.add(geometry);
   }
 
@@ -143,7 +145,7 @@ function XRSetup() {
         let imgBitmap = await createImageBitmap(elem);
         returnArray.push({
           image:imgBitmap,
-          widthInMeters:0.18 /**Can change based on the book dimensions */
+          widthInMeters:0.4 /**Can change based on the book dimensions */
         })
       }
       return returnArray

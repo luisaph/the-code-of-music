@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "rm -rf build && yarn build --watch",
+    "dev": "yarn build --watch",
     "serve": "live-server build/web --port=5000",
     "serve:examples": "live-server examples --port=5002",
     "build": "magicbook build --config=magicbook-html.json",
