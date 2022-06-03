@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let chapterSection;
   let sections;
-  let sketches;
 
   const updateActiveMenuLink = () => {
     document.querySelectorAll('.menu a').forEach((el) => {
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   chapterSection = document.querySelector('section[data-type="chapter"]');
   sections = document.querySelectorAll('section section');
-  sketches = document.querySelectorAll('.p5-figure');
 
   /* Toggle Menu Open/Close */
   const menuButton = document.querySelector('.menu-button');
