@@ -49,10 +49,8 @@ window.registerP5Sketch((p) => {
     );
 
     const playBtn = p.createButton('');
-    console.log('playBtn',playBtn)
     playBtn.elt.classList.add('play-button');
     playBtn.elt.onclick=(() => {
-      console.log('CLICK',osc.start)
       if (osc.state == 'started') {
         oscGain.gain.rampTo(0, 0.6);
         setTimeout(() => {
@@ -67,7 +65,6 @@ window.registerP5Sketch((p) => {
     });
 
     let freqSp = p.createSpan('Freq');
-    console.log('FREQ',freqSp.elt)
     let freqSlid = p.createSlider(1, 1000)
     freqSlid.elt.oninput = (() => {
       let val = freqSlid.elt.value;
