@@ -29,7 +29,7 @@ window.registerP5Sketch((p) => {
     originPt = p.createVector(301, 262);
 
     let p5Obj = window.overrideP5functions(p,p.createCanvas(window.innerWidth, 400).style('position: relative; z-index: 0; width: 100%'));
-    c = p5Obj.p5Canvas
+    //c = p5Obj.p5Canvas
 
     // p.pixelDensity(1);
     // mic = new Tone.UserMedia().toDestination();
@@ -49,27 +49,28 @@ window.registerP5Sketch((p) => {
     );
 
     const playBtn = p.createButton('');
-    playBtn.elm.classList.add('play-button');
-    playBtn.elm.onclick=(() => {
+    console.log('playBtn',playBtn)
+    playBtn.elt.classList.add('play-button');
+    playBtn.elt.onclick=(() => {
       console.log('CLICK',osc.start)
       if (osc.state == 'started') {
         oscGain.gain.rampTo(0, 0.6);
         setTimeout(() => {
           osc.stop();
         }, 300);
-        playBtn.elm.classList.remove('play-button--stop');
+        playBtn.elt.classList.remove('play-button--stop');
       } else {
         osc.start();
         oscGain.gain.rampTo(1, 0.3);
-        playBtn.elm.classList.add('play-button--stop');
+        playBtn.elt.classList.add('play-button--stop');
       }
     });
 
     let freqSp = p.createSpan('Freq');
     console.log('FREQ',freqSp.elt)
     let freqSlid = p.createSlider(1, 1000)
-    freqSlid.elm.oninput = (() => {
-      let val = freqSlid.elm.value;
+    freqSlid.elt.oninput = (() => {
+      let val = freqSlid.elt.value;
       const pow = p.map(val, 1, 1000, 7, 9);
       const newFq = p.pow(2, pow);
       osc.frequency.rampTo(newFq, 0.1);
@@ -77,8 +78,8 @@ window.registerP5Sketch((p) => {
 
     p.createSpan('Amplitude');
     let ampSlid = p.createSlider(0, 1000, 1000);
-    ampSlid.elm.oninput = (() => {
-      let val = ampSlid.elm.value;
+    ampSlid.elt.oninput = (() => {
+      let val = ampSlid.elt.value;
       const newVol = p.map(val, 0, 1000, 0, 1);
       oscGain.gain.rampTo(newVol, 0.1);
     })
@@ -87,15 +88,15 @@ window.registerP5Sketch((p) => {
     //   showGraph = !showGraph;
     // });
     let togGph = p.createButton('toggle graph')
-    togGph.elm.onclick=(() => {
+    togGph.elt.onclick=(() => {
       showGraph = !showGraph;
     });
     let togWav = p.createButton('toggle waves')
-    togWav.elm.onclick=(() => {
+    togWav.elt.onclick=(() => {
      showWaves = !showWaves;
     });
     let togMol = p.createButton('toggle molecules')
-    togMol.elm.onclick = (() => {
+    togMol.elt.onclick = (() => {
      showMolecules = !showMolecules;
     });
 

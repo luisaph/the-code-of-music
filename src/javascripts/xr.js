@@ -63,7 +63,6 @@ function XRSetup() {
               geometry.position.x = poseImg.transform.position.x+width;
               geometry.position.y = poseImg.transform.position.y-height;
               geometry.position.z = poseImg.transform.position.z;
-              console.log(geometry)
             }
           }
         }
@@ -113,7 +112,6 @@ function XRSetup() {
     geometry.position.z = poseImg.transform.position.z;
     geometry.rotation.y = -3.14;
     //geometry.rotation.x = -1.57;
-    console.log(geometry)
     scene.add(geometry);
   }
 
@@ -214,7 +212,7 @@ function XRSetup() {
           btn.setAttribute('type','button');
           content.append(btn)
           return {
-            elm:btn
+            elt:btn
           };
         }
         p5Instance.createSlider = (min,max,val) => {
@@ -225,7 +223,7 @@ function XRSetup() {
           slid.setAttribute('value',val);
           content.append(slid)
           return {
-            elm:slid
+            elt:slid
           };
         }
         p5Instance.createSpan = (args) => {
@@ -233,7 +231,7 @@ function XRSetup() {
           span.innerHTML = args;
           content.append(span)
           return {
-            elm:span
+            elt:span
           };
         } 
         return {
