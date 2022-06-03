@@ -21,10 +21,18 @@ _Code of Music_ is an interactive book that teaches the fundamentals of music th
 
 ## 📦 Build
 
-- `yarn build` to build the site
+- `yarn build` to build the site into the `build` directory
 - `yarn build:pdf` to build the PDF version. The PDF will be copied to `build/web` and should be viewable at: http://localhost:5000/the-code-of-music.pdf
 
 ## 📖 Writing in Notion
+
+The book content comes from a Notion document. A `Book` page should contain a Pages database.
+
+<img width="246" alt="Screen Shot 2022-06-03 at 2 51 41 PM" src="https://user-images.githubusercontent.com/9386882/171929304-18c9c054-20d1-4d0f-b7a9-3982c6c69748.png">
+
+The Pages database should have the following structure. Each Page under the Name header contains the full content for that chapter.
+
+<img width="921" alt="Screen Shot 2022-06-03 at 2 50 06 PM" src="https://user-images.githubusercontent.com/9386882/171928824-25485716-b936-4b39-bcf1-1d85bdfe1453.png">
 
 #### P5 Sketches
 
@@ -84,16 +92,17 @@ Note that Github Actions cannot trigger other Github actions directly. That mean
 
 The interactive p5 sketches live in the `examples` folder. Each example directory should have an `index.html` which allows the sketch to be viewed independently, a `sketch.js` file which registers a P5 sketch in [instance mode](https://p5js.org/examples/instance-mode-instantiation.html), and `placeholder.png` which is used in the PDF build.
 
-Here is an example sketch. Note that in the `index.html` we need to define `window.registerP5Sketch`. We also have to include the external libraries that the sketch needs. ⚠️ NOTE: these need to be the same versions as the libraries used in the web build.
+Here is an example sketch. Note that in the `index.html` we need to define `window.registerP5Sketch`. We also have to include the external libraries that the sketch needs from the assets folder.
 
 ```html
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <meta charset="utf-8" />
+    <script src="../../assets/libs/Tone-14.7.77.min.js"></script>
+    <script src="../../assets/libs/p5-1.4.0.min.js"></script>
+    <link href="../../assets/examples.css" rel="stylesheet" />
   </head>
   <body>
     <script>
@@ -127,6 +136,7 @@ window.registerP5Sketch((p) => {
     p.createCanvas(200, 200);
     p.background(0);
   };
+
   p.draw = () => {
     const color = (p.sin(p.frameCount / 10) + 0.5) * 255;
     p.background(color);
