@@ -163,7 +163,21 @@ The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdf
 5. This was done in order to be able to use the p5 code written for the web version to be resued for the AR for pdfs. 
 
 ### The functions in xr.js
-
+1. `activateXR` : 
+  - sets up the threejs scene and initializes the xr environment. 
+  - It also sets the default ``window.registerP5Sketch = overrideregisterP5Sketch``.
+  - This is done so that instead of getting registed to the p5 magicbook  plugin the sketch can now be used by threejs as a texture instead.
+2. `onXRFrame`: 
+  - Called on each frame
+  - gets camera positions 
+  - checks for detected marker and its position on each frame. 
+3. `loadARAssets(pathOfSketch)`
+  - On image detection : Appends the path of the sketch.js file to the head of the document so the sketch can get invoked in instance mode.
+4. `overrideregisterP5Sketch(p5Instance)`
+  - Adds the loaded sketch as a texture to a threejs geometry
+5. `overrideP5functions(p5Instance,p5Canvas)`
+  - Overrides some default p5 functions like - createButton, createSlider etc
+  
 ### Modifications in p5 sketch
 ### TODOs: 
 1. 
