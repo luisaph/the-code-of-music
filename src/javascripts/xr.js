@@ -12,6 +12,11 @@ function XRSetup() {
   let width = 0.09;
   let height = width/ratio;
   window.sketchVariables = {};
+
+  /*Called on each frame
+  gets camera positions 
+  checks for detected marker and its position on each frame. 
+  */
   const onXRFrame = (time, frame) => {
        
     // Queue up the next draw request.
@@ -38,16 +43,8 @@ function XRSetup() {
       camera.matrix.fromArray(view.transform.matrix)
       camera.projectionMatrix.fromArray(view.projectionMatrix);
       camera.updateMatrixWorld(true);
-      
-      let hitTestResults = frame.getHitTestResults(hitTestSource);
-      if (hitTestResults.length > 0) {
-        //console.log('HIT!',hitTestResults)
-        const hitPose = hitTestResults[0].getPose(referenceSpace);
-        //drawSphere(hitPose)
-      }
       // Render the scene with THREE.WebGLRenderer.
       renderer.render(scene, camera)
-      //hit-test 
      
       //marker detection 
       const marker = () => {
@@ -62,17 +59,10 @@ function XRSetup() {
             poseImg = frame.getPose(result.imageSpace, referenceSpace);
             //prev and current tracked check
             if(geometry) {
-              console.log('TRACK')
-              console.log(poseImg.transform.position)
-              //geometry.position.set(poseImg.transform.position.x, poseImg.transform.position.y, poseImg.transform.position.z)
+              /* updates geomerty position if the detected marker does not change but the position updates*/
               geometry.position.x = poseImg.transform.position.x+width;
               geometry.position.y = poseImg.transform.position.y-height;
               geometry.position.z = poseImg.transform.position.z;
-              //let quaternion = new THREE.Quaternion(poseImg.transform.orientation.x, poseImg.transform.orientation.y, poseImg.transform.orientation.z , poseImg.transform.orientation.w);
-              //quaternion.setFromAxisAngle( new THREE.Vector3( poseImg.transform.orientation.x, poseImg.transform.orientation.y, poseImg.transform.orientation.z ), poseImg.transform.orientation.w );
-              //geometry.matrix.makeRotationFromQuaternion( quaternion );
-              //geometry.matrixWorldNeedsUpdate = true;
-              //geometry.updateMatrixWorld(true);
               console.log(geometry)
             }
           }
@@ -103,73 +93,42 @@ function XRSetup() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
+
+  /*
+    Creates the plane and add it to the scene.
+    Adds the p5canvas as texture 
+  */
   const setUpSketch = (texture) => {
     newSketch = new p5(texture);
-    //loaded = 1;
     p5CanvasTexture = new THREE.CanvasTexture(newSketch.P5_CANVAS);
     p5CanvasTexture.needsUpdate = true;
-    //const materials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
     const materials = new THREE.MeshBasicMaterial({ map: p5CanvasTexture,side: THREE.DoubleSide});
-      // Create the cube and add it to the demo scene.
-      //create canvas 
-      //add the canvas as texture 
-      //attach p5 text to the canvas 
-    
     
     geometry = new THREE.Mesh(new THREE.PlaneGeometry( width, height ),materials);
     geometry.name = 'ARObject'
-    //geometry.matrix.fromArray(poseImg.transform.matrix);
-    //geometry.position.set(poseImg.transform.position.x, poseImg.transform.position.y, poseImg.transform.position.z)
-    //geometry.position = new THREE.Vector3().setFromMatrixPosition(poseImg.transform.matrix)
-    
-    console.log('POSS',poseImg);
-    //geometry.matrix.fromArray(poseImg.transform.matrix);
+  
+    /**hard coded the positions and rotation for now as  geometry.matrix.fromArray(poseImg.transform.matrix); was not working as intended*/
     geometry.position.x = poseImg.transform.position.x+width;
     geometry.position.y = poseImg.transform.position.y-height;
     geometry.position.z = poseImg.transform.position.z;
-    //let quaternion = new THREE.Quaternion(poseImg.transform.orientation.x, poseImg.transform.orientation.y, poseImg.transform.orientation.z , poseImg.transform.orientation.w);
-    //quaternion.setFromAxisAngle( new THREE.Vector3( poseImg.transform.orientation.x, poseImg.transform.orientation.y, poseImg.transform.orientation.z ), poseImg.transform.orientation.w );
-    //geometry.matrix.makeRotationFromQuaternion( quaternion );
-    //geometry.matrixWorldNeedsUpdate = true;
-    //geometry.updateMatrixWorld(true);
     geometry.rotation.y = -3.14;
     //geometry.rotation.x = -1.57;
     console.log(geometry)
-    //drawSphere(poseImg)
-    //geometry.app
-    //cube.position.set(0, -1, -3);
     scene.add(geometry);
   }
-  const drawSphere = (position) => {
-    console.log('SPHERE')
-    const geometry = new THREE.SphereGeometry( 0.01, 32,16 );
-    const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-    sphere = new THREE.Mesh( geometry, material );
-    //sphere.position.set(position.transform.position.x, position.transform.position.y, position.transform.position.z);
-    sphere.position.x = poseImg.transform.position.x;
-    sphere.position.y = poseImg.transform.position.y;
-    sphere.position.z = poseImg.transform.position.z;
-    scene.add( sphere );
-  }
-  const setUpUI = () => {
-    newSketch.AR_UI.forEach(button => {
-        //get button colour/text/position/
-        //create the button in threejs
-        let btnColour = new THREE.MeshBasicMaterial({color: button.color})
-        let btn = new THREE.Mesh(new THREE.SphereGeometry(0.2,15, 15), btnColour);
-        btn.position.set(-0.5, -2.3, -3);
-        scene.add(btn);
-    });
-  }
+
+   /*Over rides the default registerp5sketch defined in all sketches so that it does not get imteract with the p5 pulgin for magicbook*/
   const overrideregisterP5Sketch = (p5Sketch) => {
     activeP5Sketch = p5Sketch;
     //add sketch texture
+    /*condition added to avoid duplicate loading of a sketch */
     if(loadNew) {
       loadNew = 0;
       setUpSketch(activeP5Sketch);
     }
-    //setUpUI();
   }
+
+  /* adds the relevant sketch.js file to the head of the documents so that the sketch can be invoked in instance mode and be ready to be used as a canvas texture*/
   const loadARAssets = (path) => {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -177,37 +136,22 @@ function XRSetup() {
     script.src = path;
     head.appendChild(script);
   }
-  const getImageScore = async () => {
-    const scores = await session.getTrackedImageScores();
-    let trackableImages = 0;
-    for (let index = 0; index < scores.length; ++index) {
-      if (scores[index] == 'untrackable') {
-        //MarkImageUntrackable(index);
-        console.log('UNTRACKED')
-      } else {
-        ++trackableImages;
-      }
-    }
-    if (trackableImages == 0) {
-      WarnUser("No trackable images");
-    }
-  }
+
+   /*load all images that are to be used as markers*/
   const getImageArray = async() => {
-      let returnArray = []
+    let returnArray = []
       let markers = document.getElementsByClassName("ARmarker");
       for(elem of markers) {
         let imgBitmap = await createImageBitmap(elem);
         returnArray.push({
           image:imgBitmap,
-          widthInMeters:0.18
+          widthInMeters:0.18 /**Can change based on the book dimensions */
         })
       }
       return returnArray
   }
   return {
     activateXR : async () => {
-      
-      //console.log('sketchTexture',sketchTexture.sk);
       /*Three JS canvas */
       canvas = document.createElement("canvas");
       document.body.appendChild(canvas);
@@ -229,6 +173,7 @@ function XRSetup() {
       camera.matrixAutoUpdate = false;
       let markerArray = await getImageArray();
       // Initialize a WebXR session using "immersive-ar".
+      /*image-tracking for image detection to load different p5 sketches, dom-overlay for loading dom elements to emable interaction with the sketch*/
       let options = {
         requiredFeatures: ['image-tracking','hit-test'],
         optionalFeatures: ['dom-overlay'],
@@ -240,19 +185,13 @@ function XRSetup() {
       session.updateRenderState({
         baseLayer: new XRWebGLLayer(session, gl)
       });
-      console.log('BUTTON',window.ARButton)
       document.body.appendChild(window.ARButton.createButton(renderer,options))
       referenceSpace = await session.requestReferenceSpace('local');
       viewerSpace = await session.requestReferenceSpace('viewer');
       // Perform hit testing using the viewer as origin.
       hitTestSource = await session.requestHitTestSource({ space: viewerSpace }); 
-      session.addEventListener("select", (event) => {
-        let targetRayPose = event.frame.getPose(event.inputSource.targetRaySpace,referenceSpace);
-        //window.sketchVariables.test = 'NOT POCKET'
-      });
+     
       session.requestAnimationFrame(onXRFrame);
-      //setUpSketch(sketchTexture.sk);
-      //setUpUI();
       window.registerP5Sketch = overrideregisterP5Sketch;
     },
     overrideP5functions:(p5Instance,p5Canvas) => {
@@ -273,11 +212,6 @@ function XRSetup() {
             btn.className = 'play-button'
           }
           btn.setAttribute('type','button');
-          p5Instance.AR_UI.push({
-            type:1,
-            text:args,
-            color:0x176beb
-          })
           content.append(btn)
           return {
             elm:btn
