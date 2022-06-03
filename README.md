@@ -148,6 +148,25 @@ During the build the entire `examples` folder is moved to `build/assets/examples
 
 5. TODO: A feature worth exploring is having only the visible sketches loop. This will reduce lag on pages with multiple sketches. It needs more testing but setting [`loopOnlyOnScreenSketches`](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L13) to `true` will activate code to do this.
 
+## 🤳 AR for pdfs
+The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdfInteractive.html
+### Overview 
+1. All the code for the AR rendering lives in `src/javascripts/xr.js` in the codebase.
+2. It uses threejs to create the XR environment. 
+3. Different interactives are loaded based on the image that that phone sees. 
+
+### How interactives are rendered in AR 
+1. The AR scene has 2 components - DOM and a plane geometry. 
+2. The DOM is used for interactions with the environmnet(buttons, sliders etc). Native buttons and sliders are being used as - as of now threejs does not support threejs geometries to be interactive elements in AR. 
+3. Based on the image marker that the phone sees, a p5 interactive from `examples/interactive/**/**/sketch.js` is loaded
+4. As these interactives are created in instance mode, the canvas element loaded by invoking a sketch is loaded on to the plane geometry as a texture on the geometry. Even when the p5 canvas is loaded as a texture, it functions as a normal p5 sketch with the setup() and draw() functions working as they normally would which allows all the sketch animations to work. 
+5. This was done in order to be able to use the p5 code written for the web version to be resued for the AR for pdfs. 
+
+### The functions in xr.js
+
+### Modifications in p5 sketch
+### TODOs: 
+1. 
 ## 🚀 Deploy
 
 For every commit to the master branch, the [firebase-hosting-merge](https://github.com/luisaph/the-code-of-music/blob/deploy-firebase/.github/workflows/firebase-hosting-merge.yml) action builds and deploys the site to Firebase Hosting at https://codeofmusic-16a81.web.app/.
