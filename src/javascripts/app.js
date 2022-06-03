@@ -72,14 +72,10 @@ hljs.highlightAll();
 /* Render P5 Sketches */
 P5SketchManager.renderP5Sketches();
 
-/* Set env to AR and skip interactive sketches in case of AR
- */
-if (location.pathname.toString() == "/AR/pdfinteractive.html") {
+/* Set env to AR and skip interactive sketches in case of AR */
+if (location.pathname.toString() == '/AR/pdfinteractive.html') {
   window.ENV = 'AR';
 } else {
   /* Render code editors */
   loadInteractiveSketches();
 }
-
-
-

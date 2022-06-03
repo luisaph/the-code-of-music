@@ -1,34 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <title>AR Interactives</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>AR Interactives</title>
 
-  <!-- three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.36/Tone.js" integrity="sha512-FkXBiAsXthpXa2/awMJyeGeXTgWttH9hYjH8Suwzc5J68kwzTgina+v/rptw9/RCd/w8Q4XphW354Dv1TyBE1Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://unpkg.com/@tonejs/midi"></script>
-  <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
-  <script src="xr.js"></script>
-</head>
-<body>
-  <img class="ARmarker" id='img1' src='marker-04.png' alt='pitch&loudness' style='display: none;'/>
-  <img class="ARmarker" id='img2' src='marker-11.png' alt='pitchhelix' style='display: none;'/>
-  <img class="ARmarker" id='img3' src='marker-08.png' alt='waves' style='display: none;'/>
-  <button onclick="loadXR()">AR BOOK</button>
-  <div id="interaction">
-
-  </div>
-  <script>  
-    async function loadXR() {
-      window.ENV = "AR"
-      window.activateXR()
-    }
-  </script>
-  <script type="module">  
-    import { ARButton } from "https://cdn.rawgit.com/mrdoob/three.js/r117/examples/jsm/webxr/ARButton.js";
-    window.ARButton = ARButton
-  </script>
-</body>
+    <!-- three.js -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.36/Tone.js"
+      integrity="sha512-FkXBiAsXthpXa2/awMJyeGeXTgWttH9hYjH8Suwzc5J68kwzTgina+v/rptw9/RCd/w8Q4XphW354Dv1TyBE1Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/@tonejs/midi"></script>
+    <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+    <script src="xr.js"></script>
+  </head>
+  <body>
+    <img
+      class="ARmarker"
+      id="img1"
+      src="marker-04.png"
+      alt="pitch&loudness"
+      style="display: none"
+    />
+    <img
+      class="ARmarker"
+      id="img2"
+      src="marker-11.png"
+      alt="pitchhelix"
+      style="display: none"
+    />
+    <img
+      class="ARmarker"
+      id="img3"
+      src="marker-08.png"
+      alt="waves"
+      style="display: none"
+    />
+    <button onclick="loadXR()">AR BOOK</button>
+    <div id="interaction"></div>
+    <script>
+      async function loadXR() {
+        window.ENV = 'AR';
+        window.activateXR();
+      }
+    </script>
+    <script type="module">
+      import { ARButton } from 'https://cdn.rawgit.com/mrdoob/three.js/r117/examples/jsm/webxr/ARButton.js';
+      window.ARButton = ARButton;
+    </script>
+  </body>
 </html>

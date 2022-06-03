@@ -28,7 +28,12 @@ window.registerP5Sketch((p) => {
 
     originPt = p.createVector(301, 262);
 
-    let p5Obj = window.overrideP5functions(p,p.createCanvas(window.innerWidth, 400).style('position: relative; z-index: 0; width: 100%'));
+    let p5Obj = window.overrideP5functions(
+      p,
+      p
+        .createCanvas(window.innerWidth, 400)
+        .style('position: relative; z-index: 0; width: 100%')
+    );
     //c = p5Obj.p5Canvas
 
     // p.pixelDensity(1);
@@ -50,7 +55,7 @@ window.registerP5Sketch((p) => {
 
     const playBtn = p.createButton('');
     playBtn.elt.classList.add('play-button');
-    playBtn.elt.onclick=(() => {
+    playBtn.elt.onclick = () => {
       if (osc.state == 'started') {
         oscGain.gain.rampTo(0, 0.6);
         setTimeout(() => {
@@ -62,40 +67,40 @@ window.registerP5Sketch((p) => {
         oscGain.gain.rampTo(1, 0.3);
         playBtn.elt.classList.add('play-button--stop');
       }
-    });
+    };
 
     let freqSp = p.createSpan('Freq');
-    let freqSlid = p.createSlider(1, 1000)
-    freqSlid.elt.oninput = (() => {
+    let freqSlid = p.createSlider(1, 1000);
+    freqSlid.elt.oninput = () => {
       let val = freqSlid.elt.value;
       const pow = p.map(val, 1, 1000, 7, 9);
       const newFq = p.pow(2, pow);
       osc.frequency.rampTo(newFq, 0.1);
-    })
+    };
 
     p.createSpan('Amplitude');
     let ampSlid = p.createSlider(0, 1000, 1000);
-    ampSlid.elt.oninput = (() => {
+    ampSlid.elt.oninput = () => {
       let val = ampSlid.elt.value;
       const newVol = p.map(val, 0, 1000, 0, 1);
       oscGain.gain.rampTo(newVol, 0.1);
-    })
+    };
 
     // p.createButton('toggle graph').mousePressed(() => {
     //   showGraph = !showGraph;
     // });
-    let togGph = p.createButton('toggle graph')
-    togGph.elt.onclick=(() => {
+    let togGph = p.createButton('toggle graph');
+    togGph.elt.onclick = () => {
       showGraph = !showGraph;
-    });
-    let togWav = p.createButton('toggle waves')
-    togWav.elt.onclick=(() => {
-     showWaves = !showWaves;
-    });
-    let togMol = p.createButton('toggle molecules')
-    togMol.elt.onclick = (() => {
-     showMolecules = !showMolecules;
-    });
+    };
+    let togWav = p.createButton('toggle waves');
+    togWav.elt.onclick = () => {
+      showWaves = !showWaves;
+    };
+    let togMol = p.createButton('toggle molecules');
+    togMol.elt.onclick = () => {
+      showMolecules = !showMolecules;
+    };
 
     randomPositions = [...new Array(nMolecules)].map((_, i) =>
       p.createVector(p.random() * p.width, p.random() * p.height)
