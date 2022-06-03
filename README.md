@@ -170,7 +170,7 @@ During the build the entire `examples` folder is moved to `build/assets/examples
 
 ## 🤳 AR for pdfs
 
-The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdfInteractive.html
+The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdfinteractive.html
 
 ### Overview
 
