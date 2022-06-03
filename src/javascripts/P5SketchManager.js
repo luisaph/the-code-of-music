@@ -1,4 +1,6 @@
-/* This file is loaded in the <head>, so it runs before all the others */
+/* 
+  This file is loaded in the <head>, so it runs before all the others
+*/
 
 console.log('PRELOAD FILE LOADED');
 
@@ -9,11 +11,6 @@ window.EXAMPLES_ASSETS_URL = '/assets/examples/assets';
   Class to manage the rendering of P5 Sketches
 */
 function P5SketchManager() {
-  /* Experimental feature to only 'loop' the visible sketches -- additional logic in main.js */
-  const loopOnlyOnScreenSketches = true;
-
-  let activeSketchId = null;
-
   /* Array of p5 instance-mode functions on this page */
   const p5SketchesToLoad = [];
 
@@ -29,8 +26,6 @@ function P5SketchManager() {
   };
 
   return {
-    loopOnlyOnScreenSketches,
-
     /* Each sketch calls this function to add itself to the array */
     registerP5Sketch: (p5Sketch) => {
       console.log('registerP5Sketch called');
@@ -51,6 +46,7 @@ function P5SketchManager() {
         /* Render the sketch */
         const sketch = new p5(fn, node, true);
 
+        /* create a function for each sketch to activate/deactivate itself */
         sketch.setActive = (isActive) => {
           if (sketch.isActive !== isActive) {
             sketch.isActive = isActive;

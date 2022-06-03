@@ -19,12 +19,30 @@ _Code of Music_ is an interactive book that teaches the fundamentals of music th
 2. In a new tab run `yarn serve` – this will start a [`live-server`](https://github.com/tapio/live-server) at localhost:5000 and auto refresh when the magic build finishes
 3. Open http://localhost:5000/
 
+### Important Files
+
+The [Plugins](https://github.com/luisaph/the-code-of-music/tree/master/src/plugins) folder contains magicbook plugins for creating custom tags
+
+The main JS files are:
+
+- [P5SketchManager.js](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/P5SketchManager.js) loads first and initializes the class for rendering the P5 Sketches
+- [app.js](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/app.js) is the [Webpack entry point](https://github.com/luisaph/the-code-of-music/blob/master/webpack.config.js#L6) so we can import node modules. It contains logic for setting up the CodeMirror code editors and executing the sketch rendering process.
+- [main.js](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/main.js) contains mostly UI code like scroll and click handlers -- It also creates the global volume control.
+
 ## 📦 Build
 
-- `yarn build` to build the site
+- `yarn build` to build the site into the `build` directory
 - `yarn build:pdf` to build the PDF version. The PDF will be copied to `build/web` and should be viewable at: http://localhost:5000/the-code-of-music.pdf
 
 ## 📖 Writing in Notion
+
+The book content comes from a Notion document. A `Book` page should contain a Pages database.
+
+<img width="246" alt="Screen Shot 2022-06-03 at 2 51 41 PM" src="https://user-images.githubusercontent.com/9386882/171929304-18c9c054-20d1-4d0f-b7a9-3982c6c69748.png">
+
+The Pages database should have the following structure. Each Page under the Name header contains the full content for that chapter.
+
+<img width="921" alt="Screen Shot 2022-06-03 at 2 50 06 PM" src="https://user-images.githubusercontent.com/9386882/171928824-25485716-b936-4b39-bcf1-1d85bdfe1453.png">
 
 #### P5 Sketches
 
@@ -38,7 +56,7 @@ This will turn into a canvas on the page that renders the sketch.
 
 #### Interactive Sketches (with code editor)
 
-To load an interactive sketch with a code editor, use the following syntax, where `directory` is the folder inside [examples/interactive](https://github.com/luisaph/the-code-of-music/tree/master/src/examples/interactive) containing the sketch. This folder should contain an `index.html` and a `sketch.js` (see this [example](https://github.com/luisaph/the-code-of-music/tree/master/src/examples/interactive/toneExample1) for the boilerplate). `line_start` and `line_end` determine which section of `sketch.js` will be rendered in the code editor. 
+To load an interactive sketch with a code editor, use the following syntax, where `directory` is the folder inside [examples/interactive](https://github.com/luisaph/the-code-of-music/tree/master/src/examples/interactive) containing the sketch. This folder should contain an `index.html` and a `sketch.js` (see this [example](https://github.com/luisaph/the-code-of-music/tree/master/src/examples/interactive/toneExample1) for the boilerplate). `line_start` and `line_end` determine which section of `sketch.js` will be rendered in the code editor.
 
 ```
 {% interactivesketch <directory> <line_start> <line_end> %}
@@ -49,17 +67,18 @@ The code editor components use [CodeMirror](https://codemirror.net/6/docs/). Cod
 #### Inline Buttons
 
 Inline buttons can be used to add interactivity to text content. Set the global function that they call when clicked. Usage:
+
 ```
 {% inlinebutton <function_call> [<button_text>] %}
 ```
 
 Example:
+
 ```
 {% inlinebutton sketch2toggleTimeGrid() [Show Time Grid] %}
 ```
 
 [Here is an example](https://github.com/luisaph/the-code-of-music/blob/master/src/examples/melody/melody-2/sketch.js#L52) of defining the global function that this button will call.
-
 
 ## 📥 Importing from Notion
 
@@ -76,7 +95,6 @@ Note that Github Actions cannot trigger other Github actions directly. That mean
 1. Close and re-open the PR. This will trigger the [firebase-hosting-pull-request](https://github.com/luisaph/the-code-of-music/blob/deploy-firebase/.github/workflows/firebase-hosting-pull-request.yml) action and post a link to the preview URL.
 2. Use the [Notion2Github and Preview Deploy](https://github.com/luisaph/the-code-of-music/actions/workflows/notion-to-github-and-preview-deploy.yml) action. this will deploy to [Staging](https://codeofmusic-16a81--staging-h9r73v4u.web.app/), but not leave a comment on the PR
 
-
 ## 🎵 Interactive P5 Examples
 
 - `yarn serve:examples` serves the static `examples` folder.
@@ -84,16 +102,17 @@ Note that Github Actions cannot trigger other Github actions directly. That mean
 
 The interactive p5 sketches live in the `examples` folder. Each example directory should have an `index.html` which allows the sketch to be viewed independently, a `sketch.js` file which registers a P5 sketch in [instance mode](https://p5js.org/examples/instance-mode-instantiation.html), and `placeholder.png` which is used in the PDF build.
 
-Here is an example sketch. Note that in the `index.html` we need to define `window.registerP5Sketch`. We also have to include the external libraries that the sketch needs. ⚠️ NOTE: these need to be the same versions as the libraries used in the web build.
+Here is an example sketch. Note that in the `index.html` we need to define `window.registerP5Sketch`. We also have to include the external libraries that the sketch needs from the assets folder.
 
 ```html
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <meta charset="utf-8" />
+    <script src="../../assets/libs/Tone-14.7.77.min.js"></script>
+    <script src="../../assets/libs/p5-1.4.0.min.js"></script>
+    <link href="../../assets/examples.css" rel="stylesheet" />
   </head>
   <body>
     <script>
@@ -127,6 +146,7 @@ window.registerP5Sketch((p) => {
     p.createCanvas(200, 200);
     p.background(0);
   };
+
   p.draw = () => {
     const color = (p.sin(p.frameCount / 10) + 0.5) * 255;
     p.background(color);
@@ -138,15 +158,15 @@ During the build the entire `examples` folder is moved to `build/assets/examples
 
 ### How the P5 Sketches Render
 
-1. The [P5 plugin](https://github.com/luisaph/the-code-of-music/blob/master/plugins/p5.js) defines a tag that we can use in the source documentation and renders the related sketch on the page. The tag's usage is: `{% p5 examples/<folder_containing_example> %}`. Note that it contains logic for rendering the `placeholder.png` in the PDF build.
+1. The [P5 plugin](https://github.com/luisaph/the-code-of-music/blob/master/src/plugins/p5.js) defines a tag that we can use in the source documentation and renders the related sketch on the page. The tag's usage is: `{% p5 examples/<folder_containing_example> %}`. Note that it contains logic for rendering the `placeholder.png` in the PDF build.
 
-2. In [P5SketchManager.js](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/P5SketchManager.js) we define a class to manage the P5 sketches. This file is [loaded in the `<head>`](https://github.com/luisaph/the-code-of-music/blob/master/layouts/default.html#23), so before the content loads. It [exposes](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L71) the global `registerP5Sketch` function.
+2. In [P5SketchManager.js](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/P5SketchManager.js) we define a class to manage the P5 sketches. This file is [loaded in the `<head>`](https://github.com/luisaph/the-code-of-music/blob/master/src/layouts/default.html#L26), so before the content loads. It [exposes](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/P5SketchManager.js#L96) the global `registerP5Sketch` function.
 
-3. As the content renders, the P5 sketch scripts each call `window.registerP5Sketch` which [adds them to the list of sketches to be loaded](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L25).
+3. As the content renders, the P5 sketch scripts each call `window.registerP5Sketch` which [adds them to the list of sketches to be loaded](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/P5SketchManager.js#L30).
 
-4. In [app.js](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/app.js#L25) we call `P5SketchManager.renderP5Sketches()` which converts the functions into actual P5 Sketches using the P5 class. It renders them in the "slots" created by the P5 plugin.
+4. In [app.js](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/app.js#L82) we call `P5SketchManager.renderP5Sketches()` which converts the functions into actual P5 Sketches using the P5 class. It renders them in the "slots" created by the P5 plugin.
 
-5. TODO: A feature worth exploring is having only the visible sketches loop. This will reduce lag on pages with multiple sketches. It needs more testing but setting [`loopOnlyOnScreenSketches`](https://github.com/luisaph/the-code-of-music/blob/master/javascripts/preload.js#L13) to `true` will activate code to do this.
+5. Code in [`main.js`](https://github.com/luisaph/the-code-of-music/blob/master/src/javascripts/main.js#L87) pauses/unpauses the sketches depending on whether they are visible as the user scrolls.
 
 ## 🤳 AR for pdfs
 The webpage for serving AR content is on - https://codeofmusic-16a81.web.app/pdfInteractive.html

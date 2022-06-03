@@ -1,13 +1,6 @@
 import { basicSetup, EditorState, EditorView } from '@codemirror/basic-setup';
 import { javascript } from '@codemirror/lang-javascript';
 
-/* Set up Syntax Highlighting */
-const hljs = require('highlight.js/lib/core');
-hljs.registerLanguage(
-  'javascript',
-  require('highlight.js/lib/languages/javascript')
-);
-
 console.log('APP.js loaded');
 
 /* Code for loading code editor sketches */
@@ -29,11 +22,7 @@ const loadInteractiveSketches = () => {
 
     const embedFrame = document.querySelector(`#${id} .code-mirror-embed`);
     const sketchString = await fetch(jsPath).then((r) => r.text());
-
     const sketchLines = sketchString.split('\n');
-
-    console.log('sketchLines: ');
-    console.log(sketchLines);
 
     /* Get editable section -- defaults to first and last lines */
     const startLine = (e.getAttribute('data-start-line') || 1) - 1;
@@ -43,10 +32,6 @@ const loadInteractiveSketches = () => {
     const sketchPre = sketchLines.slice(0, startLine - 1);
     const sketchEditable = sketchLines.slice(startLine, endLine);
     const sketchPost = sketchLines.slice(endLine, -1);
-
-    console.log(sketchPre);
-    console.log(sketchEditable);
-    console.log(sketchPost);
 
     const initialState = EditorState.create({
       doc: sketchEditable.join('\n'),
@@ -58,11 +43,9 @@ const loadInteractiveSketches = () => {
             /* Get current document and combine with hidden code */
             const docData = view.state.doc.toJSON();
             const fullScript = [...sketchPre, ...docData, ...sketchPost];
-            // console.log(fullScript);
             const docString = JSON.stringify(fullScript);
-            // console.log(docString);
 
-            /* Updates frame source with code in URL */
+            /* Update iframe source with code in URL */
             embedFrame.src = `${htmlPath}?p5script=${docString}`;
           }
         }),
@@ -76,6 +59,14 @@ const loadInteractiveSketches = () => {
   });
 };
 
+/* Set up Syntax Highlighting */
+const hljs = require('highlight.js/lib/core');
+hljs.registerLanguage(
+  'javascript',
+  require('highlight.js/lib/languages/javascript')
+);
+
+/* Syntax highlighting for static code blocks (non-codeMirror) */
 hljs.highlightAll();
 
 /* Render P5 Sketches */
