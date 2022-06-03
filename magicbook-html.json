@@ -7,7 +7,7 @@
     "src/plugins/inlineButton",
     "src/plugins/interactiveSketch"
   ],
-  "files": ["src/notion-docs/**/*.md"],
+  "files": ["src/notion-docs/**/*.md","src/AR/pdfinteractive.html"],
   "images": {
     "files": [
       "src/notion-docs/images/**/*.png",
