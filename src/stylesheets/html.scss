@@ -349,7 +349,7 @@ section[data-type='sect1'] {
   top: 0;
   left: 0;
   padding: $menu-padding;
-  padding-top: $header-height / 2;
+  padding-top: calc($header-height / 2);
   display: block;
   @media (max-width: $bp-medium) {
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
