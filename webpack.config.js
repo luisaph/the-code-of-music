@@ -6,7 +6,7 @@ const config = {
   entry: './src/javascripts/app.js',
   output: {
     path: 'assets',
-    filename: 'app-[fullhash].js',
+    filename: 'app-[hash].js',
   },
   module: {
     rules: [
