@@ -28,8 +28,9 @@
     "copy-webpack-plugin": "6",
     "highlight.js": "^11.2.0",
     "liquidjs": "^9.25.1",
-    "magicbook": "^0.1.33",
+    "magicbook": "^0.1.19",
     "magicbook-codesplit": "^0.1.6",
+    "magicbook-webpack": "0.0.4",
     "monaco-editor": "0.33.0",
     "p5": "^1.4.0",
     "path": "^0.12.7",
@@ -41,11 +42,10 @@
     "source-map-loader": "^3.0.0",
     "tinyliquid": "^0.2.34",
     "tone": "^14.7.77",
-    "webpack": "^5.0.0"
+    "webpack": "^4.42.1"
   },
   "devDependencies": {
     "firebase-tools": "^9.16.0",
     "live-server": "^1.2.1"
-  },
-  "packageManager": "yarn@4.1.1"
+  }
 }
