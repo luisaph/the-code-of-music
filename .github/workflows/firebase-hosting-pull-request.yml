@@ -19,9 +19,6 @@ jobs:
           node-version: '20.0.0'
           cache: 'yarn'
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install and Build 🔧
         run: |
           yarn install
