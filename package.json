@@ -46,6 +46,5 @@
   "devDependencies": {
     "firebase-tools": "^9.16.0",
     "live-server": "^1.2.1"
-  },
-  "packageManager": "yarn@4.1.1"
+  }
 }
