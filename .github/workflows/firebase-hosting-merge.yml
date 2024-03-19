@@ -5,7 +5,7 @@ name: Deploy Prod to Firebase Hosting
 on:
   push:
     branches:
-      - master
+      - upgrade-node-magicbook
 
 jobs:
   build_and_deploy:
