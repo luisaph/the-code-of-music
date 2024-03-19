@@ -10,13 +10,11 @@ If rhythm is the element of music that makes us tap our foot and want to dance, 
 
 A melody is a sequence of tones that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is pitch - how high or low each tone is. Here is one example of a melody:
 
-{% p5 melody/melody-0/ %}
+{% p5 melody/melody-1 %}
 
 There are also slight differences in loudness: some tones are louder, some are softer:
 
-[Loudness interactive]
-
-{% p5 melody/melody-1 %}
+<iframe src="https://editor.p5js.org/luisa_NYU/full/vynz3it3_"></iframe>
 
 Tones also have a duration: some are shorter, some are longer. Let's draw the tones in our melody as they occur over time:
 
@@ -64,7 +62,7 @@ _Click and hold to play each. Frequency is measured in Hertz (Hz). One hertz is 
 
 </figure><br>
 
-### Pitches in Code
+### Code
 
 With this knowledge - melodies are sequences of tones, tones are oscillations at different amplitudes and frequencies which make them higher, lower, louder and softer - let's create our first pitched digital instrument.
 
@@ -89,10 +87,22 @@ Modify the example above, and create your own [Theremin](https://www.youtube.com
 - What range of frequencies does your instrument offer? What's the range of amplitudes?
 - Applying what you learned in the Elements of Sound chapter, change the volume and frequency mapping so that instead of being linear, it is on a logarithmic scale. Is the difference noticeable?
 - Allow your user to add pitch guides to the interface by clicking at certain Y positions.
-- Connect the circle’s position to the motion of your body
+- Connect the circle’s position to the motion of your body using [ml5 and PoseNet](https://learn.ml5js.org/#/reference/posenet).
 
 References:
 
-Picture of Clara Rockmore, link to [https://en.wikipedia.org/wiki/Theremin](https://en.wikipedia.org/wiki/Theremin)
+- Theremin
 
-Picture of Pamela Z, link to [https://en.wikipedia.org/wiki/Theremin](https://en.wikipedia.org/wiki/Theremin)
+<figure>
+
+![Melody-3.png](Melody-3.png)
+_Alexandra Stepanoff playing the theremin on [NBC Radio](https://en.wikipedia.org/wiki/NBC_Red_Network), 1930. Image source: [wikipedia](https://en.wikipedia.org/wiki/Theremin)._
+
+</figure><br>
+
+<figure>
+
+![Melody-4.png](Melody-4.png)
+_Pamela Z’s [suite for solo voice and electronics](https://www.youtube.com/watch?v=ebxvVJwGWek)_
+
+</figure><br>
