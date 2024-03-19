@@ -2,7 +2,7 @@
   "title": "Code of Music",
   "addPlugins": [
     "magicbook-codesplit",
-    "magicbook-webpack",
+    "src/plugins/magicbook-webpack",
     "src/plugins/p5",
     "src/plugins/inlineButton",
     "src/plugins/interactiveSketch"
