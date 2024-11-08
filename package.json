@@ -41,7 +41,8 @@
     "source-map-loader": "^3.0.0",
     "tinyliquid": "^0.2.34",
     "tone": "^14.7.77",
-    "webpack": "^5.0.0"
+    "webpack": "^5.0.0",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "firebase-tools": "^9.16.0",
