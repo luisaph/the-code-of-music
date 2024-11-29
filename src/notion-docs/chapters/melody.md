@@ -6,6 +6,8 @@ title: Melody
 
 # Melody
 
+## Introduction
+
 If rhythm is the element of music that makes us tap our foot and want to dance, melody is what we hum along to, or whistle for days on end.
 
 A melody is a sequence of tones that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is pitch - how high or low each tone is. Here is one example of a melody:
