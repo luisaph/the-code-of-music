@@ -22,6 +22,7 @@
     "@babel/preset-react": "^7.9.4",
     "@codemirror/basic-setup": "^0.19.3",
     "@codemirror/lang-javascript": "^0.19.7",
+    "@luisaph/com-interactives": "^0.0.2",
     "@notionhq/client": "^0.3.1",
     "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
