@@ -29,6 +29,7 @@
     "copy-webpack-plugin": "6",
     "highlight.js": "^11.2.0",
     "liquidjs": "^9.25.1",
+    "lodash-es": "^4.17.21",
     "magicbook": "^0.1.33",
     "magicbook-codesplit": "^0.1.6",
     "monaco-editor": "0.33.0",

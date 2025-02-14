@@ -1,6 +1,8 @@
 /* 
   This file is loaded in the <head>, so it runs before all the others
 */
+import interactives from '@luisaph/com-interactives';
+import p5 from 'p5';
 
 console.log('PRELOAD FILE LOADED');
 
@@ -10,87 +12,65 @@ window.EXAMPLES_ASSETS_URL = '/assets/examples/assets';
 /*
   Class to manage the rendering of P5 Sketches
 */
-function P5SketchManager() {
-  /* Array of p5 instance-mode functions on this page */
-  const p5SketchesToLoad = [];
+export default class P5SketchManager {
+  constructor() {
+    this.activeSketches = [];
+    this.p5SketchesToLoad = Array.from(
+      document.querySelectorAll('figure[data-type="embedded-sketch"]')
+    )
+      .map((node) => {
+        const sketchName = node.getAttribute('data-sketch-name');
+        if (!sketchName || !interactives[sketchName]) return null;
 
-  /* Sketches that have been loaded */
-  const activeSketches = [];
-  const nodes = [];
-
-  const resizeSketches = () => {
-    const mainWidth = document.querySelector('main article').offsetWidth;
-    activeSketches.forEach((sketch) => {
-      sketch.resizeCanvas(mainWidth, sketch.height);
-    });
-  };
-
-  return {
-    /* Each sketch calls this function to add itself to the array */
-    registerP5Sketch: (p5Sketch) => {
-      console.log('registerP5Sketch called');
-      p5SketchesToLoad.push(p5Sketch);
-    },
-
-    /* Function to be called in app.js once the page content has loaded */
-    renderP5Sketches: () => {
-      console.log(
-        `Loading ${p5SketchesToLoad.length} P5 Examples:`,
-        p5SketchesToLoad
-      );
-
-      for (let i = 0; i < p5SketchesToLoad.length; i++) {
-        const fn = p5SketchesToLoad[i];
-        const node = document.querySelector(`#example-${i} .p5container`);
-
-        /* Render the sketch */
-        const sketch = new p5(fn, node, true);
-
-        /* create a function for each sketch to activate/deactivate itself */
-        sketch.setActive = (isActive) => {
-          if (sketch.isActive !== isActive) {
-            sketch.isActive = isActive;
-            if (isActive) {
-              sketch.canvas.classList.add('is-active');
-              sketch.loop();
-            } else {
-              sketch.canvas.classList.remove('is-active');
-              sketch.noLoop();
-            }
-          }
+        return {
+          node,
+          loadable: interactives[sketchName],
         };
+      })
+      .filter((node) => node !== null);
+  }
 
-        /* Custom on loaded handler to set width */
-        sketch.onLoaded = () => {
-          sketch.resizeCanvas(node.offsetWidth, sketch.height);
-          node.getElementsByClassName.height = sketch.height;
+  async renderP5Sketches() {
+    for (let i = 0; i < this.p5SketchesToLoad.length; i++) {
+      const { loadable, node } = this.p5SketchesToLoad[i];
+      const containerNode = node.querySelector('.p5container');
+      try {
+        const fn = await loadable();
+        const sketch = new p5(fn, containerNode);
+        this.activeSketches.push(sketch);
 
-          if (utils.isAnyPartOfElementInViewport(node)) {
-            sketch.setActive(true);
-          } else {
-            sketch.setActive(false);
-          }
-        };
+        new ResizeObserver(() => {
+          sketch.resizeCanvas(containerNode.offsetWidth, sketch.height);
+        }).observe(containerNode);
 
-        activeSketches.push(sketch);
-        nodes.push(node);
+        // sketch.setActive = (isActive) => {
+        //   if (sketch.isActive !== isActive) {
+        //     sketch.isActive = isActive;
+        //     if (isActive) {
+        //       sketch.canvas.classList.add('is-active');
+        //       sketch.loop();
+        //     } else {
+        //       sketch.canvas.classList.remove('is-active');
+        //       sketch.noLoop();
+        //     }
+        //   }
+        // };
+
+        // if (utils.isAnyPartOfElementInViewport(containerNode)) {
+        //   sketch.setActive(true);
+        // } else {
+        //   sketch.setActive(false);
+        // }
+      } catch (error) {
+        console.error('Failed to load sketch:', error);
       }
-    },
+    }
+  }
 
-    enableVisibleSketches: () => {
-      activeSketches.forEach(({ canvas, setActive }) => {
-        const isActive = utils.isAnyPartOfElementInViewport(canvas);
-        setActive(isActive);
-      });
-    },
-
-    resizeSketches,
-  };
+  // enableVisibleSketches() {
+  //   this.activeSketches.forEach(({ canvas, setActive }) => {
+  //     const isActive = utils.isAnyPartOfElementInViewport(canvas);
+  //     setActive(isActive);
+  //   });
+  // }
 }
-
-window.P5SketchManager = new P5SketchManager();
-window.overrideP5functions = () =>{}
-window.addEventListener('resize', P5SketchManager.resizeSketches);
-
-/* Expose register function to p5 sketch files */
-window.registerP5Sketch = P5SketchManager.registerP5Sketch;

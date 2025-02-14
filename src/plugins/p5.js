@@ -40,9 +40,8 @@ Plugin.prototype = {
       `;
 
       const htmlOutput = `
-        <figure id="${idAttr}" class="p5-figure">
+        <figure data-type="embedded-sketch" data-sketch-name="${examplePathString}" class="p5-figure">
           <div class="p5container"></div>
-          <script type="text/javascript" src="${scriptPath}"></script>
           <a class="p5-sketch-link" href="${examplePath}" target="_blank">View</a>
         </figure>
       `;
