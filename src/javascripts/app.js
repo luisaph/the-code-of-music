@@ -1,5 +1,6 @@
 import { basicSetup, EditorState, EditorView } from '@codemirror/basic-setup';
 import { javascript } from '@codemirror/lang-javascript';
+import P5SketchManager from './P5SketchManager';
 
 console.log('APP.js loaded');
 
@@ -70,7 +71,8 @@ hljs.registerLanguage(
 hljs.highlightAll();
 
 /* Render P5 Sketches */
-P5SketchManager.renderP5Sketches();
+const p5SketchManager = new P5SketchManager();
+p5SketchManager.renderP5Sketches();
 
 /* Set env to AR and skip interactive sketches in case of AR */
 if (location.pathname.toString() == '/AR/pdfinteractive.html') {

@@ -12,7 +12,7 @@ If rhythm is the element of music that makes us tap our foot and want to dance, 
 
 A melody is a sequence of tones that we, as listeners, perceive as a single entity. One of the things we perceive when we listen to a melody is pitch - how high or low each tone is. Here is one example of a melody:
 
-{% p5 melody/melody-1 %}
+{% p5 0_3_amplitude %}
 
 There are also slight differences in loudness: some tones are louder, some are softer:
 
